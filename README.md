@@ -19,9 +19,15 @@ Please, fill the following sections about your project.
 
 ### Dataset
 
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
->
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
+For our data visualization project, we have selected two datasets related to space missions. Each dataset contains different informations and variables that we will use for different and complementary visualizations.  
+
+1. **Real-world dataset (```space_missions_1957_2022.csv```):** This dataset includes all space missions from 1957 to August 2022. It contains details such as the launch location, date, result, the company responsible for the mission, and the name, price, and status of the rocket used. This dataset allows us to visualize historical and geographical trends in space exploration, evolution of launch frequencies, and the role of different space agencies and companies over time. The dataset is already quite clean and structured, and there is not much preprocessing needed, mostly related to handling missing values and looking at the categorical variables. Further details are covered in the EDA.  
+   - https://www.kaggle.com/datasets/sameerk2004/space-missions-dataset/code
+
+2. **Synthetic dataset (```space_missions_dataset.csv```):** This dataset provides structured, simulated data on various aspects of space exploration, including mission details, spacecraft specifications, launch dates, mission objectives, and success probabilities. While not based on real missions, this dataset can be interesting to be used for exploratory visualizations, completing the historical data. This dataset is also well structured and requires no significant preprocessing.
+   - https://www.kaggle.com/datasets/mysarahmadbhat/space-missions
+
+Since the two datasets do not have the same structure and columns, we will not merge them but use them both for distinct visualizations that complement each other. Through this approach, we aim to create a set of insightful visualizations that together provide a comprehensive view of space missions, from historical data to exploratory scenarios.  
 
 ### Problematic
 
