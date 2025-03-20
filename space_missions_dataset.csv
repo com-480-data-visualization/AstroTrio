@@ -1,0 +1,501 @@
+Mission ID,Mission Name,Launch Date,Target Type,Target Name,Mission Type,Distance from Earth (light-years),Mission Duration (years),Mission Cost (billion USD),Scientific Yield (points),Crew Size,Mission Success (%),Fuel Consumption (tons),Payload Weight (tons),Launch Vehicle
+MSN-0001,Mission-1,2025-01-01,Star,Titan,Colonization,7.05,5.2,526.68,64.3,21,100.0,731.88,99.78,SLS
+MSN-0002,Mission-2,2025-01-08,Exoplanet,Betelgeuse,Colonization,41.76,23.0,234.08,84.4,72,89.6,4197.41,45.72,Starship
+MSN-0003,Mission-3,2025-01-15,Asteroid,Mars,Exploration,49.22,28.8,218.68,98.6,16,98.6,4908.0,36.12,Starship
+MSN-0004,Mission-4,2025-01-22,Exoplanet,Titan,Colonization,26.33,17.8,232.89,36.0,59,90.0,2569.05,40.67,Starship
+MSN-0005,Mission-5,2025-01-29,Exoplanet,Proxima b,Mining,8.67,9.2,72.14,96.5,31,73.2,892.76,12.4,Starship
+MSN-0006,Mission-6,2025-02-05,Moon,Ceres,Colonization,13.69,8.8,452.42,45.1,42,100.0,1327.29,88.44,Ariane 6
+MSN-0007,Mission-7,2025-02-12,Asteroid,Ceres,Research,1.02,5.0,220.38,44.7,74,95.5,211.2,42.07,SLS
+MSN-0008,Mission-8,2025-02-19,Asteroid,Mars,Colonization,45.72,25.2,200.49,40.6,32,89.3,4600.53,39.34,SLS
+MSN-0009,Mission-9,2025-02-26,Asteroid,Betelgeuse,Exploration,5.98,4.4,361.35,58.7,59,100.0,568.97,66.31,Ariane 6
+MSN-0010,Mission-10,2025-03-05,Exoplanet,Betelgeuse,Colonization,28.87,18.9,265.98,23.9,34,99.3,2856.43,44.76,Starship
+MSN-0011,Mission-11,2025-03-12,Star,Proxima b,Research,13.78,10.4,327.76,59.8,9,91.9,1373.35,65.18,Starship
+MSN-0012,Mission-12,2025-03-19,Asteroid,Mars,Research,27.75,15.5,38.8,58.8,81,71.2,2763.02,7.08,SLS
+MSN-0013,Mission-13,2025-03-26,Exoplanet,Ceres,Mining,32.61,19.0,436.87,78.6,11,100.0,3316.84,81.56,Ariane 6
+MSN-0014,Mission-14,2025-04-02,Moon,Betelgeuse,Colonization,41.5,22.9,511.71,85.0,96,100.0,4159.32,94.11,Starship
+MSN-0015,Mission-15,2025-04-09,Star,Mars,Research,10.4,9.1,343.16,49.6,10,91.2,1003.42,65.23,Starship
+MSN-0016,Mission-16,2025-04-16,Moon,Io,Exploration,0.65,3.1,495.63,37.2,86,100.0,159.52,95.5,Starship
+MSN-0017,Mission-17,2025-04-23,Star,Betelgeuse,Mining,6.93,8.4,110.17,33.3,17,83.7,695.47,15.99,Falcon Heavy
+MSN-0018,Mission-18,2025-04-30,Exoplanet,Titan,Exploration,45.01,23.7,255.74,27.5,68,96.3,4539.44,48.26,Ariane 6
+MSN-0019,Mission-19,2025-05-07,Planet,Io,Colonization,43.71,24.3,305.2,15.2,48,100.0,4340.59,60.58,Starship
+MSN-0020,Mission-20,2025-05-14,Star,Betelgeuse,Colonization,29.91,17.9,329.98,40.8,52,100.0,3009.16,58.59,Falcon Heavy
+MSN-0021,Mission-21,2025-05-21,Moon,Ceres,Colonization,30.07,18.0,235.36,34.3,25,97.9,3022.56,40.74,Ariane 6
+MSN-0022,Mission-22,2025-05-28,Exoplanet,Europa,Mining,33.29,18.9,201.81,97.0,21,94.9,3234.52,34.47,Starship
+MSN-0023,Mission-23,2025-06-04,Star,Io,Research,8.85,8.3,105.14,60.2,65,81.2,985.76,13.56,SLS
+MSN-0024,Mission-24,2025-06-11,Planet,Proxima b,Mining,45.73,27.4,232.99,41.3,63,92.6,4637.53,39.78,Falcon Heavy
+MSN-0025,Mission-25,2025-06-18,Planet,Proxima b,Exploration,21.0,15.3,96.59,62.2,89,77.3,2080.14,17.1,Falcon Heavy
+MSN-0026,Mission-26,2025-06-25,Asteroid,Ceres,Mining,19.22,13.8,386.77,22.5,51,100.0,1866.89,73.7,Starship
+MSN-0027,Mission-27,2025-07-02,Asteroid,Betelgeuse,Exploration,25.99,17.4,115.53,50.0,36,78.1,2616.38,21.67,Starship
+MSN-0028,Mission-28,2025-07-09,Moon,Mars,Mining,2.44,4.4,41.36,66.4,81,67.4,248.33,6.8,Falcon Heavy
+MSN-0029,Mission-29,2025-07-16,Star,Betelgeuse,Research,8.4,8.5,312.53,54.0,88,100.0,857.78,55.68,SLS
+MSN-0030,Mission-30,2025-07-23,Star,Ceres,Exploration,36.93,20.7,342.72,46.2,66,95.8,3702.58,59.93,SLS
+MSN-0031,Mission-31,2025-07-30,Asteroid,Proxima b,Colonization,4.23,4.7,484.77,99.4,15,100.0,448.31,87.32,Ariane 6
+MSN-0032,Mission-32,2025-08-06,Star,Betelgeuse,Colonization,30.2,17.4,322.39,89.2,96,100.0,3092.37,58.12,Starship
+MSN-0033,Mission-33,2025-08-13,Star,Proxima b,Mining,12.34,9.0,186.02,66.1,39,89.3,1262.41,35.2,SLS
+MSN-0034,Mission-34,2025-08-20,Planet,Io,Colonization,19.53,11.9,408.68,61.2,70,100.0,1900.52,80.5,Ariane 6
+MSN-0035,Mission-35,2025-08-27,Asteroid,Mars,Exploration,14.51,12.1,313.28,65.9,1,100.0,1519.13,54.49,SLS
+MSN-0036,Mission-36,2025-09-03,Exoplanet,Io,Colonization,17.85,11.2,73.61,28.1,23,84.2,1867.03,8.85,Starship
+MSN-0037,Mission-37,2025-09-10,Asteroid,Proxima b,Research,35.98,19.4,316.4,45.6,39,95.4,3755.6,57.02,Ariane 6
+MSN-0038,Mission-38,2025-09-17,Exoplanet,Proxima b,Research,14.93,10.6,493.74,13.6,57,100.0,1436.83,90.89,Ariane 6
+MSN-0039,Mission-39,2025-09-24,Planet,Europa,Mining,28.36,15.4,236.61,52.8,81,90.6,2848.14,40.23,Ariane 6
+MSN-0040,Mission-40,2025-10-01,Moon,Europa,Exploration,23.85,13.4,193.59,58.9,34,84.3,2280.9,30.34,SLS
+MSN-0041,Mission-41,2025-10-08,Star,Io,Research,33.22,18.5,79.75,30.5,41,71.3,3349.66,15.2,Starship
+MSN-0042,Mission-42,2025-10-15,Planet,Titan,Research,46.85,26.3,117.58,96.8,93,83.9,4657.59,15.99,Ariane 6
+MSN-0043,Mission-43,2025-10-22,Star,Io,Exploration,36.66,21.1,261.89,91.9,73,92.8,3762.17,43.84,Falcon Heavy
+MSN-0044,Mission-44,2025-10-29,Moon,Europa,Colonization,10.83,9.6,314.87,75.0,13,100.0,1044.27,59.97,Starship
+MSN-0045,Mission-45,2025-11-05,Moon,Proxima b,Colonization,1.66,4.8,77.28,58.0,70,82.7,81.54,8.98,Falcon Heavy
+MSN-0046,Mission-46,2025-11-12,Planet,Ceres,Mining,13.19,9.3,486.49,88.3,6,100.0,1295.44,94.02,Falcon Heavy
+MSN-0047,Mission-47,2025-11-19,Moon,Io,Colonization,29.79,17.2,426.74,21.8,84,100.0,2880.23,75.76,Ariane 6
+MSN-0048,Mission-48,2025-11-26,Exoplanet,Proxima b,Exploration,2.67,3.6,298.04,81.1,52,100.0,304.55,59.08,Ariane 6
+MSN-0049,Mission-49,2025-12-03,Moon,Ceres,Research,24.87,16.5,444.51,21.2,3,100.0,2383.75,83.02,SLS
+MSN-0050,Mission-50,2025-12-10,Star,Ceres,Colonization,29.88,16.1,53.86,81.5,81,73.0,2989.42,8.94,SLS
+MSN-0051,Mission-51,2025-12-17,Star,Europa,Mining,16.78,9.4,276.95,34.8,63,93.8,1574.11,48.21,SLS
+MSN-0052,Mission-52,2025-12-24,Star,Io,Colonization,38.57,23.5,326.52,88.9,49,100.0,3840.99,63.38,Starship
+MSN-0053,Mission-53,2025-12-31,Star,Betelgeuse,Exploration,5.42,5.6,427.73,95.0,76,100.0,624.17,83.04,SLS
+MSN-0054,Mission-54,2026-01-07,Exoplanet,Mars,Mining,3.85,3.4,418.02,23.4,47,100.0,403.03,78.56,Falcon Heavy
+MSN-0055,Mission-55,2026-01-14,Asteroid,Europa,Colonization,36.44,20.2,187.98,51.6,55,84.7,3600.83,28.43,SLS
+MSN-0056,Mission-56,2026-01-21,Planet,Europa,Mining,24.83,17.1,482.12,98.3,64,100.0,2481.44,94.15,Ariane 6
+MSN-0057,Mission-57,2026-01-28,Star,Betelgeuse,Exploration,34.45,21.7,74.62,53.5,65,74.6,3445.9,13.31,SLS
+MSN-0058,Mission-58,2026-02-04,Moon,Mars,Research,21.8,14.7,476.39,87.7,81,100.0,2203.63,87.64,Starship
+MSN-0059,Mission-59,2026-02-11,Star,Proxima b,Exploration,12.4,9.1,511.13,63.0,67,100.0,1171.66,97.12,Starship
+MSN-0060,Mission-60,2026-02-18,Moon,Titan,Exploration,40.97,23.6,138.38,43.8,90,83.8,4126.63,18.54,Falcon Heavy
+MSN-0061,Mission-61,2026-02-25,Moon,Io,Exploration,39.99,24.9,370.58,35.7,15,98.6,3863.78,72.48,Starship
+MSN-0062,Mission-62,2026-03-04,Star,Titan,Exploration,34.77,22.2,57.6,28.3,32,70.2,3445.51,4.99,SLS
+MSN-0063,Mission-63,2026-03-11,Exoplanet,Proxima b,Research,13.68,8.7,218.11,78.6,96,95.2,1343.59,41.14,Ariane 6
+MSN-0064,Mission-64,2026-03-18,Moon,Europa,Research,29.55,19.0,269.23,44.8,68,99.9,2986.67,52.11,Starship
+MSN-0065,Mission-65,2026-03-25,Moon,Mars,Mining,18.11,10.8,326.89,56.0,18,100.0,1812.13,58.48,Falcon Heavy
+MSN-0066,Mission-66,2026-04-01,Star,Europa,Colonization,4.67,4.2,498.39,54.3,83,100.0,396.72,93.66,SLS
+MSN-0067,Mission-67,2026-04-08,Moon,Ceres,Research,45.87,26.6,375.74,62.0,43,100.0,4537.75,67.55,Falcon Heavy
+MSN-0068,Mission-68,2026-04-15,Moon,Europa,Research,6.93,6.1,259.41,87.9,35,94.1,702.93,48.65,Starship
+MSN-0069,Mission-69,2026-04-22,Star,Europa,Colonization,47.52,28.5,428.75,98.3,78,100.0,4748.05,81.16,Starship
+MSN-0070,Mission-70,2026-04-29,Star,Proxima b,Research,22.36,12.5,496.37,46.7,58,100.0,2207.04,95.1,Falcon Heavy
+MSN-0071,Mission-71,2026-05-06,Planet,Proxima b,Exploration,9.34,7.7,65.12,84.5,33,74.0,909.96,3.18,SLS
+MSN-0072,Mission-72,2026-05-13,Exoplanet,Proxima b,Exploration,27.14,18.2,506.67,78.8,14,100.0,2748.81,98.27,Starship
+MSN-0073,Mission-73,2026-05-20,Exoplanet,Titan,Colonization,43.66,26.4,63.1,61.6,34,77.6,4340.12,9.53,Ariane 6
+MSN-0074,Mission-74,2026-05-27,Moon,Ceres,Mining,36.64,19.9,426.47,96.0,61,100.0,3659.6,81.62,Starship
+MSN-0075,Mission-75,2026-06-03,Exoplanet,Proxima b,Mining,40.35,22.6,172.42,28.0,4,84.7,4143.5,28.75,SLS
+MSN-0076,Mission-76,2026-06-10,Moon,Mars,Colonization,32.97,20.0,83.81,19.8,88,85.0,3225.82,14.09,Starship
+MSN-0077,Mission-77,2026-06-17,Planet,Titan,Colonization,34.64,19.0,268.6,86.9,59,100.0,3371.41,44.55,Falcon Heavy
+MSN-0078,Mission-78,2026-06-24,Star,Betelgeuse,Exploration,42.47,26.1,337.77,49.5,29,100.0,4286.18,64.75,Starship
+MSN-0079,Mission-79,2026-07-01,Star,Mars,Mining,12.56,10.9,238.44,86.2,83,87.5,1222.07,38.71,Starship
+MSN-0080,Mission-80,2026-07-08,Star,Io,Research,24.52,13.9,38.07,90.4,6,74.9,2436.09,6.4,SLS
+MSN-0081,Mission-81,2026-07-15,Exoplanet,Io,Exploration,11.14,7.1,334.92,15.6,97,100.0,1074.94,60.35,Falcon Heavy
+MSN-0082,Mission-82,2026-07-22,Planet,Mars,Colonization,49.38,26.0,497.14,89.5,49,100.0,4925.01,90.34,SLS
+MSN-0083,Mission-83,2026-07-29,Exoplanet,Proxima b,Mining,47.21,28.2,203.97,50.3,40,97.2,4800.93,38.94,Starship
+MSN-0084,Mission-84,2026-08-05,Exoplanet,Betelgeuse,Research,2.07,2.8,160.55,55.9,83,92.5,247.11,22.42,Ariane 6
+MSN-0085,Mission-85,2026-08-12,Planet,Betelgeuse,Research,35.31,20.3,247.29,66.4,65,100.0,3574.11,44.82,Starship
+MSN-0086,Mission-86,2026-08-19,Planet,Titan,Exploration,46.27,25.9,76.29,93.4,69,79.2,4556.19,5.79,SLS
+MSN-0087,Mission-87,2026-08-26,Planet,Betelgeuse,Mining,9.11,8.0,445.31,11.7,27,100.0,853.44,82.23,Ariane 6
+MSN-0088,Mission-88,2026-09-02,Planet,Io,Mining,28.44,15.5,429.83,52.9,80,100.0,2702.05,82.81,SLS
+MSN-0089,Mission-89,2026-09-09,Star,Ceres,Colonization,45.78,24.8,306.28,71.9,6,100.0,4537.53,59.21,SLS
+MSN-0090,Mission-90,2026-09-16,Asteroid,Proxima b,Mining,1.79,5.6,195.68,75.0,13,87.1,226.84,35.96,Falcon Heavy
+MSN-0091,Mission-91,2026-09-23,Asteroid,Betelgeuse,Mining,34.9,22.1,406.46,72.3,64,100.0,3515.85,80.18,Ariane 6
+MSN-0092,Mission-92,2026-09-30,Planet,Titan,Exploration,14.94,11.6,287.6,22.1,62,100.0,1482.92,55.91,Starship
+MSN-0093,Mission-93,2026-10-07,Asteroid,Io,Mining,46.23,24.2,419.98,36.9,99,100.0,4621.88,82.77,SLS
+MSN-0094,Mission-94,2026-10-14,Asteroid,Ceres,Research,48.56,26.6,339.27,42.3,19,100.0,4821.56,63.51,Starship
+MSN-0095,Mission-95,2026-10-21,Planet,Europa,Exploration,47.22,27.1,433.28,82.4,76,100.0,4732.24,78.66,Falcon Heavy
+MSN-0096,Mission-96,2026-10-28,Asteroid,Europa,Exploration,23.76,14.0,309.23,35.1,80,90.0,2414.29,60.26,Falcon Heavy
+MSN-0097,Mission-97,2026-11-04,Exoplanet,Ceres,Colonization,43.12,26.2,217.39,29.0,43,99.4,4231.21,42.0,Ariane 6
+MSN-0098,Mission-98,2026-11-11,Moon,Io,Mining,42.24,24.7,511.73,96.2,74,100.0,4238.98,95.84,Falcon Heavy
+MSN-0099,Mission-99,2026-11-18,Moon,Titan,Colonization,16.02,9.3,283.51,10.8,89,96.1,1648.62,54.57,Falcon Heavy
+MSN-0100,Mission-100,2026-11-25,Planet,Ceres,Research,41.46,25.4,310.28,99.8,20,100.0,4125.24,60.9,Starship
+MSN-0101,Mission-101,2026-12-02,Star,Proxima b,Exploration,1.95,5.8,123.33,70.9,95,82.3,230.04,22.83,Falcon Heavy
+MSN-0102,Mission-102,2026-12-09,Planet,Proxima b,Exploration,29.85,16.2,360.96,84.6,68,100.0,3125.73,62.94,Falcon Heavy
+MSN-0103,Mission-103,2026-12-16,Star,Europa,Exploration,11.58,8.9,329.2,36.5,44,100.0,1152.78,57.59,SLS
+MSN-0104,Mission-104,2026-12-23,Moon,Betelgeuse,Research,6.12,5.3,114.85,11.3,23,74.5,631.67,19.3,Falcon Heavy
+MSN-0105,Mission-105,2026-12-30,Planet,Titan,Research,3.94,4.5,67.64,76.4,2,79.7,357.1,6.9,SLS
+MSN-0106,Mission-106,2027-01-06,Exoplanet,Europa,Colonization,34.84,19.1,331.48,85.1,22,100.0,3493.06,60.83,Falcon Heavy
+MSN-0107,Mission-107,2027-01-13,Asteroid,Betelgeuse,Colonization,17.06,11.8,417.23,76.6,57,100.0,1729.01,76.61,Falcon Heavy
+MSN-0108,Mission-108,2027-01-20,Star,Betelgeuse,Colonization,36.27,23.0,298.55,22.9,72,96.2,3636.74,52.82,Ariane 6
+MSN-0109,Mission-109,2027-01-27,Asteroid,Proxima b,Mining,3.36,4.7,149.06,77.8,7,93.6,285.02,23.45,Ariane 6
+MSN-0110,Mission-110,2027-02-03,Asteroid,Io,Exploration,15.83,9.2,348.99,79.2,78,100.0,1593.32,66.99,SLS
+MSN-0111,Mission-111,2027-02-10,Planet,Mars,Exploration,27.02,17.0,47.56,69.3,56,71.1,2775.11,8.93,Falcon Heavy
+MSN-0112,Mission-112,2027-02-17,Asteroid,Io,Colonization,39.56,22.1,247.02,79.0,67,88.0,3978.43,44.74,Starship
+MSN-0113,Mission-113,2027-02-24,Exoplanet,Mars,Exploration,16.01,12.4,130.51,86.1,16,81.1,1649.1,17.17,Ariane 6
+MSN-0114,Mission-114,2027-03-03,Asteroid,Ceres,Colonization,31.33,18.4,125.21,65.2,83,84.7,3121.15,19.26,Starship
+MSN-0115,Mission-115,2027-03-10,Planet,Proxima b,Mining,44.31,23.9,146.94,18.0,51,85.9,4468.5,21.03,Ariane 6
+MSN-0116,Mission-116,2027-03-17,Exoplanet,Betelgeuse,Mining,30.83,17.2,245.99,53.9,82,100.0,3096.96,39.28,Ariane 6
+MSN-0117,Mission-117,2027-03-24,Moon,Titan,Research,11.72,9.9,39.32,17.0,80,77.9,1124.45,6.06,Falcon Heavy
+MSN-0118,Mission-118,2027-03-31,Asteroid,Mars,Mining,1.32,2.7,236.8,46.7,72,98.5,147.93,40.38,Ariane 6
+MSN-0119,Mission-119,2027-04-07,Planet,Io,Colonization,43.52,25.8,292.34,46.6,97,100.0,4302.42,51.66,Starship
+MSN-0120,Mission-120,2027-04-14,Moon,Betelgeuse,Mining,1.16,2.4,293.27,15.9,12,92.4,84.36,48.85,Ariane 6
+MSN-0121,Mission-121,2027-04-21,Moon,Mars,Research,43.75,24.2,243.79,41.4,53,93.4,4384.47,38.9,SLS
+MSN-0122,Mission-122,2027-04-28,Star,Mars,Exploration,26.49,16.1,455.05,20.0,75,100.0,2663.86,84.08,Falcon Heavy
+MSN-0123,Mission-123,2027-05-05,Exoplanet,Mars,Colonization,46.96,28.3,89.89,82.7,5,78.7,4636.54,15.39,Falcon Heavy
+MSN-0124,Mission-124,2027-05-12,Asteroid,Titan,Exploration,39.96,24.7,295.43,95.3,27,100.0,4048.7,51.06,SLS
+MSN-0125,Mission-125,2027-05-19,Planet,Proxima b,Research,49.9,26.8,41.94,16.5,12,72.6,5018.6,7.14,SLS
+MSN-0126,Mission-126,2027-05-26,Star,Titan,Research,17.6,11.2,79.45,96.0,17,72.8,1724.76,8.04,SLS
+MSN-0127,Mission-127,2027-06-02,Exoplanet,Europa,Research,38.38,20.8,334.65,57.0,6,100.0,3761.12,57.81,Ariane 6
+MSN-0128,Mission-128,2027-06-09,Star,Betelgeuse,Exploration,20.16,13.1,304.96,37.0,97,100.0,2008.75,57.04,Falcon Heavy
+MSN-0129,Mission-129,2027-06-16,Exoplanet,Proxima b,Exploration,24.05,14.9,471.55,16.9,5,100.0,2382.7,87.93,SLS
+MSN-0130,Mission-130,2027-06-23,Exoplanet,Proxima b,Exploration,31.41,20.3,303.23,55.1,57,99.1,3146.66,56.23,Ariane 6
+MSN-0131,Mission-131,2027-06-30,Asteroid,Proxima b,Exploration,43.7,26.6,502.55,81.5,28,100.0,4351.84,96.02,SLS
+MSN-0132,Mission-132,2027-07-07,Exoplanet,Io,Research,49.21,27.1,45.31,73.6,78,80.1,4820.63,5.82,Starship
+MSN-0133,Mission-133,2027-07-14,Star,Proxima b,Research,38.44,22.2,91.84,14.5,69,77.7,3824.58,10.7,Starship
+MSN-0134,Mission-134,2027-07-21,Exoplanet,Titan,Colonization,20.95,15.1,73.67,16.6,59,84.6,2079.72,5.36,Falcon Heavy
+MSN-0135,Mission-135,2027-07-28,Asteroid,Proxima b,Colonization,21.13,14.8,143.8,46.3,33,92.0,2144.68,19.34,Ariane 6
+MSN-0136,Mission-136,2027-08-04,Asteroid,Ceres,Exploration,36.91,19.5,282.51,36.6,62,97.8,3656.09,54.59,Starship
+MSN-0137,Mission-137,2027-08-11,Star,Betelgeuse,Mining,12.01,8.3,368.41,30.9,50,100.0,1284.93,64.91,Starship
+MSN-0138,Mission-138,2027-08-18,Moon,Proxima b,Mining,5.61,5.5,64.68,35.3,19,66.0,465.42,5.51,Ariane 6
+MSN-0139,Mission-139,2027-08-25,Moon,Betelgeuse,Research,17.8,10.8,486.64,82.3,86,100.0,1845.56,94.65,SLS
+MSN-0140,Mission-140,2027-09-01,Exoplanet,Ceres,Research,14.43,9.0,426.15,93.6,69,100.0,1431.78,84.37,Ariane 6
+MSN-0141,Mission-141,2027-09-08,Planet,Ceres,Research,14.89,8.6,165.93,46.5,66,93.5,1531.98,30.36,SLS
+MSN-0142,Mission-142,2027-09-15,Exoplanet,Betelgeuse,Colonization,11.76,9.5,88.9,91.5,94,79.5,1179.99,8.64,Starship
+MSN-0143,Mission-143,2027-09-22,Star,Mars,Colonization,2.2,3.2,121.13,38.9,47,84.1,276.98,17.82,Starship
+MSN-0144,Mission-144,2027-09-29,Star,Europa,Research,0.99,1.7,104.18,52.9,39,69.3,79.63,13.57,Starship
+MSN-0145,Mission-145,2027-10-06,Star,Io,Research,49.39,26.6,79.65,30.3,68,72.0,4884.07,13.21,Falcon Heavy
+MSN-0146,Mission-146,2027-10-13,Star,Mars,Research,21.45,14.9,297.95,67.6,33,100.0,2216.03,52.34,Falcon Heavy
+MSN-0147,Mission-147,2027-10-20,Star,Mars,Mining,19.28,14.0,129.08,98.1,13,84.3,1922.33,25.34,Falcon Heavy
+MSN-0148,Mission-148,2027-10-27,Asteroid,Titan,Colonization,34.01,19.9,201.69,64.3,84,89.4,3412.08,36.46,Ariane 6
+MSN-0149,Mission-149,2027-11-03,Moon,Io,Mining,10.99,8.2,526.51,42.2,54,100.0,1160.74,98.96,Starship
+MSN-0150,Mission-150,2027-11-10,Star,Io,Mining,47.5,28.7,351.91,68.3,7,100.0,4698.4,68.75,Starship
+MSN-0151,Mission-151,2027-11-17,Planet,Mars,Research,39.34,21.5,516.08,21.1,79,100.0,3963.77,94.95,Ariane 6
+MSN-0152,Mission-152,2027-11-24,Planet,Proxima b,Research,4.56,4.1,88.07,90.0,87,79.2,426.51,15.11,Falcon Heavy
+MSN-0153,Mission-153,2027-12-01,Planet,Titan,Exploration,20.94,12.6,227.11,55.3,14,93.7,2087.39,38.83,Ariane 6
+MSN-0154,Mission-154,2027-12-08,Planet,Titan,Exploration,43.97,23.7,300.45,50.4,87,100.0,4400.61,55.92,Falcon Heavy
+MSN-0155,Mission-155,2027-12-15,Asteroid,Ceres,Mining,47.24,26.1,73.21,62.7,19,66.8,4648.99,8.6,Starship
+MSN-0156,Mission-156,2027-12-22,Planet,Io,Colonization,23.42,16.4,13.32,66.2,54,74.7,2303.06,1.41,SLS
+MSN-0157,Mission-157,2027-12-29,Star,Mars,Research,30.71,18.8,338.68,16.5,93,100.0,3138.55,67.37,Falcon Heavy
+MSN-0158,Mission-158,2028-01-05,Exoplanet,Ceres,Research,8.43,6.9,368.27,71.4,20,100.0,887.31,64.54,Starship
+MSN-0159,Mission-159,2028-01-12,Planet,Betelgeuse,Mining,49.56,29.5,222.56,31.8,29,89.0,4952.87,41.67,Starship
+MSN-0160,Mission-160,2028-01-19,Asteroid,Europa,Exploration,11.66,7.0,288.51,74.3,24,98.6,1178.16,49.47,SLS
+MSN-0161,Mission-161,2028-01-26,Asteroid,Titan,Colonization,47.14,25.4,260.62,84.0,82,99.6,4699.29,42.13,Starship
+MSN-0162,Mission-162,2028-02-02,Planet,Betelgeuse,Exploration,32.52,19.5,28.26,82.4,63,88.4,3319.83,3.38,Starship
+MSN-0163,Mission-163,2028-02-09,Exoplanet,Betelgeuse,Exploration,30.43,18.7,184.99,59.7,74,92.5,3032.98,34.2,Falcon Heavy
+MSN-0164,Mission-164,2028-02-16,Planet,Proxima b,Exploration,25.68,14.0,126.13,56.8,57,78.4,2579.59,18.53,Falcon Heavy
+MSN-0165,Mission-165,2028-02-23,Asteroid,Europa,Exploration,11.61,8.4,102.01,22.9,8,78.1,1218.3,10.74,SLS
+MSN-0166,Mission-166,2028-03-01,Moon,Betelgeuse,Research,8.91,8.1,524.47,79.8,90,100.0,852.13,95.72,SLS
+MSN-0167,Mission-167,2028-03-08,Star,Betelgeuse,Research,11.1,9.3,327.34,34.4,62,93.8,1187.94,60.34,Starship
+MSN-0168,Mission-168,2028-03-15,Asteroid,Europa,Exploration,9.4,8.3,405.66,54.7,29,100.0,863.48,73.14,Falcon Heavy
+MSN-0169,Mission-169,2028-03-22,Planet,Europa,Colonization,39.0,21.8,168.75,35.6,74,90.5,3981.48,32.22,SLS
+MSN-0170,Mission-170,2028-03-29,Star,Betelgeuse,Mining,17.57,10.2,248.49,22.0,17,88.5,1738.37,39.92,SLS
+MSN-0171,Mission-171,2028-04-05,Planet,Europa,Colonization,2.99,4.2,170.55,66.7,66,92.3,286.87,24.46,Ariane 6
+MSN-0172,Mission-172,2028-04-12,Planet,Betelgeuse,Colonization,48.46,25.7,62.02,14.9,6,78.6,4751.5,10.6,SLS
+MSN-0173,Mission-173,2028-04-19,Moon,Betelgeuse,Colonization,44.2,26.9,109.27,77.4,58,77.3,4397.26,18.72,Starship
+MSN-0174,Mission-174,2028-04-26,Star,Proxima b,Exploration,46.39,26.1,405.66,38.6,69,100.0,4587.01,79.95,Falcon Heavy
+MSN-0175,Mission-175,2028-05-03,Star,Mars,Research,49.75,27.1,354.71,10.0,28,100.0,4944.62,68.08,SLS
+MSN-0176,Mission-176,2028-05-10,Moon,Betelgeuse,Colonization,8.78,8.5,316.73,56.0,62,100.0,871.13,55.15,Ariane 6
+MSN-0177,Mission-177,2028-05-17,Asteroid,Ceres,Exploration,19.87,12.9,259.69,14.2,41,96.0,2034.89,48.03,Falcon Heavy
+MSN-0178,Mission-178,2028-05-24,Planet,Titan,Colonization,37.94,21.2,466.93,34.9,69,100.0,3804.38,92.32,SLS
+MSN-0179,Mission-179,2028-05-31,Exoplanet,Io,Colonization,34.83,21.7,58.77,73.6,82,76.3,3498.38,8.2,Ariane 6
+MSN-0180,Mission-180,2028-06-07,Planet,Mars,Exploration,7.78,8.4,192.99,15.6,90,86.7,723.22,28.78,SLS
+MSN-0181,Mission-181,2028-06-14,Planet,Mars,Research,40.81,24.1,210.05,85.5,84,80.5,4036.96,35.64,Falcon Heavy
+MSN-0182,Mission-182,2028-06-21,Asteroid,Mars,Research,11.3,6.8,413.69,10.3,41,100.0,1219.94,78.46,Falcon Heavy
+MSN-0183,Mission-183,2028-06-28,Planet,Proxima b,Mining,11.27,8.9,505.46,32.2,49,100.0,1090.24,99.26,Falcon Heavy
+MSN-0184,Mission-184,2028-07-05,Moon,Betelgeuse,Exploration,26.9,17.5,173.47,76.7,91,89.3,2772.81,24.83,Starship
+MSN-0185,Mission-185,2028-07-12,Moon,Proxima b,Mining,29.69,16.4,479.02,38.5,49,100.0,2956.85,87.56,SLS
+MSN-0186,Mission-186,2028-07-19,Star,Betelgeuse,Mining,29.05,16.4,430.94,19.2,76,100.0,2905.11,83.23,Starship
+MSN-0187,Mission-187,2028-07-26,Exoplanet,Proxima b,Mining,4.67,6.9,120.63,42.4,71,81.1,520.52,23.24,Falcon Heavy
+MSN-0188,Mission-188,2028-08-02,Planet,Proxima b,Research,43.89,23.0,206.42,34.3,3,82.6,4452.59,40.53,Ariane 6
+MSN-0189,Mission-189,2028-08-09,Planet,Titan,Exploration,13.35,10.7,214.7,85.8,10,100.0,1329.46,41.56,SLS
+MSN-0190,Mission-190,2028-08-16,Asteroid,Ceres,Mining,6.56,6.2,518.66,38.2,98,100.0,636.59,97.84,Starship
+MSN-0191,Mission-191,2028-08-23,Moon,Proxima b,Exploration,44.45,25.0,141.06,81.0,89,78.9,4442.2,18.91,SLS
+MSN-0192,Mission-192,2028-08-30,Exoplanet,Titan,Exploration,47.79,24.9,425.94,90.3,35,100.0,4795.9,80.12,Ariane 6
+MSN-0193,Mission-193,2028-09-06,Star,Europa,Research,43.12,25.8,212.75,49.0,80,97.7,4356.57,34.09,Starship
+MSN-0194,Mission-194,2028-09-13,Moon,Ceres,Mining,40.49,22.7,389.65,91.9,2,100.0,4049.21,73.36,Falcon Heavy
+MSN-0195,Mission-195,2028-09-20,Star,Proxima b,Mining,32.8,19.6,248.62,44.0,24,88.7,3310.94,42.58,Starship
+MSN-0196,Mission-196,2028-09-27,Asteroid,Io,Exploration,27.59,17.5,328.16,96.8,74,100.0,2840.92,58.26,SLS
+MSN-0197,Mission-197,2028-10-04,Asteroid,Mars,Colonization,4.44,6.0,426.67,18.0,38,100.0,463.07,83.43,SLS
+MSN-0198,Mission-198,2028-10-11,Planet,Europa,Research,20.48,15.1,421.75,71.8,22,100.0,2063.58,80.61,SLS
+MSN-0199,Mission-199,2028-10-18,Exoplanet,Europa,Research,18.7,12.5,466.13,54.4,26,100.0,1794.05,86.78,SLS
+MSN-0200,Mission-200,2028-10-25,Star,Titan,Research,13.06,9.1,38.96,44.9,43,85.9,1174.46,6.9,Falcon Heavy
+MSN-0201,Mission-201,2028-11-01,Moon,Europa,Research,36.2,22.9,366.27,66.9,55,100.0,3639.42,69.51,Starship
+MSN-0202,Mission-202,2028-11-08,Asteroid,Ceres,Mining,24.84,16.0,101.51,73.3,39,76.7,2479.26,14.86,Falcon Heavy
+MSN-0203,Mission-203,2028-11-15,Planet,Proxima b,Mining,4.14,4.3,260.67,10.4,91,100.0,388.26,42.17,Falcon Heavy
+MSN-0204,Mission-204,2028-11-22,Planet,Proxima b,Colonization,11.09,7.1,300.8,25.0,29,100.0,1121.18,55.31,Falcon Heavy
+MSN-0205,Mission-205,2028-11-29,Star,Io,Research,34.19,21.5,245.34,74.2,20,97.0,3415.98,40.87,SLS
+MSN-0206,Mission-206,2028-12-06,Asteroid,Mars,Research,3.9,4.4,284.37,70.0,91,90.0,446.39,52.44,SLS
+MSN-0207,Mission-207,2028-12-13,Exoplanet,Titan,Exploration,42.58,24.9,538.32,96.9,41,100.0,4262.31,99.66,SLS
+MSN-0208,Mission-208,2028-12-20,Asteroid,Mars,Mining,24.81,15.3,102.13,78.5,54,76.1,2443.65,14.39,Starship
+MSN-0209,Mission-209,2028-12-27,Star,Europa,Research,24.08,13.8,383.79,95.6,20,100.0,2457.51,67.87,Ariane 6
+MSN-0210,Mission-210,2029-01-03,Star,Io,Colonization,29.66,18.2,222.14,73.2,19,97.6,2955.14,40.2,SLS
+MSN-0211,Mission-211,2029-01-10,Asteroid,Mars,Colonization,41.25,21.9,101.46,36.8,84,69.8,4151.33,14.17,Starship
+MSN-0212,Mission-212,2029-01-17,Star,Ceres,Mining,17.46,11.4,115.42,19.5,99,81.4,1722.13,16.71,SLS
+MSN-0213,Mission-213,2029-01-24,Asteroid,Proxima b,Colonization,33.93,20.2,496.35,80.4,66,100.0,3360.51,94.98,SLS
+MSN-0214,Mission-214,2029-01-31,Moon,Europa,Colonization,28.33,16.9,448.47,68.0,30,100.0,2837.21,88.08,Falcon Heavy
+MSN-0215,Mission-215,2029-02-07,Asteroid,Io,Mining,13.42,10.7,459.58,14.3,53,100.0,1342.64,90.8,Falcon Heavy
+MSN-0216,Mission-216,2029-02-14,Asteroid,Mars,Research,43.94,26.3,497.62,42.4,34,100.0,4417.99,99.16,Falcon Heavy
+MSN-0217,Mission-217,2029-02-21,Star,Titan,Research,39.89,24.0,151.9,96.1,22,86.9,3975.57,21.62,Starship
+MSN-0218,Mission-218,2029-02-28,Star,Ceres,Colonization,32.96,17.6,193.54,55.0,67,88.0,3204.18,36.19,Ariane 6
+MSN-0219,Mission-219,2029-03-07,Planet,Ceres,Colonization,42.54,23.0,347.61,48.9,6,98.7,4232.36,67.25,Ariane 6
+MSN-0220,Mission-220,2029-03-14,Planet,Mars,Research,43.38,24.8,281.57,51.2,79,92.5,4377.69,48.9,Starship
+MSN-0221,Mission-221,2029-03-21,Moon,Proxima b,Mining,35.45,22.5,228.78,28.8,27,96.4,3530.13,42.42,SLS
+MSN-0222,Mission-222,2029-03-28,Planet,Mars,Colonization,41.87,25.3,207.9,43.2,10,90.9,4174.68,36.42,Starship
+MSN-0223,Mission-223,2029-04-04,Asteroid,Europa,Exploration,34.9,21.8,307.86,43.3,73,100.0,3539.32,59.78,SLS
+MSN-0224,Mission-224,2029-04-11,Star,Mars,Mining,34.04,19.2,337.93,14.7,97,100.0,3368.4,57.98,Starship
+MSN-0225,Mission-225,2029-04-18,Planet,Ceres,Colonization,30.97,18.2,127.63,79.1,96,81.2,3019.86,16.98,Starship
+MSN-0226,Mission-226,2029-04-25,Planet,Io,Colonization,37.66,21.7,281.83,47.5,48,100.0,3757.97,47.7,Starship
+MSN-0227,Mission-227,2029-05-02,Moon,Mars,Exploration,8.01,5.6,299.88,84.0,70,98.3,776.79,55.79,Ariane 6
+MSN-0228,Mission-228,2029-05-09,Moon,Proxima b,Exploration,44.06,23.2,325.66,86.5,59,95.9,4357.69,57.46,Falcon Heavy
+MSN-0229,Mission-229,2029-05-16,Asteroid,Io,Research,43.6,26.6,117.05,29.1,59,85.4,4351.23,21.8,Starship
+MSN-0230,Mission-230,2029-05-23,Star,Titan,Mining,1.56,2.7,373.82,69.2,2,100.0,180.58,74.48,Ariane 6
+MSN-0231,Mission-231,2029-05-30,Moon,Betelgeuse,Mining,41.31,22.6,19.43,52.5,29,72.1,4130.54,3.49,Falcon Heavy
+MSN-0232,Mission-232,2029-06-06,Planet,Mars,Research,6.53,4.6,210.39,89.2,68,99.1,668.35,36.13,Falcon Heavy
+MSN-0233,Mission-233,2029-06-13,Star,Proxima b,Mining,16.82,13.1,414.51,29.4,65,100.0,1772.67,78.24,Starship
+MSN-0234,Mission-234,2029-06-20,Star,Io,Mining,37.2,21.9,310.53,71.0,83,100.0,3702.86,56.83,SLS
+MSN-0235,Mission-235,2029-06-27,Planet,Proxima b,Mining,8.12,7.7,135.67,64.7,26,77.7,825.92,26.86,SLS
+MSN-0236,Mission-236,2029-07-04,Moon,Titan,Mining,40.92,25.1,370.71,36.6,89,100.0,4066.54,69.8,SLS
+MSN-0237,Mission-237,2029-07-11,Planet,Ceres,Mining,41.62,23.2,322.04,22.3,10,100.0,4119.68,57.17,Starship
+MSN-0238,Mission-238,2029-07-18,Star,Proxima b,Exploration,25.42,16.2,421.84,68.6,53,100.0,2512.75,79.83,SLS
+MSN-0239,Mission-239,2029-07-25,Exoplanet,Io,Mining,0.42,1.4,405.73,76.5,79,100.0,18.06,73.77,Ariane 6
+MSN-0240,Mission-240,2029-08-01,Exoplanet,Proxima b,Exploration,14.42,9.0,319.42,38.4,59,100.0,1459.97,61.4,Ariane 6
+MSN-0241,Mission-241,2029-08-08,Asteroid,Proxima b,Mining,30.88,19.8,287.49,68.0,22,99.0,3205.45,49.33,Ariane 6
+MSN-0242,Mission-242,2029-08-15,Planet,Proxima b,Research,49.06,28.6,100.78,45.6,51,85.3,4870.2,14.19,Ariane 6
+MSN-0243,Mission-243,2029-08-22,Planet,Europa,Colonization,31.63,18.2,145.68,74.2,48,86.2,3142.17,26.87,Falcon Heavy
+MSN-0244,Mission-244,2029-08-29,Asteroid,Europa,Exploration,13.06,9.0,225.05,27.9,21,99.9,1302.84,42.49,Ariane 6
+MSN-0245,Mission-245,2029-09-05,Asteroid,Ceres,Mining,31.74,19.0,333.42,90.1,22,98.4,3193.79,60.33,SLS
+MSN-0246,Mission-246,2029-09-12,Asteroid,Mars,Research,27.05,14.5,300.97,35.9,98,100.0,2718.18,51.86,Starship
+MSN-0247,Mission-247,2029-09-19,Star,Proxima b,Colonization,39.01,21.5,169.02,43.1,30,87.3,3965.2,29.53,SLS
+MSN-0248,Mission-248,2029-09-26,Planet,Titan,Exploration,5.44,4.6,21.86,15.2,25,66.8,422.68,1.64,Ariane 6
+MSN-0249,Mission-249,2029-10-03,Star,Mars,Colonization,38.08,21.0,294.13,20.0,28,100.0,3688.65,50.13,Falcon Heavy
+MSN-0250,Mission-250,2029-10-10,Asteroid,Titan,Research,27.11,17.8,180.19,56.4,65,99.6,2686.21,29.28,Ariane 6
+MSN-0251,Mission-251,2029-10-17,Planet,Mars,Exploration,48.15,26.2,391.61,34.1,45,100.0,4869.87,73.73,Starship
+MSN-0252,Mission-252,2029-10-24,Star,Ceres,Colonization,17.16,10.3,41.76,85.2,68,76.7,1637.72,3.37,SLS
+MSN-0253,Mission-253,2029-10-31,Star,Proxima b,Mining,31.67,18.9,305.51,11.3,7,100.0,3016.62,58.9,Starship
+MSN-0254,Mission-254,2029-11-07,Asteroid,Proxima b,Exploration,46.61,27.8,502.76,44.1,49,100.0,4689.56,94.21,Starship
+MSN-0255,Mission-255,2029-11-14,Planet,Betelgeuse,Colonization,5.22,4.6,109.93,40.4,9,71.9,534.18,18.27,Starship
+MSN-0256,Mission-256,2029-11-21,Asteroid,Titan,Research,46.87,24.7,288.24,11.7,36,95.3,4632.49,47.69,SLS
+MSN-0257,Mission-257,2029-11-28,Planet,Mars,Research,34.43,19.6,74.78,21.2,83,70.5,3393.72,10.05,Ariane 6
+MSN-0258,Mission-258,2029-12-05,Exoplanet,Mars,Exploration,3.49,5.7,339.51,47.2,1,100.0,300.51,62.94,Starship
+MSN-0259,Mission-259,2029-12-12,Moon,Europa,Colonization,15.12,10.8,306.23,54.4,10,100.0,1517.53,55.5,SLS
+MSN-0260,Mission-260,2029-12-19,Moon,Betelgeuse,Exploration,35.44,22.0,252.57,46.4,36,93.5,3512.68,41.33,Falcon Heavy
+MSN-0261,Mission-261,2029-12-26,Moon,Io,Exploration,3.46,6.6,303.34,57.8,73,100.0,370.7,52.62,SLS
+MSN-0262,Mission-262,2030-01-02,Asteroid,Io,Colonization,29.15,18.7,471.91,63.6,46,100.0,2772.27,89.76,Falcon Heavy
+MSN-0263,Mission-263,2030-01-09,Exoplanet,Europa,Colonization,17.36,12.1,138.37,10.9,32,80.0,1693.16,20.43,SLS
+MSN-0264,Mission-264,2030-01-16,Planet,Europa,Mining,31.08,18.5,45.88,51.8,32,74.9,3051.7,3.23,Ariane 6
+MSN-0265,Mission-265,2030-01-23,Star,Europa,Colonization,2.38,2.4,456.63,96.7,6,100.0,225.18,86.3,Starship
+MSN-0266,Mission-266,2030-01-30,Planet,Titan,Research,43.59,26.7,301.07,56.7,48,100.0,4332.1,58.13,Ariane 6
+MSN-0267,Mission-267,2030-02-06,Star,Titan,Exploration,48.68,26.9,469.63,71.0,38,100.0,4907.89,89.18,SLS
+MSN-0268,Mission-268,2030-02-13,Planet,Ceres,Exploration,48.45,25.8,313.55,38.1,17,100.0,4752.03,60.1,Starship
+MSN-0269,Mission-269,2030-02-20,Exoplanet,Ceres,Research,37.51,22.4,451.88,79.7,74,100.0,3753.27,81.21,Falcon Heavy
+MSN-0270,Mission-270,2030-02-27,Star,Europa,Colonization,6.59,5.4,235.13,79.6,27,94.5,686.92,43.54,SLS
+MSN-0271,Mission-271,2030-03-06,Asteroid,Betelgeuse,Research,37.94,22.3,423.86,56.9,54,100.0,3886.83,75.24,Starship
+MSN-0272,Mission-272,2030-03-13,Planet,Mars,Research,1.33,4.0,484.07,97.8,50,100.0,108.91,91.39,Falcon Heavy
+MSN-0273,Mission-273,2030-03-20,Planet,Titan,Mining,1.2,3.4,320.15,21.3,35,96.6,136.22,57.64,Falcon Heavy
+MSN-0274,Mission-274,2030-03-27,Star,Betelgeuse,Research,16.25,12.5,122.1,11.5,85,82.6,1534.81,18.9,Ariane 6
+MSN-0275,Mission-275,2030-04-03,Asteroid,Proxima b,Exploration,24.48,14.3,145.39,79.3,25,82.1,2328.4,27.61,SLS
+MSN-0276,Mission-276,2030-04-10,Asteroid,Titan,Research,38.54,22.1,122.77,82.6,28,95.0,3896.24,20.67,Falcon Heavy
+MSN-0277,Mission-277,2030-04-17,Exoplanet,Titan,Exploration,34.2,20.3,133.06,20.8,15,83.1,3419.72,25.44,Starship
+MSN-0278,Mission-278,2030-04-24,Asteroid,Ceres,Exploration,22.35,14.8,188.22,33.9,4,81.8,2293.93,31.34,Falcon Heavy
+MSN-0279,Mission-279,2030-05-01,Asteroid,Mars,Exploration,13.75,11.0,302.7,11.6,93,99.6,1306.33,55.96,Falcon Heavy
+MSN-0280,Mission-280,2030-05-08,Asteroid,Mars,Colonization,49.86,27.5,335.17,36.4,73,100.0,5012.0,59.21,Ariane 6
+MSN-0281,Mission-281,2030-05-15,Moon,Io,Mining,21.37,14.3,227.9,79.6,27,100.0,2230.44,43.22,Ariane 6
+MSN-0282,Mission-282,2030-05-22,Exoplanet,Io,Exploration,22.62,12.9,318.71,56.6,26,98.9,2282.99,61.93,Starship
+MSN-0283,Mission-283,2030-05-29,Planet,Io,Exploration,8.26,8.9,66.31,41.3,19,68.7,839.83,9.08,Ariane 6
+MSN-0284,Mission-284,2030-06-05,Star,Io,Colonization,39.76,22.4,94.85,43.5,92,83.6,3976.43,9.69,Falcon Heavy
+MSN-0285,Mission-285,2030-06-12,Planet,Proxima b,Exploration,34.71,21.3,125.86,10.1,17,75.7,3392.46,18.01,Falcon Heavy
+MSN-0286,Mission-286,2030-06-19,Exoplanet,Proxima b,Research,11.12,6.6,282.98,37.0,43,96.1,1179.78,52.29,Ariane 6
+MSN-0287,Mission-287,2030-06-26,Star,Titan,Research,4.21,3.9,137.3,68.2,41,82.4,390.46,22.19,Falcon Heavy
+MSN-0288,Mission-288,2030-07-03,Exoplanet,Europa,Mining,34.06,20.0,150.38,97.7,42,84.7,3431.22,29.05,Falcon Heavy
+MSN-0289,Mission-289,2030-07-10,Asteroid,Ceres,Exploration,32.76,20.9,252.39,86.2,50,98.7,3197.85,40.63,Starship
+MSN-0290,Mission-290,2030-07-17,Star,Ceres,Colonization,13.74,10.0,440.5,12.1,84,100.0,1315.03,81.37,Ariane 6
+MSN-0291,Mission-291,2030-07-24,Asteroid,Io,Research,47.55,28.5,26.83,90.9,40,71.3,4826.75,2.37,Falcon Heavy
+MSN-0292,Mission-292,2030-07-31,Planet,Titan,Colonization,7.64,6.8,356.15,80.5,39,100.0,746.63,65.29,Ariane 6
+MSN-0293,Mission-293,2030-08-07,Planet,Betelgeuse,Colonization,21.67,13.8,342.46,80.2,23,100.0,2239.66,67.22,Starship
+MSN-0294,Mission-294,2030-08-14,Star,Europa,Research,47.19,25.1,448.68,51.2,96,100.0,4715.09,80.07,Ariane 6
+MSN-0295,Mission-295,2030-08-21,Star,Titan,Colonization,21.04,14.7,476.26,45.8,52,100.0,2011.91,93.34,Falcon Heavy
+MSN-0296,Mission-296,2030-08-28,Exoplanet,Europa,Research,31.96,18.0,47.7,37.3,47,79.0,3240.6,2.99,Ariane 6
+MSN-0297,Mission-297,2030-09-04,Exoplanet,Europa,Colonization,19.94,14.6,94.13,15.9,63,81.4,1964.51,16.22,Falcon Heavy
+MSN-0298,Mission-298,2030-09-11,Asteroid,Europa,Research,13.78,11.5,479.81,30.5,97,100.0,1412.93,88.73,Falcon Heavy
+MSN-0299,Mission-299,2030-09-18,Star,Titan,Exploration,49.2,29.4,271.01,32.2,69,89.2,4921.26,46.39,Falcon Heavy
+MSN-0300,Mission-300,2030-09-25,Planet,Io,Mining,20.53,13.3,318.45,53.6,43,100.0,1975.84,56.89,Starship
+MSN-0301,Mission-301,2030-10-02,Exoplanet,Ceres,Research,44.72,26.1,364.31,77.3,48,100.0,4480.21,66.64,Ariane 6
+MSN-0302,Mission-302,2030-10-09,Exoplanet,Ceres,Research,11.57,9.9,385.88,52.6,34,100.0,1266.81,68.23,Starship
+MSN-0303,Mission-303,2030-10-16,Planet,Io,Mining,10.73,6.9,471.05,15.2,40,100.0,1097.65,93.24,Ariane 6
+MSN-0304,Mission-304,2030-10-23,Exoplanet,Europa,Research,1.65,4.2,515.71,96.2,75,100.0,162.12,99.7,Starship
+MSN-0305,Mission-305,2030-10-30,Asteroid,Betelgeuse,Research,32.62,17.4,374.67,94.8,61,100.0,3315.77,72.3,SLS
+MSN-0306,Mission-306,2030-11-06,Star,Mars,Colonization,18.49,12.2,196.56,80.7,50,92.3,1859.53,29.43,Falcon Heavy
+MSN-0307,Mission-307,2030-11-13,Planet,Titan,Mining,43.23,23.2,460.58,99.2,67,100.0,4333.48,88.1,Falcon Heavy
+MSN-0308,Mission-308,2030-11-20,Star,Mars,Exploration,23.71,13.6,66.25,59.0,62,74.6,2316.42,5.87,Starship
+MSN-0309,Mission-309,2030-11-27,Exoplanet,Io,Research,48.41,26.7,153.95,96.6,58,89.9,4852.69,23.88,SLS
+MSN-0310,Mission-310,2030-12-04,Exoplanet,Betelgeuse,Mining,9.36,7.4,460.59,16.8,33,100.0,987.77,89.84,Falcon Heavy
+MSN-0311,Mission-311,2030-12-11,Planet,Titan,Colonization,43.44,25.2,144.51,42.9,75,83.8,4302.2,26.36,Ariane 6
+MSN-0312,Mission-312,2030-12-18,Asteroid,Io,Exploration,38.85,20.7,128.98,30.3,16,81.8,3956.22,22.84,Starship
+MSN-0313,Mission-313,2030-12-25,Moon,Europa,Mining,38.57,22.3,94.5,27.6,82,83.2,3852.41,14.67,Falcon Heavy
+MSN-0314,Mission-314,2031-01-01,Planet,Ceres,Exploration,42.25,22.9,442.73,22.7,94,100.0,4180.61,86.05,Falcon Heavy
+MSN-0315,Mission-315,2031-01-08,Moon,Mars,Exploration,38.08,22.3,254.51,66.0,48,100.0,3857.88,50.51,Starship
+MSN-0316,Mission-316,2031-01-15,Moon,Proxima b,Exploration,31.35,19.2,383.14,80.3,10,100.0,3120.66,67.81,Starship
+MSN-0317,Mission-317,2031-01-22,Asteroid,Proxima b,Research,6.65,6.6,171.66,62.0,82,89.8,702.98,24.67,Ariane 6
+MSN-0318,Mission-318,2031-01-29,Moon,Betelgeuse,Research,1.72,4.8,397.99,23.2,38,100.0,157.41,76.05,Ariane 6
+MSN-0319,Mission-319,2031-02-05,Moon,Europa,Colonization,46.05,25.4,398.79,83.0,19,100.0,4602.01,76.24,Falcon Heavy
+MSN-0320,Mission-320,2031-02-12,Asteroid,Mars,Colonization,30.87,19.5,161.1,67.2,36,86.1,3111.68,31.95,Falcon Heavy
+MSN-0321,Mission-321,2031-02-19,Moon,Europa,Mining,39.85,22.7,242.63,44.9,59,94.9,3999.54,41.66,Starship
+MSN-0322,Mission-322,2031-02-26,Moon,Mars,Colonization,24.13,15.0,150.25,70.7,63,99.6,2313.22,21.76,Falcon Heavy
+MSN-0323,Mission-323,2031-03-05,Moon,Betelgeuse,Exploration,5.95,6.6,496.58,33.4,77,100.0,538.94,97.68,Falcon Heavy
+MSN-0324,Mission-324,2031-03-12,Planet,Betelgeuse,Exploration,6.35,4.2,333.37,41.1,46,97.7,681.47,64.91,Starship
+MSN-0325,Mission-325,2031-03-19,Planet,Proxima b,Research,34.31,20.8,507.31,92.6,3,100.0,3424.39,93.52,Falcon Heavy
+MSN-0326,Mission-326,2031-03-26,Planet,Europa,Exploration,21.57,14.3,186.4,36.1,74,78.3,2130.81,31.04,Falcon Heavy
+MSN-0327,Mission-327,2031-04-02,Asteroid,Titan,Mining,10.11,7.3,395.25,52.3,65,100.0,943.07,78.41,SLS
+MSN-0328,Mission-328,2031-04-09,Exoplanet,Proxima b,Exploration,24.63,13.7,415.6,90.1,91,100.0,2409.01,76.82,Ariane 6
+MSN-0329,Mission-329,2031-04-16,Moon,Europa,Exploration,3.3,3.0,363.49,73.7,8,100.0,228.91,69.47,Starship
+MSN-0330,Mission-330,2031-04-23,Moon,Proxima b,Mining,29.14,19.3,502.07,15.6,51,100.0,2908.94,96.6,SLS
+MSN-0331,Mission-331,2031-04-30,Asteroid,Titan,Colonization,13.52,10.5,238.52,23.3,81,91.3,1322.08,39.96,Ariane 6
+MSN-0332,Mission-332,2031-05-07,Moon,Ceres,Colonization,39.9,21.5,110.44,10.7,73,80.3,3941.67,13.94,Ariane 6
+MSN-0333,Mission-333,2031-05-14,Planet,Ceres,Mining,15.59,10.2,358.12,66.8,6,100.0,1555.59,67.5,Ariane 6
+MSN-0334,Mission-334,2031-05-21,Exoplanet,Ceres,Research,22.82,14.8,413.41,50.3,89,100.0,2300.2,73.2,SLS
+MSN-0335,Mission-335,2031-05-28,Star,Ceres,Exploration,0.68,4.7,310.57,22.1,39,100.0,172.66,57.93,SLS
+MSN-0336,Mission-336,2031-06-04,Moon,Io,Mining,3.72,3.0,146.17,96.2,60,78.2,296.41,21.47,Ariane 6
+MSN-0337,Mission-337,2031-06-11,Planet,Mars,Exploration,19.69,11.8,279.41,57.7,28,95.9,2026.97,50.94,Falcon Heavy
+MSN-0338,Mission-338,2031-06-18,Star,Io,Research,24.05,16.6,204.53,31.8,97,85.5,2453.66,31.91,Falcon Heavy
+MSN-0339,Mission-339,2031-06-25,Exoplanet,Io,Exploration,30.04,16.1,262.08,55.1,54,99.0,2965.05,43.32,SLS
+MSN-0340,Mission-340,2031-07-02,Star,Io,Mining,14.65,9.1,329.68,71.2,37,100.0,1475.16,64.88,SLS
+MSN-0341,Mission-341,2031-07-09,Planet,Ceres,Exploration,34.78,22.2,420.79,16.9,9,100.0,3455.12,74.78,SLS
+MSN-0342,Mission-342,2031-07-16,Star,Titan,Colonization,43.02,25.0,161.4,34.7,82,76.9,4311.28,23.99,Ariane 6
+MSN-0343,Mission-343,2031-07-23,Asteroid,Betelgeuse,Research,39.01,21.6,245.42,82.6,56,93.9,3976.46,41.13,Falcon Heavy
+MSN-0344,Mission-344,2031-07-30,Star,Betelgeuse,Research,2.08,2.3,149.09,51.4,59,85.0,238.28,27.65,SLS
+MSN-0345,Mission-345,2031-08-06,Moon,Mars,Research,24.08,13.2,143.75,59.2,85,85.5,2433.43,20.66,SLS
+MSN-0346,Mission-346,2031-08-13,Moon,Ceres,Mining,5.34,4.6,435.46,49.0,2,100.0,512.48,78.56,Starship
+MSN-0347,Mission-347,2031-08-20,Asteroid,Ceres,Research,12.18,10.6,470.27,14.0,61,100.0,1143.8,91.02,Ariane 6
+MSN-0348,Mission-348,2031-08-27,Planet,Ceres,Colonization,49.33,27.3,235.91,24.9,58,95.4,4922.58,37.65,Starship
+MSN-0349,Mission-349,2031-09-03,Moon,Proxima b,Mining,7.21,7.5,380.34,50.1,60,100.0,781.33,75.38,Falcon Heavy
+MSN-0350,Mission-350,2031-09-10,Exoplanet,Europa,Colonization,24.99,17.2,457.35,28.8,40,100.0,2422.64,89.8,Starship
+MSN-0351,Mission-351,2031-09-17,Moon,Proxima b,Exploration,30.95,18.1,451.19,14.5,36,100.0,3042.25,84.77,Starship
+MSN-0352,Mission-352,2031-09-24,Moon,Europa,Exploration,35.15,19.3,124.71,85.9,37,83.5,3521.31,19.1,Starship
+MSN-0353,Mission-353,2031-10-01,Planet,Ceres,Exploration,28.03,17.1,510.96,98.3,79,100.0,2753.77,95.67,Ariane 6
+MSN-0354,Mission-354,2031-10-08,Star,Ceres,Exploration,0.59,4.9,193.28,81.4,92,98.0,19.37,38.29,Falcon Heavy
+MSN-0355,Mission-355,2031-10-15,Moon,Proxima b,Colonization,16.39,12.4,220.96,86.8,18,88.9,1617.82,34.58,Starship
+MSN-0356,Mission-356,2031-10-22,Asteroid,Proxima b,Mining,25.93,14.2,39.08,31.8,98,73.7,2524.72,7.18,Ariane 6
+MSN-0357,Mission-357,2031-10-29,Star,Europa,Mining,4.48,6.0,253.66,96.5,63,98.1,399.29,49.13,Falcon Heavy
+MSN-0358,Mission-358,2031-11-05,Exoplanet,Betelgeuse,Research,17.6,12.1,60.64,27.7,22,73.1,1795.17,11.79,SLS
+MSN-0359,Mission-359,2031-11-12,Planet,Europa,Colonization,1.76,5.5,156.83,95.6,11,76.5,110.63,25.61,Starship
+MSN-0360,Mission-360,2031-11-19,Exoplanet,Proxima b,Exploration,4.02,3.5,208.58,99.5,58,88.7,322.11,32.38,Falcon Heavy
+MSN-0361,Mission-361,2031-11-26,Star,Titan,Colonization,19.91,13.1,438.98,74.1,57,100.0,1959.5,81.07,Starship
+MSN-0362,Mission-362,2031-12-03,Star,Proxima b,Research,6.72,7.9,479.66,98.3,77,100.0,708.6,87.67,SLS
+MSN-0363,Mission-363,2031-12-10,Star,Titan,Research,28.42,16.9,156.35,61.3,4,81.4,2832.15,30.94,Falcon Heavy
+MSN-0364,Mission-364,2031-12-17,Exoplanet,Mars,Colonization,34.5,20.2,457.61,33.4,86,100.0,3426.77,86.01,Ariane 6
+MSN-0365,Mission-365,2031-12-24,Star,Proxima b,Colonization,40.05,21.3,452.87,49.3,7,100.0,4007.22,85.87,Falcon Heavy
+MSN-0366,Mission-366,2031-12-31,Exoplanet,Mars,Colonization,10.09,7.2,408.95,63.4,61,100.0,921.71,76.7,Ariane 6
+MSN-0367,Mission-367,2032-01-07,Star,Betelgeuse,Mining,8.46,6.5,82.14,16.6,54,79.0,870.74,15.52,Falcon Heavy
+MSN-0368,Mission-368,2032-01-14,Asteroid,Europa,Exploration,5.32,7.4,381.24,66.0,88,100.0,551.17,69.34,Ariane 6
+MSN-0369,Mission-369,2032-01-21,Star,Titan,Colonization,31.86,18.1,498.46,98.3,68,100.0,3165.53,94.56,SLS
+MSN-0370,Mission-370,2032-01-28,Exoplanet,Europa,Colonization,35.35,20.5,381.34,27.1,92,100.0,3585.3,68.57,SLS
+MSN-0371,Mission-371,2032-02-04,Moon,Mars,Colonization,1.68,4.5,193.93,81.3,79,95.2,111.63,33.83,SLS
+MSN-0372,Mission-372,2032-02-11,Star,Titan,Research,46.82,25.1,261.12,91.7,1,93.6,4738.4,50.56,Falcon Heavy
+MSN-0373,Mission-373,2032-02-18,Moon,Europa,Research,2.69,4.3,357.41,94.9,55,100.0,276.72,64.93,SLS
+MSN-0374,Mission-374,2032-02-25,Asteroid,Proxima b,Mining,27.11,17.5,267.2,96.4,3,97.0,2694.17,51.55,Starship
+MSN-0375,Mission-375,2032-03-03,Planet,Ceres,Exploration,35.48,22.2,108.15,56.9,78,81.4,3547.01,12.88,SLS
+MSN-0376,Mission-376,2032-03-10,Asteroid,Mars,Mining,43.56,25.3,190.49,98.0,38,83.7,4350.64,31.89,Ariane 6
+MSN-0377,Mission-377,2032-03-17,Star,Europa,Exploration,35.73,21.5,410.9,78.2,1,100.0,3634.01,80.44,Ariane 6
+MSN-0378,Mission-378,2032-03-24,Moon,Mars,Research,40.11,21.6,479.55,24.6,38,100.0,3957.17,86.28,Ariane 6
+MSN-0379,Mission-379,2032-03-31,Moon,Io,Research,17.04,13.3,99.35,52.9,85,81.7,1665.87,14.59,Falcon Heavy
+MSN-0380,Mission-380,2032-04-07,Exoplanet,Mars,Research,40.76,21.9,481.02,74.6,29,100.0,4127.82,95.29,Starship
+MSN-0381,Mission-381,2032-04-14,Moon,Titan,Mining,4.1,6.1,199.46,32.3,5,91.4,380.22,33.55,SLS
+MSN-0382,Mission-382,2032-04-21,Exoplanet,Io,Colonization,44.75,24.4,346.26,67.7,74,100.0,4520.03,66.57,Starship
+MSN-0383,Mission-383,2032-04-28,Planet,Titan,Colonization,27.42,18.4,417.53,70.0,92,100.0,2826.97,75.43,Starship
+MSN-0384,Mission-384,2032-05-05,Star,Ceres,Research,40.88,24.3,447.97,24.6,21,100.0,4067.91,81.38,Ariane 6
+MSN-0385,Mission-385,2032-05-12,Exoplanet,Io,Colonization,22.67,15.4,522.12,60.9,71,100.0,2301.07,94.63,Ariane 6
+MSN-0386,Mission-386,2032-05-19,Planet,Proxima b,Colonization,32.21,18.0,185.49,79.4,67,88.6,3163.32,31.98,Ariane 6
+MSN-0387,Mission-387,2032-05-26,Moon,Mars,Mining,26.37,16.0,453.24,54.9,47,100.0,2674.74,85.99,Falcon Heavy
+MSN-0388,Mission-388,2032-06-02,Moon,Europa,Exploration,36.61,21.8,108.12,11.1,84,76.2,3670.97,14.04,Starship
+MSN-0389,Mission-389,2032-06-09,Planet,Betelgeuse,Research,4.17,6.2,361.49,10.8,83,100.0,440.65,70.8,Starship
+MSN-0390,Mission-390,2032-06-16,Moon,Mars,Research,3.11,3.0,400.1,42.1,35,100.0,278.72,74.46,Falcon Heavy
+MSN-0391,Mission-391,2032-06-23,Planet,Mars,Mining,12.43,11.1,368.22,93.4,68,100.0,1159.95,68.09,Falcon Heavy
+MSN-0392,Mission-392,2032-06-30,Exoplanet,Ceres,Mining,8.06,8.6,135.28,30.6,69,85.6,831.16,25.98,Falcon Heavy
+MSN-0393,Mission-393,2032-07-07,Exoplanet,Proxima b,Colonization,43.6,23.9,458.63,67.1,1,100.0,4256.83,87.43,Starship
+MSN-0394,Mission-394,2032-07-14,Planet,Betelgeuse,Research,11.04,9.8,131.41,30.0,68,87.9,1088.13,17.72,Starship
+MSN-0395,Mission-395,2032-07-21,Exoplanet,Io,Exploration,48.8,27.5,74.5,39.0,12,86.5,4927.06,6.31,Ariane 6
+MSN-0396,Mission-396,2032-07-28,Exoplanet,Io,Mining,16.91,11.3,366.01,86.3,60,100.0,1700.59,72.03,Ariane 6
+MSN-0397,Mission-397,2032-08-04,Exoplanet,Io,Exploration,9.19,6.9,245.8,75.6,27,89.3,1016.42,48.07,Starship
+MSN-0398,Mission-398,2032-08-11,Asteroid,Titan,Exploration,39.51,23.1,439.17,18.6,56,100.0,4002.26,85.06,Ariane 6
+MSN-0399,Mission-399,2032-08-18,Star,Titan,Research,32.97,20.4,238.66,48.6,23,95.4,3264.31,38.96,Falcon Heavy
+MSN-0400,Mission-400,2032-08-25,Moon,Europa,Research,24.96,15.1,95.62,12.6,25,89.9,2497.37,17.66,SLS
+MSN-0401,Mission-401,2032-09-01,Asteroid,Betelgeuse,Mining,27.81,17.4,455.33,53.3,21,100.0,2778.63,83.81,Ariane 6
+MSN-0402,Mission-402,2032-09-08,Exoplanet,Io,Research,35.99,21.8,282.66,69.6,61,100.0,3519.89,55.34,Starship
+MSN-0403,Mission-403,2032-09-15,Planet,Titan,Research,11.5,9.6,130.18,20.7,63,83.9,1102.98,19.73,Ariane 6
+MSN-0404,Mission-404,2032-09-22,Exoplanet,Europa,Research,49.82,26.1,380.05,36.0,52,100.0,4953.96,72.32,Ariane 6
+MSN-0405,Mission-405,2032-09-29,Star,Proxima b,Exploration,48.74,28.8,297.66,45.8,88,99.3,4772.19,51.6,Ariane 6
+MSN-0406,Mission-406,2032-10-06,Exoplanet,Europa,Mining,32.55,19.1,316.6,92.8,25,97.4,3257.37,60.83,SLS
+MSN-0407,Mission-407,2032-10-13,Planet,Titan,Colonization,10.06,7.1,265.47,99.4,55,100.0,993.55,46.63,Falcon Heavy
+MSN-0408,Mission-408,2032-10-20,Star,Ceres,Exploration,34.04,19.0,427.75,14.0,46,100.0,3320.36,83.04,Starship
+MSN-0409,Mission-409,2032-10-27,Exoplanet,Ceres,Research,3.7,4.8,451.62,78.5,32,100.0,390.21,83.13,SLS
+MSN-0410,Mission-410,2032-11-03,Star,Io,Exploration,1.63,5.4,399.96,43.5,55,100.0,198.79,71.23,Starship
+MSN-0411,Mission-411,2032-11-10,Moon,Ceres,Research,12.96,9.0,64.36,45.3,96,73.4,1307.35,11.43,Starship
+MSN-0412,Mission-412,2032-11-17,Moon,Io,Research,23.18,15.6,463.71,77.9,5,100.0,2301.8,84.05,Starship
+MSN-0413,Mission-413,2032-11-24,Exoplanet,Io,Exploration,43.43,23.1,367.24,92.7,36,100.0,4372.57,67.43,SLS
+MSN-0414,Mission-414,2032-12-01,Star,Titan,Mining,36.39,21.1,357.28,95.6,49,100.0,3673.01,70.01,Falcon Heavy
+MSN-0415,Mission-415,2032-12-08,Planet,Ceres,Research,37.16,23.5,206.65,61.9,58,85.8,3731.37,36.94,Starship
+MSN-0416,Mission-416,2032-12-15,Exoplanet,Io,Mining,21.33,14.7,449.13,42.1,39,100.0,2091.77,88.05,Falcon Heavy
+MSN-0417,Mission-417,2032-12-22,Moon,Betelgeuse,Colonization,17.36,10.5,399.37,80.9,80,100.0,1749.83,72.81,Falcon Heavy
+MSN-0418,Mission-418,2032-12-29,Moon,Proxima b,Research,18.61,12.3,98.93,32.6,97,72.5,1920.77,12.15,Ariane 6
+MSN-0419,Mission-419,2033-01-05,Exoplanet,Europa,Mining,49.38,26.6,213.03,60.8,85,87.2,4908.17,41.37,SLS
+MSN-0420,Mission-420,2033-01-12,Star,Europa,Mining,2.1,3.7,469.55,42.3,61,100.0,314.9,88.75,SLS
+MSN-0421,Mission-421,2033-01-19,Moon,Titan,Colonization,43.36,25.8,69.27,69.1,9,74.9,4309.72,5.67,Ariane 6
+MSN-0422,Mission-422,2033-01-26,Star,Ceres,Mining,28.98,18.6,527.77,31.6,6,100.0,2899.62,96.18,Ariane 6
+MSN-0423,Mission-423,2033-02-02,Moon,Ceres,Mining,21.99,12.9,367.36,27.2,35,98.6,2165.38,68.24,Falcon Heavy
+MSN-0424,Mission-424,2033-02-09,Moon,Io,Colonization,36.29,22.8,365.11,92.6,39,100.0,3640.16,63.51,Starship
+MSN-0425,Mission-425,2033-02-16,Asteroid,Mars,Research,24.38,15.6,166.2,19.2,22,92.9,2350.89,27.79,SLS
+MSN-0426,Mission-426,2033-02-23,Moon,Io,Mining,43.68,24.4,148.47,55.5,41,81.0,4340.7,25.63,Starship
+MSN-0427,Mission-427,2033-03-02,Planet,Proxima b,Mining,45.05,25.5,513.86,29.9,5,100.0,4450.39,94.26,Starship
+MSN-0428,Mission-428,2033-03-09,Exoplanet,Betelgeuse,Mining,21.14,14.0,177.81,13.5,42,89.9,2120.77,30.53,Ariane 6
+MSN-0429,Mission-429,2033-03-16,Exoplanet,Europa,Exploration,13.91,10.2,413.02,13.2,87,100.0,1440.72,77.78,Starship
+MSN-0430,Mission-430,2033-03-23,Star,Io,Colonization,29.66,17.8,224.63,25.8,81,88.4,2998.3,39.92,Falcon Heavy
+MSN-0431,Mission-431,2033-03-30,Moon,Mars,Exploration,45.63,25.8,116.44,88.0,76,87.1,4444.42,14.79,Ariane 6
+MSN-0432,Mission-432,2033-04-06,Planet,Mars,Colonization,10.61,7.0,52.07,35.4,87,72.5,1163.1,2.06,Starship
+MSN-0433,Mission-433,2033-04-13,Star,Io,Research,31.19,19.8,295.17,95.5,80,92.8,3133.76,54.88,Ariane 6
+MSN-0434,Mission-434,2033-04-20,Asteroid,Titan,Research,31.61,19.0,505.33,62.3,67,100.0,3122.18,97.6,Falcon Heavy
+MSN-0435,Mission-435,2033-04-27,Star,Europa,Mining,36.68,19.9,212.8,49.3,30,97.7,3675.86,37.54,Falcon Heavy
+MSN-0436,Mission-436,2033-05-04,Star,Titan,Colonization,6.67,7.4,210.87,62.2,57,100.0,675.81,36.36,Starship
+MSN-0437,Mission-437,2033-05-11,Moon,Betelgeuse,Research,35.82,22.6,188.03,56.5,86,82.8,3548.66,35.07,Ariane 6
+MSN-0438,Mission-438,2033-05-18,Asteroid,Mars,Colonization,45.46,27.5,302.55,78.3,73,100.0,4555.9,52.53,Starship
+MSN-0439,Mission-439,2033-05-25,Star,Mars,Research,9.07,7.0,247.99,35.4,29,92.7,876.63,44.63,Starship
+MSN-0440,Mission-440,2033-06-01,Planet,Proxima b,Exploration,11.95,7.5,457.92,41.8,37,100.0,1174.78,88.11,Ariane 6
+MSN-0441,Mission-441,2033-06-08,Planet,Betelgeuse,Research,48.57,27.4,261.48,90.5,87,88.8,4822.69,51.05,Starship
+MSN-0442,Mission-442,2033-06-15,Exoplanet,Mars,Exploration,9.13,6.0,269.05,95.2,13,90.6,841.37,51.27,Falcon Heavy
+MSN-0443,Mission-443,2033-06-22,Asteroid,Betelgeuse,Research,42.73,26.1,121.01,90.3,32,78.2,4280.29,14.7,Ariane 6
+MSN-0444,Mission-444,2033-06-29,Asteroid,Europa,Mining,24.66,14.1,507.4,47.8,46,100.0,2495.26,98.29,Ariane 6
+MSN-0445,Mission-445,2033-07-06,Exoplanet,Ceres,Exploration,12.44,8.2,138.02,80.2,23,80.6,1269.74,25.75,Ariane 6
+MSN-0446,Mission-446,2033-07-13,Star,Mars,Research,43.55,24.4,64.87,52.9,45,79.8,4396.0,8.26,Ariane 6
+MSN-0447,Mission-447,2033-07-20,Asteroid,Proxima b,Mining,22.32,13.7,349.3,54.8,17,100.0,2248.22,66.65,Starship
+MSN-0448,Mission-448,2033-07-27,Planet,Europa,Exploration,25.79,17.1,302.42,28.4,85,100.0,2552.36,59.94,Starship
+MSN-0449,Mission-449,2033-08-03,Planet,Io,Mining,18.03,11.8,227.33,63.2,66,100.0,1844.98,42.1,Falcon Heavy
+MSN-0450,Mission-450,2033-08-10,Moon,Betelgeuse,Colonization,29.69,16.5,241.66,26.8,6,96.2,2901.12,42.8,SLS
+MSN-0451,Mission-451,2033-08-17,Asteroid,Io,Colonization,8.26,6.2,421.63,39.8,18,100.0,780.97,78.72,SLS
+MSN-0452,Mission-452,2033-08-24,Star,Titan,Exploration,19.61,12.8,120.37,87.0,94,88.9,1912.79,20.38,Falcon Heavy
+MSN-0453,Mission-453,2033-08-31,Exoplanet,Europa,Research,48.47,25.8,433.97,28.6,22,100.0,4901.0,82.21,SLS
+MSN-0454,Mission-454,2033-09-07,Exoplanet,Io,Exploration,12.98,9.9,374.46,16.4,33,100.0,1345.14,65.23,Falcon Heavy
+MSN-0455,Mission-455,2033-09-14,Star,Mars,Mining,32.87,19.7,231.89,16.2,30,100.0,3311.37,42.48,Starship
+MSN-0456,Mission-456,2033-09-21,Moon,Betelgeuse,Research,16.33,12.0,245.35,94.7,81,96.8,1686.6,46.34,Ariane 6
+MSN-0457,Mission-457,2033-09-28,Exoplanet,Ceres,Colonization,38.7,24.1,144.98,55.6,32,77.0,3826.04,26.41,Ariane 6
+MSN-0458,Mission-458,2033-10-05,Asteroid,Europa,Research,6.63,8.0,400.73,46.8,42,100.0,680.43,75.46,Starship
+MSN-0459,Mission-459,2033-10-12,Moon,Mars,Colonization,48.49,29.0,297.07,83.0,78,100.0,4842.74,51.77,Ariane 6
+MSN-0460,Mission-460,2033-10-19,Asteroid,Proxima b,Research,22.74,13.3,174.89,85.2,10,86.6,2316.34,32.76,Ariane 6
+MSN-0461,Mission-461,2033-10-26,Planet,Titan,Research,11.88,7.5,335.81,39.9,36,100.0,1182.24,60.01,SLS
+MSN-0462,Mission-462,2033-11-02,Moon,Betelgeuse,Research,3.77,4.1,499.94,72.4,34,100.0,357.75,99.58,Starship
+MSN-0463,Mission-463,2033-11-09,Exoplanet,Europa,Mining,8.57,8.9,241.98,79.4,73,97.7,884.05,44.09,SLS
+MSN-0464,Mission-464,2033-11-16,Moon,Europa,Mining,26.04,17.9,499.77,68.9,28,100.0,2647.81,92.15,SLS
+MSN-0465,Mission-465,2033-11-23,Moon,Ceres,Exploration,16.92,12.9,193.4,23.6,11,88.3,1658.58,35.16,Ariane 6
+MSN-0466,Mission-466,2033-11-30,Moon,Ceres,Exploration,41.46,22.2,60.72,88.8,78,74.5,4142.95,6.42,Ariane 6
+MSN-0467,Mission-467,2033-12-07,Moon,Proxima b,Colonization,21.6,15.6,117.14,58.5,39,86.0,2107.08,21.22,Starship
+MSN-0468,Mission-468,2033-12-14,Asteroid,Titan,Mining,12.51,8.9,249.61,35.4,47,97.7,1126.1,42.45,Ariane 6
+MSN-0469,Mission-469,2033-12-21,Planet,Proxima b,Colonization,30.9,16.5,117.26,48.3,19,80.4,3100.02,22.74,Ariane 6
+MSN-0470,Mission-470,2033-12-28,Star,Mars,Exploration,35.37,20.5,47.87,13.4,15,80.2,3567.45,1.02,Starship
+MSN-0471,Mission-471,2034-01-04,Moon,Mars,Colonization,8.44,5.4,468.66,21.5,28,100.0,857.1,91.59,Ariane 6
+MSN-0472,Mission-472,2034-01-11,Exoplanet,Proxima b,Exploration,8.46,7.4,466.55,78.9,24,100.0,748.52,84.54,SLS
+MSN-0473,Mission-473,2034-01-18,Moon,Titan,Mining,1.93,3.3,390.72,10.0,72,100.0,175.46,74.49,Starship
+MSN-0474,Mission-474,2034-01-25,Exoplanet,Proxima b,Research,36.85,21.3,124.46,47.5,9,77.6,3574.08,17.61,Ariane 6
+MSN-0475,Mission-475,2034-02-01,Asteroid,Titan,Mining,33.22,20.1,81.24,57.0,47,76.8,3390.49,12.92,Falcon Heavy
+MSN-0476,Mission-476,2034-02-08,Exoplanet,Titan,Colonization,23.78,16.4,83.84,14.9,33,84.6,2323.7,7.69,Starship
+MSN-0477,Mission-477,2034-02-15,Star,Io,Colonization,42.22,24.8,370.61,97.6,62,100.0,4284.77,72.68,Starship
+MSN-0478,Mission-478,2034-02-22,Planet,Betelgeuse,Mining,40.3,22.9,474.5,30.4,97,100.0,4077.29,92.95,Falcon Heavy
+MSN-0479,Mission-479,2034-03-01,Exoplanet,Titan,Mining,29.31,18.9,243.26,37.4,19,91.0,2885.97,43.62,Ariane 6
+MSN-0480,Mission-480,2034-03-08,Exoplanet,Ceres,Exploration,43.43,26.3,68.96,37.4,67,75.6,4286.36,12.79,Ariane 6
+MSN-0481,Mission-481,2034-03-15,Planet,Titan,Colonization,10.37,6.7,269.25,30.7,74,89.4,1054.52,51.73,Starship
+MSN-0482,Mission-482,2034-03-22,Star,Titan,Colonization,5.68,6.0,224.89,10.1,40,91.4,525.78,35.53,Starship
+MSN-0483,Mission-483,2034-03-29,Moon,Titan,Mining,13.56,8.9,239.4,75.6,47,93.0,1361.12,38.11,Ariane 6
+MSN-0484,Mission-484,2034-04-05,Exoplanet,Io,Research,2.95,2.7,331.99,97.0,65,100.0,270.86,62.51,Ariane 6
+MSN-0485,Mission-485,2034-04-12,Planet,Io,Colonization,26.61,17.0,406.99,30.2,29,100.0,2571.94,72.15,SLS
+MSN-0486,Mission-486,2034-04-19,Asteroid,Mars,Research,46.84,27.9,87.45,69.7,50,72.8,4572.48,11.95,Starship
+MSN-0487,Mission-487,2034-04-26,Planet,Io,Mining,2.06,2.7,36.82,76.8,98,79.1,217.33,4.52,Starship
+MSN-0488,Mission-488,2034-05-03,Asteroid,Ceres,Mining,6.19,7.3,532.62,86.4,13,100.0,590.92,99.44,Falcon Heavy
+MSN-0489,Mission-489,2034-05-10,Star,Ceres,Exploration,22.66,15.7,153.49,48.0,1,86.3,2238.35,24.04,SLS
+MSN-0490,Mission-490,2034-05-17,Moon,Io,Colonization,46.7,28.0,81.12,37.3,34,78.1,4704.79,6.33,Ariane 6
+MSN-0491,Mission-491,2034-05-24,Planet,Proxima b,Research,15.88,10.0,112.99,39.3,93,78.7,1646.67,19.8,SLS
+MSN-0492,Mission-492,2034-05-31,Exoplanet,Betelgeuse,Exploration,25.41,17.3,58.23,74.1,48,76.9,2527.37,4.86,Ariane 6
+MSN-0493,Mission-493,2034-06-07,Star,Io,Colonization,2.17,3.4,202.5,83.5,77,92.6,199.97,39.79,Ariane 6
+MSN-0494,Mission-494,2034-06-14,Planet,Titan,Exploration,7.5,7.0,408.77,26.3,48,100.0,775.01,80.44,SLS
+MSN-0495,Mission-495,2034-06-21,Exoplanet,Europa,Mining,49.33,25.9,175.09,43.4,49,84.8,4865.15,34.78,Starship
+MSN-0496,Mission-496,2034-06-28,Planet,Betelgeuse,Colonization,48.26,25.3,274.82,91.2,64,96.2,4837.16,44.97,Ariane 6
+MSN-0497,Mission-497,2034-07-05,Asteroid,Betelgeuse,Exploration,0.35,4.1,379.71,82.6,61,100.0,62.59,67.88,SLS
+MSN-0498,Mission-498,2034-07-12,Planet,Ceres,Exploration,47.6,26.6,296.45,98.6,29,100.0,4794.01,51.38,Falcon Heavy
+MSN-0499,Mission-499,2034-07-19,Planet,Betelgeuse,Research,31.99,18.0,457.38,77.9,39,100.0,3102.16,86.28,SLS
+MSN-0500,Mission-500,2034-07-26,Planet,Io,Exploration,43.41,23.5,449.4,45.4,88,100.0,4302.93,86.74,Falcon Heavy
