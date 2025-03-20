@@ -37,8 +37,22 @@ Since the two datasets do not have the same structure and columns, we will not m
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
+> - Preprocessing of the dataset you chose
 > - Show some basic statistics and get insights about the data
+
+
+**Dataset 1**  
+As the data was synthetically generated, the data is clean. It has 500 entries and 14 columns and there are no missing values. The columns can be separated into: categorical, continuous numerical scientific and continuous numerical logistic. All the columns have a balanced distribution except Mission Success (see Figures in the `EDA_spaces.ipynb`). There is not a high need for data cleaning or preprocessing, but we will extract the years from the date.  Columns are either not correlated either highly correlated \- reflective of the synthetic nature of the dataset.
+
+**Dataset 2**  
+The data is mainly clean. It has 4630 entries and 9 columns. The dataset is less balanced than the first one. Some companies and rockets are highly represented while a lot of them are present only once in the dataset. If used, we could group the unique values as ‘other’ and focus on the biggest companies/rockets.The number of values per country is not balanced either, as you can see below.
+[![image](figs/countries_count.png)](figs/countries_count.png)
+
+We want to use the location, date and time columns to display the launches on a map. 
+
+
+*Unusable information*  
+The Price column has too many missing values.
 
 ### Related work
 
