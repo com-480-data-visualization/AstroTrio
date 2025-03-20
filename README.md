@@ -42,11 +42,36 @@ Since the two datasets do not have the same structure and columns, we will not m
 
 ### Related work
 
+#### What others have already done with the data?  
+There are several projects that have explored and analyzed space mission datasets:  
+- **[EDA: Discovering Space](https://www.kaggle.com/code/timurkhabirovich/eda-discovering-space)**  
+  - Feature correlations, K-means clustering, and scatter plots of mission cost vs. scientific yield.  
+  - Mission duration distributions and forecasting of mission success.  
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+- **[Space Missions Cost Visualization](https://www.kaggle.com/code/stpeteishii/space-mission-cost-visualize-importance)**  
+  - Scatter plots analyzing mission costs and trends.  
+
+- **[Space Missions EDA](https://www.kaggle.com/code/hainescity/space-missions-eda)**  
+  - Feature correlations and scatter plots (e.g., distance vs. duration, success vs. cost).  
+
+- **[Space Missions Analysis](https://www.kaggle.com/code/timothyddumba/space-missions)**  
+  - Exploratory analysis and mission success predictions using machine learning.
+
+We also found a project from two years ago and a website that did some visualization related to space:
+
+- **[GitHub project](https://github.com/com-480-data-visualization/project-2023-astro-vizards)** from this course, focused on satellite visualizations.
+
+- **[Planetary Society - Space Missions](https://www.planetary.org/space-missions)**: 3D visualizations of planets, informations about past missions
+
+These works provide a foundation while leaving room for originality in our approach.  
+
+#### Why is our approach original?  
+- **Dual dataset approach**: We create distinct yet complementary visualizations: one focused on historical data and one on synthetic future scenarios.  
+- **Interactive elements**: A dynamic archive of past launches and an engaging representation of future missions.  
+- **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general
+
+#### Sources of inspiration  
+???
 
 ## Milestone 2 (18th April, 5pm)
 
