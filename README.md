@@ -57,12 +57,6 @@ There are several projects that have explored and analyzed space mission dataset
 - **[Space Missions Analysis](https://www.kaggle.com/code/timothyddumba/space-missions)**  
   - Exploratory analysis and mission success predictions using machine learning.
 
-We also found a project from two years ago and a website that did some visualization related to space:
-
-- **[GitHub project](https://github.com/com-480-data-visualization/project-2023-astro-vizards)** from this course, focused on satellite visualizations.
-
-- **[Planetary Society - Space Missions](https://www.planetary.org/space-missions)**: 3D visualizations of planets, informations about past missions
-
 These works provide a foundation while leaving room for originality in our approach.  
 
 #### Why is our approach original?  
@@ -71,7 +65,12 @@ These works provide a foundation while leaving room for originality in our appro
 - **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general
 
 #### Sources of inspiration  
-???
+
+We found a project from two years ago and a website that did some visualization related to space:
+
+- **[GitHub project](https://github.com/com-480-data-visualization/project-2023-astro-vizards)** from this course, focused on satellite visualizations.
+
+- **[Planetary Society - Space Missions](https://www.planetary.org/space-missions)**: 3D visualizations of planets, informations about past missions
 
 ## Milestone 2 (18th April, 5pm)
 
