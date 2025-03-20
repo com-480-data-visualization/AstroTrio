@@ -59,11 +59,6 @@ There are several projects that have explored and analyzed space mission dataset
 
 These works provide a foundation while leaving room for originality in our approach.  
 
-#### Why is our approach original?  
-- **Dual dataset approach**: We create distinct yet complementary visualizations: one focused on historical data and one on synthetic future scenarios.  
-- **Interactive elements**: A dynamic archive of past launches and an engaging representation of future missions.  
-- **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general
-
 #### Sources of inspiration  
 
 We found a project from two years ago and a website that did some visualization related to space:
@@ -71,6 +66,11 @@ We found a project from two years ago and a website that did some visualization 
 - **[GitHub project](https://github.com/com-480-data-visualization/project-2023-astro-vizards)** from this course, focused on satellite visualizations.
 
 - **[Planetary Society - Space Missions](https://www.planetary.org/space-missions)**: 3D visualizations of planets, informations about past missions
+
+#### Why is our approach original?  
+- **Dual dataset approach**: We create distinct yet complementary visualizations: one focused on historical data and one on synthetic future scenarios.  
+- **Interactive elements**: A dynamic archive of past launches and an engaging representation of future missions.  
+- **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general
 
 ## Milestone 2 (18th April, 5pm)
 
