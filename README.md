@@ -65,9 +65,8 @@ The data is mainly clean. It has 4630 entries and 9 columns. The dataset is less
 
 We want to use the location, date and time columns to display the launches on a map. 
 
-
-*Unusable information*  
-The Price column has too many missing values.
+**Data Cleaning**
+As an Example of the data cleaning and preprocessing we are going to perform, we have noticed some unusable information such as the Price column since it has too many missing values.
 
 ### Related work
 
