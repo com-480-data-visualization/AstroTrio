@@ -31,21 +31,21 @@ Since the two datasets do not have the same structure and columns, we will not m
 
 ### Problematic
 
-**Our Motivation:**
+-  **Our Motivation:**
 
 The exploration of space has been one of humanity's most inspiring achievements, and understanding its history and future is crucial for enhancing interest in science and technology. By visualizing space missions, we aim to make this vast and complex field more accessible and engaging. This project seeks to educate space enthusiasts about the trajectory of space exploration, allowing them to explore past missions, and visualize the advancements we've made. Additionally, by looking into future missions, we can spark curiosity about what lies ahead in humanity's quest to explore beyond Earth.
 
-**What we are trying to show:**
+- **What we are trying to show:**
 
 The idea is to serve an educational purpose where we keep track of the scientific progress in space. We also want to show which missions succeeded, which missions failed, and how far we got from earth (e.g. visualizing the distance of the target planets to earth) and which countries are dominating space with their missions.
 
 
-**The kind of visualizations we plan to have:**
+- **The kind of visualizations we plan to have:**
 
 Through utilizing the main synthetic dataset, we visualize how future missions can look like in an interactive and a visually-appealing way such as showing the distance between target planets and earth, and each planet's visualization.
 In addition, using the 1957 dataset, we will build an archive page of past missions where we can create a map of where the missions were launched and when you hover by the mouse on it, some details will appear such as the mission date, the company, and the used rocket type and so on.
 
-**Our Target Audience:**
+- **Our Target Audience:**
 
 In our project, we are targeting students, educators, and space enthusiasts who are curious about space exploration. Yet, the project can still be valuable to professionals in the aerospace industry, policy makers, and anyone interested in the history of space missions and the future of space exploration. Generally, the interactive elements and visually-appealing design make it particularly suitable for individuals who are not specialists in the field but are eager to learn about space missions in an engaging and informative way.
 
