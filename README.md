@@ -52,10 +52,6 @@ In our project, we are targeting students, educators, and space enthusiasts who 
 
 ### Exploratory Data Analysis
 
-> - Preprocessing of the dataset you chose
-> - Show some basic statistics and get insights about the data
-
-
 1. **Real-world dataset (```space_missions_1957_2022.csv```):** The data is mainly clean. It has 4630 entries and 9 columns. The dataset is  unbalancedfor different categories. 
 [![image](figs/category_countplot.png)](figs/category_countplot.png) 
 Some companies and rockets are highly represented while a lot of them are present only once in the dataset. If used, we could group the unique values as ‘other’ and focus on the biggest companies/rockets.
@@ -70,7 +66,7 @@ As an Example of the data cleaning and preprocessing we are going to perform, we
 [![image](figs/barplot_categorical.png)](figs/barplot_categorical.png)
 [![image](figs/histograms_scientific.png)](figs/histograms_scientific.png)
 [![image](figs/histograms_logistic.png)](figs/histograms_logistic.png)
-There is not a high need for data cleaning or preprocessing, but we will extract the years from the date.  Columns are either not correlated either highly correlated \- reflective of the synthetic nature of the dataset.
+There is not a high need for data cleaning or preprocessing, but we will extract the years from the date.  Columns are either not correlated or highly correlated \- reflective of the synthetic nature of the dataset.
 [![image](figs/pairplot.png)](figs/pairplot.png)
 [![image](figs/correlation_heatmap.png)](figs/correlation_heatmap.png)
 
