@@ -52,7 +52,7 @@ In our project, we are targeting students, educators, and space enthusiasts who 
 
 ### Exploratory Data Analysis
 
-1. **Real-world dataset (```space_missions_1957_2022.csv```):** The data is mainly clean. It has 4630 entries and 9 columns. The dataset is  unbalancedfor different categories. 
+1. **Real-world dataset (```space_missions_1957_2022.csv```):** The data is mainly clean. It has 4630 entries and 9 columns. The dataset is unbalanced for different categories. 
 [![image](figs/category_countplot.png)](figs/category_countplot.png) 
 Some companies and rockets are highly represented while a lot of them are present only once in the dataset. If used, we could group the unique values as ‘other’ and focus on the biggest companies/rockets.
 [![image](figs/barplot_categorical_1957.png)](figs/barplot_categorical_1957.png)
@@ -100,7 +100,7 @@ We found a project from two years ago and a website that did some visualization 
 #### Why is our approach original?  
 - **Dual dataset approach**: We create distinct yet complementary visualizations: one focused on historical data and one on synthetic future scenarios.  
 - **Interactive elements**: A dynamic archive of past launches and an engaging representation of future missions.  
-- **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general
+- **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general.
 
 ## Milestone 2 (18th April, 5pm)
 
