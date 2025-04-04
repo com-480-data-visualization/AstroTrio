@@ -1,4 +1,4 @@
-# Project of Data Visualization (COM-480)
+# Project of Data Visualization (COM-480) - AstroTrio
 
 | Student's name | SCIPER |
 | -------------- | ------ |

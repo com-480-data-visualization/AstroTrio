@@ -1,0 +1,1 @@
+console.log("Java Script Code added to the template HTML file");
