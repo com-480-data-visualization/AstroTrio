@@ -1,8 +1,125 @@
 {% extends "template.html" %}
-{% block title %} AstroTrio - Launch Map{% endblock %}
+
+{% block title %}AstroTrio - Launch Map{% endblock %}
 
 {% block main %}
+<style>
+    #map {
+        width: 100%;
+        height: 80vh;
+    }
 
-<h1> Launch Map HTML Code goes in here </h1>
+    #style-selector {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: black;
+        padding: 5px 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        font-size: 16px;
+        font-weight: bold;
+
+    }
+
+    #style-selector select {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+
+    #time-cursor {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        z-index: 1001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #time-cursor input[type="range"] {
+        width: 100%;
+        height: 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    #current-year {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+</style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<div id="style-selector">
+    <label for="map-style" style="margin-right: 10px;">Map:</label>
+    <select id="map-style">
+        <option value="day">Day</option>
+        <option value="satellite">Satellite</option>
+        <option value="night">Night</option>
+    </select>
+</div>
+
+<div id="map"></div>
+
+<div id="time-cursor">
+    <div id="current-year">1957</div>
+    <input type="range" id="year-range" min="1957" max="2022" value="1957">
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    var map = L.map('map').setView([30, 8], 2);
+
+    var dayLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    });
+
+    var nightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        attribution: '&copy; Carto',
+        subdomains: 'abcd'
+    });
+
+    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: '&copy; Esri'
+    });
+
+    dayLayer.addTo(map);
+
+    document.getElementById('map-style').addEventListener('change', function(e) {
+        map.eachLayer(function(layer) {
+            map.removeLayer(layer);
+        });
+
+        if (e.target.value === 'night') {
+            nightLayer.addTo(map);
+        } else if (e.target.value ==='satellite') {
+            satelliteLayer.addTo(map);
+        } else {
+            dayLayer.addTo(map);
+        }
+    });
+
+    var yearRange = document.getElementById('year-range');
+    var currentYearElement = document.getElementById('current-year');
+    
+    yearRange.addEventListener('input', function() {
+        currentYearElement.textContent = yearRange.value;
+    });
+
+</script>
 
 {% endblock %}
