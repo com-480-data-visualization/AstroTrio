@@ -78,48 +78,6 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<script>
-    var map = L.map('map').setView([30, 8], 2);
-
-    var dayLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap'
-    });
-
-    var nightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        attribution: '&copy; Carto',
-        subdomains: 'abcd'
-    });
-
-    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19,
-        attribution: '&copy; Esri'
-    });
-
-    dayLayer.addTo(map);
-
-    document.getElementById('map-style').addEventListener('change', function(e) {
-        map.eachLayer(function(layer) {
-            map.removeLayer(layer);
-        });
-
-        if (e.target.value === 'night') {
-            nightLayer.addTo(map);
-        } else if (e.target.value ==='satellite') {
-            satelliteLayer.addTo(map);
-        } else {
-            dayLayer.addTo(map);
-        }
-    });
-
-    var yearRange = document.getElementById('year-range');
-    var currentYearElement = document.getElementById('current-year');
-    
-    yearRange.addEventListener('input', function() {
-        currentYearElement.textContent = yearRange.value;
-    });
-
-</script>
+<script src="{{ url_for('static', filename='js/launch_map.js') }}"></script>
 
 {% endblock %}
