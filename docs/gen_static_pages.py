@@ -17,14 +17,14 @@ pages = [
 
 # Function to render and save pages
 def save_html():
-    if not os.path.exists('pages'):
-        os.makedirs('pages')  # Create output folder if not exists
+    if not os.path.exists('docs/pages'):
+        os.makedirs('docs/pages')  # Create output folder if not exists
 
     for page in pages:
         with app.test_request_context(page['url']):
             # Render each template
             html_content = render_template(page['template'])
-            output_path = os.path.join('pages', page['filename'])
+            output_path = os.path.join('docs/pages', page['filename'])
             
             # Write the rendered HTML to a file in the output directory
             with open(output_path, 'w') as f:
