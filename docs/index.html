@@ -3,95 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Themed Page</title>
-    <style>
-        /* Background and overall styling */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('https://source.unsplash.com/1600x900/?space') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        /* Styling for the content area */
-        .content {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-        }
-
-        h1 {
-            font-size: 3em;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin: 20px 0;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: white;
-            background-color: #0a74da;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #004e7c;
-        }
-
-        /* Floating stars */
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 2s infinite;
-        }
-
-        @keyframes twinkle {
-            0% {
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.7;
-            }
-        }
-
-        .star:nth-child(odd) {
-            animation-duration: 3s;
-        }
-
-        .star:nth-child(even) {
-            animation-duration: 2s;
-        }
-    </style>
+    <title>Astrotrio index page</title>
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
     <!-- Content Section -->
     <div class="content">
         <h1>Welcome to the Universe</h1>
         <p>Explore the vastness of space and embark on a cosmic adventure!</p>
-        <a href="#" class="btn">Join the Mission</a>
+        <a href="home" class="btn">Join the Mission</a>
     </div>
 
     <!-- Floating stars -->

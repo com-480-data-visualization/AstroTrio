@@ -38,6 +38,14 @@ body {
   box-shadow: 0 0 20px #00ffe0, 0 0 40px #0ff;
   backdrop-filter: blur(10px);
 }
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+}
 
 h1, h2, h3 {
   font-family: 'Orbitron', sans-serif;
