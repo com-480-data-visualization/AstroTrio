@@ -15,7 +15,7 @@ nightLayer.addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
 const allLaunches = [];
 
-fetch('static/data/launch_data.csv')
+fetch('../data/launch_data.csv')
     .then(response => response.text())
     .then(csvText => {
         console.log("CSV loaded");
