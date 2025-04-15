@@ -15,9 +15,13 @@ def home():
 def launch_map():
     return render_template("launch-map.html")
 
-@app.route("/missions-planets")
-def missions_planets():
-    return render_template("missions-planets.html")
+@app.route("/solar-system")
+def solar_system():
+    return render_template("solar-system.html")
+
+@app.route("/milky-way")
+def milky_way():
+    return render_template("milky-way.html")
 
 @app.route("/project-story")
 def project_story():
