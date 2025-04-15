@@ -15,7 +15,7 @@ nightLayer.addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
 const allLaunches = [];
 
-fetch('../data/launch_data.csv')
+fetch('../static/data/launch_data.csv')
     .then(response => response.text())
     .then(csvText => {
         console.log("CSV loaded");
@@ -28,7 +28,7 @@ fetch('../data/launch_data.csv')
             for (let j = 0; j < headers.length; j++) {
                 launch[headers[j]] = row[j];
             }
-            //console.log(launch["Date"], launch["Latitude"], launch["Longitude"], launch["Country"]);
+            console.log(launch["Date"], launch["Latitude"], launch["Longitude"], launch["Country"]);
             allLaunches.push(launch);
         }
         //display 1957 at the start
