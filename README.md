@@ -108,7 +108,8 @@ We found a project from two years ago and a website that did some visualization 
 Here are some key resources for Milestone 2:
 - Project Report
 For detailed insights and analysis regarding Milestone 2, check out our comprehensive [Project Report](Reports/Milestone_2.pdf).
-Project Website
+
+Project Website:
 Visit our [initial Project Website](https://com-480-data-visualization.github.io/AstroTrio/) to explore interactive visualizations and more detailed content about our work.
 
 ## Milestone 3 (30th May, 5pm)
