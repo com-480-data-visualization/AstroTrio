@@ -15,6 +15,11 @@ nightLayer.addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
 const allLaunches = [];
 
+var yearRange = document.getElementById('year-range');
+var currentYearElement = document.getElementById('current-year');
+var statusFilter = document.getElementById('launch-status');
+var playButton = document.getElementById('play-button');
+
 fetch('../static/data/launch_data.csv')
     .then(response => response.text())
     .then(csvText => {
@@ -216,11 +221,6 @@ document.getElementById('status-toggle').addEventListener('click', () => {
 
 //---------------------------------------------------------------------
 // Configuration of the button to play automatically
-
-var yearRange = document.getElementById('year-range');
-var currentYearElement = document.getElementById('current-year');
-var statusFilter = document.getElementById('launch-status');
-var playButton = document.getElementById('play-button');
 
 let isPlaying = false;
 let interval = null;
