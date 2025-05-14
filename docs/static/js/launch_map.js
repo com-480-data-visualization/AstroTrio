@@ -38,10 +38,11 @@ fetch('../static/data/launch_data.csv')
 
 //---------------------------------------------------------------------
 // Function to update the point in function of the year selected
+
 function updateMarkers(selectedYear) {
     markerLayer.clearLayers();
 
-    const selectedStatus = statusFilter.value;
+    const selectedStatus = launchStatus;
     const locationMap = {};
 
     allLaunches.forEach(launch => {
@@ -82,63 +83,136 @@ function updateMarkers(selectedYear) {
     }
 }
 
+//---------------------------------------------------------------------
+// Names of the tops countries and companies, as well as descriptions
+
+const topCountries = ["Russia", "USA", "Kazakhstan", "China", "France", "Japan", "India"];
+const topCompanies = ["RVSN USSR", "CASC", "Arianespace", "General Dynamics", "VKS RF", "NASA", "SpaceX", 'ULA', 'Boeing', 'US Air Force'];
+
+const companyDescriptions = {
+  "RVSN USSR": "The Strategic Missile Forces of the USSR, established in the late 1950s, were responsible for many of the Soviet Union's early space launches during the Cold War.",
+  "CASC": "The China Aerospace Science and Technology Corporation, established in 1999, is the main contractor for the Chinese space program and operates the Long March rocket family.",
+  "Arianespace": "A European launch service provider founded in 1980 and based in France. It operates Ariane, Vega, and Soyuz launches primarily from French Guiana.",
+  "General Dynamics": "An American defense company active during the Cold War, known for producing the Atlas rockets used by NASA and the U.S. Air Force.",
+  "VKS RF": "The Russian Aerospace Forces, established after the Cold War, inherited military space operations from the Soviet Union and manage many of Russia's government and military satellite launches.",
+  "NASA": "The National Aeronautics and Space Administration, established in 1958, is the U.S. government agency responsible for civilian space exploration, scientific missions, and human spaceflight.",
+  "SpaceX": "An American aerospace company founded by Elon Musk in 2002. It is known for the Falcon 9 and Falcon Heavy rockets and for pioneering reusable launch systems.",
+  "ULA": "United Launch Alliance is a joint venture between Boeing and Lockheed Martin, created in 2006 to consolidate U.S. government space launches. It operates the Atlas V and Delta IV rockets.",
+  "Boeing": "An American aerospace company involved in satellite manufacturing and space systems. It has contributed to the Delta rocket family and partners in ULA and the Starliner spacecraft.",
+  "US Air Force": "Historically managed most U.S. military satellite launches during the Cold War, using Titan and Atlas rockets. Its role is now partly continued by the U.S. Space Force.",
+  "Other": "All other companies not listed individually."
+};
 
 //---------------------------------------------------------------------
-// Function to update the graph in function of the year selected
+// Function to update the bar chart in function of the year selected
 let countryChart = null;
 
 function updateChart(selectedYear) {
-    const selectedStatus = statusFilter.value;
-    const countryCounts = {};
-    const orderedCountries = ["Russia", "USA", "Kazakhstan", "China", "France", "Japan", "India", "Other"];
+    const selectedStatus = launchStatus;
+    const counts = {};
 
     allLaunches.forEach(launch => {
         const year = parseInt(launch["Date"].slice(0, 4));
         const status = launch["MissionStatus"]?.toLowerCase();
-        
+
         if (year <= selectedYear && status === selectedStatus) {
-            const country = launch["Country"].trim();
-            countryCounts[country] = (countryCounts[country] || 0) + 1;
+            const key = launch[sortBy === 'country' ? 'Country' : 'Company']?.trim();
+            if (key) {
+                counts[key] = (counts[key] || 0) + 1;
+            }
         }
     });
 
-    const data = orderedCountries.map(country => countryCounts[country] || 0);
-    
+    const topKeys = sortBy === 'country' ? topCountries : topCompanies;
+
+    // Filter only top countries/companies, compute "Other"
+    const filteredCounts = topKeys.map(key => [key, counts[key] || 0]);
+    const otherSum = Object.entries(counts)
+        .filter(([key]) => !topKeys.includes(key))
+        .reduce((sum, [, value]) => sum + value, 0);
+
+    // Sorting
+    filteredCounts.sort((a, b) => b[1] - a[1]);
+
+    const labels = [...filteredCounts.map(([key]) => key), "Other"];
+    const data = [...filteredCounts.map(([_, value]) => value), otherSum];
+
     if (countryChart) {
-        countryChart.data.labels = orderedCountries;
+        countryChart.data.labels = labels;
         countryChart.data.datasets[0].data = data;
         countryChart.data.datasets[0].backgroundColor = selectedStatus === 'success' ? 'rgba(0, 128, 0, 0.6)' : 'rgba(255, 0, 0, 0.6)';
         countryChart.data.datasets[0].borderColor = selectedStatus === 'success' ? 'green' : 'red';
+        countryChart.options.scales.y.title.text = capitalize(sortBy);
         countryChart.update();
-    }
-    else {
+    } else {
         const ctx = document.getElementById('country-chart').getContext('2d');
         countryChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: orderedCountries,
+                labels: labels,
                 datasets: [{
                     data: data,
                     backgroundColor: selectedStatus === 'success' ? 'rgba(0, 128, 0, 0.6)' : 'rgba(255, 0, 0, 0.6)',
                     borderColor: selectedStatus === 'success' ? 'green' : 'red',
                     borderWidth: 1
-                    }]
+                }]
             },
             options: {
                 indexAxis: 'y',
                 maintainAspectRatio: false,
                 responsive: true,
-                plugins: {legend: {display: false}
+                plugins: {
+                    legend: {display: false}
                 },
                 scales: {
-                    x: {ticks: {font: {family: 'Orbitron',size:10}},beginAtZero: true,title: {display: true, text: 'Launches',font: {family: 'Orbitron',size: 12}}},
-                    y: {ticks: {font: {family: 'Orbitron',size:10}},title: {display: true, text: 'Country',font: {family: 'Orbitron',size: 12}}}
+                    x: {ticks: { font: { family: 'Orbitron', size: 10 }}, beginAtZero: true, title: {display: true, text:'Launches', font: { family: 'Orbitron', size: 12 }}},
+                    y: {ticks: { font: { family: 'Orbitron', size: 10 } },title: { display: true, text: capitalize(sortBy), font: { family: 'Orbitron', size: 12 }}}
+                },
+                //add the description box when clicking
+                onClick: (evt, elements) => {
+                    const box = document.getElementById("description-box");
+                    const header = document.getElementById("description-header");
+                    const popup = document.getElementById("description-popup");                
+                    if (elements.length > 0 && sortBy === 'company') {
+                        const index = elements[0].index;
+                        const label = countryChart.data.labels[index];                
+                        const description = companyDescriptions[label]; 
+                        header.innerText = label;
+                        popup.innerText = description;
+                        box.style.left = (evt.native.clientX) + "px";
+                        box.style.top = (evt.native.clientY) + "px";
+                        box.style.display = "block";
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
                 }
             }
         });
     }
 }
 
+//---------------------------------------------------------------------
+// Configuration of the button to switch the sorting between country / company
+let sortBy = 'country';
+
+document.getElementById('sort-toggle').addEventListener('click', () => {
+    sortBy = (sortBy === 'country') ? 'company' : 'country';
+    document.getElementById('sort-toggle').textContent = `Sort: ${capitalize(sortBy)}`;
+    updateChart(parseInt(document.getElementById("year-range").value));
+});
+
+let launchStatus = 'success';
+
+document.getElementById('status-toggle').addEventListener('click', () => {
+    launchStatus = (launchStatus === 'success') ? 'failure' : 'success';
+    const btn = document.getElementById('status-toggle');
+    btn.textContent = `${capitalize(launchStatus)}`;
+    btn.style.backgroundColor = launchStatus === 'success' ? '#00ff00c1' : '#ff0000';
+    updateChart(parseInt(document.getElementById("year-range").value));
+    updateMarkers(parseInt(document.getElementById("year-range").value));
+});
 
 //---------------------------------------------------------------------
 // Configuration of the button to play automatically
@@ -153,8 +227,18 @@ let interval = null;
 playButton.innerHTML = '▶';
 
 playButton.addEventListener('click', () => {
+
+    // Loop back if it's at the end
+    if (!isPlaying && yearRange.value == 2022) {
+        yearRange.value = 1957;
+        currentYearElement.textContent = 1957;
+        updateMarkers(1957);
+        updateChart(1957);
+    } 
+
     isPlaying = !isPlaying;
     playButton.innerHTML = isPlaying ? '⏸' : '▶';
+
 
     if (isPlaying) {
         interval = setInterval(() => {
@@ -177,6 +261,15 @@ playButton.addEventListener('click', () => {
 });
 
 //---------------------------------------------------------------------
+// Remove when clicking anywhere else
+
+document.addEventListener("click", (e) => {
+    const box = document.getElementById("description-box");
+    if (!box.contains(e.target)){
+        box.style.display = "none";}
+});
+
+//---------------------------------------------------------------------
 // Updating when we move with the cursor
 
 yearRange.addEventListener('input', function() {
@@ -191,3 +284,10 @@ statusFilter.addEventListener('change', () => {
     updateMarkers(selectedYear);
     updateChart(selectedYear);
 });
+
+//---------------------------------------------------------------------
+// Helper function for the labels
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}

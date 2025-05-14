@@ -52,21 +52,8 @@
         height: 100% !important;
     }
 
-    #filter-dropdown {
-        margin-bottom: 30px;
-        width: 30%;
-    }
-
-    #filter-dropdown select {
-        width: 100%;
-        padding: 8px;
-        font-size: 16px;
-        border-radius: 4px;
-        border: none;
-    }
-
     #play-button {
-        background-color: #0497c9;
+        background-color: #00ffe0;
         color: black;
         border: none;
         border-radius: 8px;
@@ -81,6 +68,55 @@
         flex: 1;
     }
 
+    .button {
+    width: 165px;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    }
+
+    #sort-toggle {
+        background-color: #00ffe0;
+        color: #0d1117;
+        margin-left: 20px;
+    }
+
+    #status-toggle {
+        background-color: #00ff00c1;
+        color: #0d1117;
+        margin-right: 20px;
+    }
+
+    #description-box {
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        max-width: 350px;
+        background-color: #111;
+        color: #19dfb8;
+        border: 1px solid #19dfb8;
+        border-radius: 8px;
+        padding: 10px;
+        z-index: 9999;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        font-size: 14px;
+        display: None;
+    }
+
+    #description-header {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    #description-popup {
+        font-size: 12px;
+        padding: 10px 12px;
+        color: #19dfb787;
+    }
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -93,14 +129,19 @@
 
     <!-- Panel -->
     <div id="side-panel">
-        <!-- Button -->
-        <div id="filter-dropdown">
-            <select id="launch-status">
-                <option value="success">Success</option>
-                <option value="failure">Failure</option>
-            </select>
+        <!-- Buttons -->
+        <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 30px;">
+            <!-- Sort button -->
+            <button id="sort-toggle" class="button">
+                Sort: Country
+            </button>
+        
+            <!-- Status button -->
+            <button id="status-toggle" class="button">
+                Success
+            </button>
         </div>
-
+        
         <!-- Graph -->
         <div id="chart-box">
             <canvas id="country-chart"></canvas>
@@ -115,8 +156,14 @@
     </div>
 </div>
 
+<!-- Description -->
+<div id="description-box">
+    <div id="description-header"></div>
+    <div id="description-popup"></div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="../static/js/launch_map.js"></script>
+<script src="../static/js/launch_map.js" defer></script>
 
 {% endblock %}
