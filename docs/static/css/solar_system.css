@@ -228,3 +228,66 @@
         transform: rotate(360deg);
     }
 }
+
+/* Sidebar for planet info */
+.sidebar {
+    position: fixed;
+    top: 0; right: 0;
+    width: 350px;
+    height: 100%;
+    background: #181c20;
+    color: #aaffee;
+    box-shadow: -2px 0 10px #000;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s;
+    padding: 2em 1em;
+    overflow-y: auto;
+}
+.sidebar.active {
+    transform: translateX(0);
+}
+#closeSidebar {
+    background: none;
+    border: none;
+    color: #aaffee;
+    font-size: 2em;
+    position: absolute;
+    top: 10px; right: 20px;
+    cursor: pointer;
+}
+.sidebar h2 {
+    color: #00ffe0;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 1em;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar li {
+    margin-bottom: 0.5em;
+    font-size: 1em;
+}
+.sidebar b {
+    color: #00ffe0;
+}
+
+.planet-body {
+  position: absolute;
+  width: 2em; height: 2em;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  background-size: cover;
+}
+.mercury-body { top: 1.5em; left: 0.8em; background-image: url('../images/mercury.png'); }
+.venus-body   { top: 2em; left: 2em; background-image: url('../images/venus.png'); }
+.earth-body   { top: 3em; left: 0em; background-image: url('../images/earth.png'); width: 2.5em; height: 2.5em;}
+.moon-body    { top: 0.8em; left: 0.2em; background-image: url('../images/moon.png'); width: 1.2em; height: 1.2em;}
+.mars-body    { top: 5em; left: 3em; background-image: url('../images/mars.png'); }
+.jupiter-body { top: 6em; left: 3em; background-image: url('../images/jupiter.png'); width: 2.5em; height: 2.5em;}
+.saturn-body  { top: 7.5em; left: 5em; background-image: url('../images/saturn.png'); width: 2.2em; height: 2.2em;}
+.uranus-body  { top: 9em; left: 6.5em; background-image: url('../images/uranus.png'); }
+.neptune-body { top: 10em; left: 8em; background-image: url('../images/neptune.png'); }
+.pluto-body   { top: 11em; left: 10em; background-image: url('../images/pluto.png'); }
