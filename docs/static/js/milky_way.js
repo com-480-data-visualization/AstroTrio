@@ -166,7 +166,7 @@ function createPlanetTypesGraph(data, selector) {
 
 // --- Helper: Scatter Plot ---
 function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, tooltipKeys}) {
-  const width = 350, height = 300, margin = {top: 40, right: 30, bottom: 60, left: 70};
+  const width = 800, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
   const svg = d3.select(selector)
     .html("") // clear
     .append("svg")
@@ -251,7 +251,7 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
 
 // --- Helper: Bar Chart ---
 function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
-  const width = 350, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
+  const width = 800, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
   
   // Take top 10 entries if more than 10
   let chartData = data;
