@@ -63,33 +63,248 @@
 
 <!-- <h1> Milky way HTML Code goes in here </h1> -->
 <style>
-    .body_milky_way {
+    /* Main container styles */
+    .milky-way-container {
+        width: 100%;
+        color: #00ffe0;
+    }
+
+    /* Full height section */
+    .full-height-section {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 20px;
+    }
+
+    /* Dynamic map section */
+    #dynamic-map {
+        /* Use 100vh minus navbar height to ensure it fits on screen */
+        height: calc(100vh - 80px);
         background-image: url('../static/images/Milky_way.jpeg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        margin: 0;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Map placeholder */
+    .map-placeholder {
+        background-color: rgba(13, 17, 23, 0.7);
+        border-radius: 10px;
+        padding: 30px;
+        max-width: 600px;
+        border: 1px solid #00ffe0;
+        box-shadow: 0 0 20px rgba(0, 255, 224, 0.3);
+        margin-bottom: 70px; /* Ensure there's space for the scroll button */
+    }
+
+    .map-placeholder h2 {
+        margin-bottom: 20px;
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffe0;
+        text-shadow: 0 0 5px #00ffe0;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 20px;
+        cursor: pointer;
+        animation: bounce 2s infinite;
+        background-color: rgba(13, 17, 23, 0.5);
+        padding: 10px;
+        border-radius: 50%;
+        z-index: 10;
+    }
+
+    .scroll-indicator i {
+        color: #00ffe0;
+        font-size: 30px;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+
+    /* Visualization section */
+    #data-visualizations {
+        background-color: #0d1117;
+        padding-top: 40px;
+        width: 100%;
+    }
+
+    #data-visualizations h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffe0;
+        text-shadow: 0 0 5px #00ffe0;
+    }
+
+    /* Visualization grid */
+    .visualization-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 90%; /* Increased from 1200px to use more width */
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    /* Visualization card */
+    .viz-card {
+        background-color: rgba(20, 20, 50, 0.75);
+        border-radius: 10px;
+        padding: 20px;
+        height: 450px; /* Increased from 400px */
+        border: 1px solid #00ffe0;
+        box-shadow: 0 0 10px rgba(0, 255, 224, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .viz-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(0, 255, 224, 0.3);
+    }
+
+    .viz-card h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffe0;
+    }
+
+    .viz-content {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Responsive design */
+    @media (max-width: 1200px) {
+        .visualization-grid {
+            width: 95%;
+            max-width: 95%;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .visualization-grid {
+            grid-template-columns: 1fr;
+            width: 95%;
+        }
+        
+        .viz-card {
+            height: 400px;
+        }
+    }
+    
+    /* Loading spinner */
+    .loading-spinner {
+        border: 4px solid rgba(0, 255, 224, 0.1);
+        border-radius: 50%;
+        border-top: 4px solid #00ffe0;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -20px;
+        margin-left: -20px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 </style>
-<div class="body_milky_way">
-    <!-- <img src="../static/images/milky_way.jpg" alt="Milky Way picture" /> -->
+
+<div class="milky-way-container">
+    <!-- Section 1: Future Dynamic Map -->
+    <section id="dynamic-map" class="full-height-section">
+        <div class="map-placeholder">
+            <h2>Exoplanet Discovery Map</h2>
+            <p>Our interactive galactic map is under construction! Soon, you'll be able to explore a detailed 3D visualization of exoplanet locations across the Milky Way galaxy.</p>
+            <p>In the meantime, scroll down to discover our comprehensive analysis of exoplanet data visualizations.</p>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('data-visualizations').scrollIntoView({ behavior: 'smooth' })">
+            <i class="fas fa-chevron-down"></i>
+            <div style="font-size: 14px; text-align: center;">Scroll Down</div>
+        </div>
+    </section>
+    
+    <!-- Section 2: Data Visualizations -->
+    <section id="data-visualizations" class="full-height-section">
+        <h2>Exoplanet Discoveries</h2>
+        <div class="visualization-grid">
+            <div class="viz-card" id="discovery-timeline">
+                <h3>Discovery Timeline</h3>
+                <div class="viz-content">
+                    <div id="discovery-timeline-chart"></div>
+                </div>
+            </div>
+            <div class="viz-card" id="detection-methods">
+                <h3>Detection Methods</h3>
+                <div class="viz-content">
+                    <div id="detection-methods-chart"></div>
+                </div>
+            </div>
+            <div class="viz-card" id="planet-types">
+                <h3>Planet Type Distribution</h3>
+                <div class="viz-content">
+                    <div id="planet-types-chart"></div>
+                </div>
+            </div>
+            <div class="viz-card" id="distance-orbital">
+                <h3>Distance vs. Orbital Radius</h3>
+                <div class="viz-content">
+                    <div id="distance-orbital-chart"></div>
+                </div>
+            </div>
+            <div class="viz-card" id="habitability">
+                <h3>Habitability Potential</h3>
+                <div class="viz-content">
+                    <div id="habitability-chart"></div>
+                </div>
+            </div>
+            <div class="viz-card" id="size-comparison">
+                <h3>Exoplanet Size Comparison</h3>
+                <div class="viz-content">
+                    <div id="size-comparison-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
-
-
-    </main>
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qVBUqf5Z6rA6T+jScyB6jvWc+pJHnWc3y7lM+aqcZxRc8Od77M+Xr1XqF/fLNKXF"
-    crossorigin="anonymous"></script> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="/static/js/app.js"></script> -->
-    <!-- <script src="../static/js/log.js"></script> -->
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- D3.js for visualizations -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Add our custom JavaScript -->
+<script src="../static/js/milky_way.js"></script>
 
 </body>
 
