@@ -10,17 +10,36 @@
         <div class="sun">
             <img class="img_solar" src="../static/images/sun.png" alt="sun">
         </div>
-        <div class="mercury"></div>
-        <div class="venus"></div>
-        <div class="earth">
-            <div class="moon"></div>
+        <div class="mercury">
+            <div class="planet-body mercury-body"></div>
         </div>
-        <div class="mars"></div>
-        <div class="jupiter"></div>
-        <div class="saturn"></div>
-        <div class="uranus"></div>
-        <div class="neptune"></div>
-        <div class="pluto"></div>
+        <div class="venus">
+            <div class="planet-body venus-body"></div>
+        </div>
+        <div class="earth">
+            <div class="planet-body earth-body"></div>
+            <div class="moon">
+                <div class="planet-body moon-body"></div>
+            </div>
+        </div>
+        <div class="mars">
+            <div class="planet-body mars-body"></div>
+        </div>
+        <div class="jupiter">
+            <div class="planet-body jupiter-body"></div>
+        </div>
+        <div class="saturn">
+            <div class="planet-body saturn-body"></div>
+        </div>
+        <div class="uranus">
+            <div class="planet-body uranus-body"></div>
+        </div>
+        <div class="neptune">
+            <div class="planet-body neptune-body"></div>
+        </div>
+        <div class="pluto">
+            <div class="planet-body pluto-body"></div>
+        </div>
     </div>
     <!-- Scroll Down Indicator -->
     <div class="scroll-indicator" onclick="document.getElementById('solar-graphs').scrollIntoView({ behavior: 'smooth' })">
@@ -55,6 +74,7 @@
 </div>
 
 <script src="../static/js/create_stars.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="../static/js/solar-system.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 

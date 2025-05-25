@@ -1,21 +1,29 @@
 // --- Sidebar for planet info ---
 let planetData = {};
 d3.csv("../static/data/planets_updated.csv").then(data => {
+  console.log("CSV data loaded:", data); // Debug log
   data.forEach(d => {
     planetData[d.Planet.trim().toLowerCase()] = d;
   });
+  console.log("Processed planet data:", planetData); // Debug log
 });
 
 // Add click listeners to planets
 document.addEventListener("DOMContentLoaded", function() {
-  const planets = ["mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"];
+  console.log("DOM Content Loaded"); // Debug log
+  const planets = [
+    "mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto", "moon"
+  ];
   planets.forEach(planet => {
-    const el = document.querySelector(`.${planet}`);
+    const el = document.querySelector(`.${planet}-body`);
+    console.log(`Looking for ${planet}-body:`, el); // Debug log
     if (el) {
-      el.style.cursor = "pointer";
-      el.addEventListener("click", () => showSidebar(planet));
-      el.addEventListener("mouseenter", () => el.style.filter = "drop-shadow(0 0 10px #00ffe0)");
-      el.addEventListener("mouseleave", () => el.style.filter = "");
+      el.addEventListener("click", () => {
+        console.log(`Clicked on ${planet}`); // Debug log
+        showSidebar(planet);
+      });
+      el.addEventListener("mouseenter", () => el.classList.add("active"));
+      el.addEventListener("mouseleave", () => el.classList.remove("active"));
     }
   });
 
@@ -24,20 +32,128 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   // Close sidebar on outside click
   document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("sidebar") || e.target.id === "closeSidebar") return;
+    // Don't close if clicking the sidebar, close button, or a planet
+    if (
+      e.target.classList.contains("sidebar") ||
+      e.target.id === "closeSidebar" ||
+      e.target.classList.contains("planet-body")
+    ) return;
     document.getElementById("planetSidebar").classList.remove("active");
   });
 });
 
 function showSidebar(planet) {
-  const data = planetData[planet];
+  console.log("Showing sidebar for planet:", planet); // Debug log
+  console.log("Available planet data:", planetData); // Debug log
+  let data;
+  let note = '';
+  if (planet === 'moon') {
+    // Use the CSV row for Earth's Moon
+    data = planetData["earth's moon"];
+    note = '<div style="color:#ffb347; font-size:1em; margin-bottom:1em;">Note: The Moon is not a planet, but Earth\'s natural satellite.</div>';
+  } else if (planet === 'pluto') {
+    // Use the CSV row for Pluto
+    data = planetData["pluto"];
+    note = '<div style="color:#ffb347; font-size:1em; margin-bottom:1em;">Note: Pluto is classified as a dwarf planet.</div>';
+  } else {
+    data = planetData[planet];
+  }
+  console.log("Data for planet:", data); // Debug log
   if (!data) return;
-  let html = `<h2>${data.Planet}</h2><ul>`;
-  for (let key in data) {
-    if (key !== "Planet" && data[key] && data[key] !== "Unknown" && data[key] !== "No" && data[key] !== "0") {
-      html += `<li><b>${key.replace(/_/g, " ")}:</b> ${data[key]}</li>`;
+  
+  // Format the data for display
+  const formatValue = (key, value) => {
+    if (value === "Unknown" || value === "No" || value === "0" || !value) return null;
+    
+    // Add units and formatting based on the key
+    switch(key) {
+      case "Mass (10^24kg)":
+        return `${value} × 10²⁴ kg`;
+      case "Diameter (km)":
+        return `${value} km`;
+      case "Density (kg/m^3)":
+        return `${value} kg/m³`;
+      case "Surface Gravity(m/s^2)":
+        return `${value} m/s²`;
+      case "Escape Velocity (km/s)":
+        return `${value} km/s`;
+      case "Rotation Period (hours)":
+        return `${value} hours`;
+      case "Length of Day (hours)":
+        return `${value} hours`;
+      case "Distance from Sun (10^6 km)":
+        return `${value} × 10⁶ km`;
+      case "Orbital Period (days)":
+        return `${value} days`;
+      case "Orbital Velocity (km/s)":
+        return `${value} km/s`;
+      case "Orbital Inclination (degrees)":
+        return `${value}°`;
+      case "Obliquity to Orbit (degrees)":
+        return `${value}°`;
+      case "Mean Temperature (C)":
+        return `${value}°C`;
+      case "Surface Pressure (bars)":
+        return `${value} bars`;
+      case "Number of Moons":
+        return value;
+      case "Ring System?":
+        return value === "Yes" ? "Has rings" : "No rings";
+      case "Global Magnetic Field?":
+        return value === "Yes" ? "Has magnetic field" : "No magnetic field";
+      case "Surface Temperature (C)":
+        return value;
+      case "Atmospheric Pressure (bars)":
+        return value === "Trace" ? value : `${value} bars`;
+      default:
+        return value;
+    }
+  };
+
+  let html = `<h2>${data.Planet}</h2>`;
+  if (note) html += note;
+  html += '<ul>';
+  
+  // Group related data
+  const groups = {
+    "Physical Characteristics": [
+      "Mass (10^24kg)", "Diameter (km)", "Density (kg/m^3)", 
+      "Surface Gravity(m/s^2)", "Escape Velocity (km/s)"
+    ],
+    "Orbital Parameters": [
+      "Distance from Sun (10^6 km)", "Orbital Period (days)", 
+      "Orbital Velocity (km/s)", "Orbital Inclination (degrees)", 
+      "Orbital Eccentricity", "Obliquity to Orbit (degrees)"
+    ],
+    "Rotation": [
+      "Rotation Period (hours)", "Length of Day (hours)"
+    ],
+    "Temperature & Atmosphere": [
+      "Mean Temperature (C)", "Surface Pressure (bars)", 
+      "Surface Temperature (C)", "Atmospheric Pressure (bars)",
+      "Atmospheric Composition"
+    ],
+    "Features": [
+      "Number of Moons", "Ring System?", "Global Magnetic Field?",
+      "Surface Features", "Composition"
+    ]
+  };
+
+  // Add data by groups
+  for (const [groupName, keys] of Object.entries(groups)) {
+    const groupData = keys
+      .map(key => {
+        const value = formatValue(key, data[key]);
+        return value ? `<li><b>${key}:</b> ${value}</li>` : null;
+      })
+      .filter(Boolean);
+
+    if (groupData.length > 0) {
+      html += `<li class="group-header">${groupName}</li>`;
+      html += groupData.join('');
     }
   }
+
   html += "</ul>";
   document.getElementById("sidebarContent").innerHTML = html;
   document.getElementById("planetSidebar").classList.add("active");
