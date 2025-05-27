@@ -136,9 +136,9 @@
 /* Sidebar for planet info */
 .sidebar {
     position: fixed;
-    top: 100px; /* Add more space for navbar */
+    top: 100px; 
     right: 0;
-    width: 350px;
+    width: 440px;
     height: calc(100vh - 100px);
     background: linear-gradient(135deg, #181c20 80%, #0a2342 100%);
     color: #aaffee;

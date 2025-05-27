@@ -112,6 +112,7 @@ function showSidebar(planet) {
 
   let html = `<h2>${data.Planet}</h2>`;
   if (note) html += note;
+  html += '<div id="radarChart" style="width:340px;height:340px;margin-bottom:1em;"></div>';
   html += '<ul>';
   
   // Group related data
@@ -157,6 +158,44 @@ function showSidebar(planet) {
   html += "</ul>";
   document.getElementById("sidebarContent").innerHTML = html;
   document.getElementById("planetSidebar").classList.add("active");
+
+  // Radar chart features and normalization
+  const radarFeatures = [
+    { key: "Mass (10^24kg)", label: "Mass", unit: "10²⁴kg" },
+    { key: "Diameter (km)", label: "Diameter", unit: "km" },
+    { key: "Density (kg/m^3)", label: "Density", unit: "kg/m³" },
+    { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: "m/s²" },
+    { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: "km/s" },
+    { key: "Mean Temperature (C)", label: "Mean Temp", unit: "°C" },
+    { key: "Orbital Eccentricity", label: "Eccentricity", unit: "" },
+    { key: "Obliquity to Orbit (degrees)", label: "Obliquity", unit: "°" }
+  ];
+
+  // Gather all planet values for normalization
+  const allPlanets = Object.values(planetData);
+  const featureStats = {};
+  radarFeatures.forEach(f => {
+    const vals = allPlanets.map(p => +p[f.key]).filter(v => !isNaN(v));
+    featureStats[f.key] = { min: Math.min(...vals), max: Math.max(...vals) };
+  });
+
+  // Prepare data for radar chart
+  const radarData = radarFeatures.map(f => {
+    let raw = +data[f.key];
+    if (isNaN(raw)) raw = 0;
+    const { min, max } = featureStats[f.key];
+    let value;
+    if (max === min) {
+      value = 1;
+    } else {
+      value = (raw - min) / (max - min);
+    }
+    if (isNaN(value)) value = 0;
+    return { axis: f.label, value, raw, min, max, unit: f.unit };
+  });
+
+  console.log("Radar Data:", radarData);
+  drawRadarChart("#radarChart", radarData);
 }
 
 // --- D3 Graphs from sol_data.csv ---
@@ -198,11 +237,49 @@ d3.csv("../static/data/sol_data.csv").then(solData => {
     selector: "#graph3",
     color: "#00ffe0"
   });
+
+  // --- Graph 4: Surface Temperature Ranges ---
+  d3.csv("../static/data/planets_updated.csv").then(data => {
+    // Filter to major planets
+    const planets = data.filter(d =>
+      ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"].includes(d.Planet)
+    );
+
+    // Parse min/max temperatures
+    const tempData = planets.map(d => {
+      let min = null, max = null;
+      const tempStr = d["Surface Temperature (C)"];
+      if (typeof tempStr === 'string') {
+        if (tempStr.includes('to')) {
+          const parts = tempStr.split('to').map(s => parseFloat(s.trim()));
+          if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            min = Math.min(parts[0], parts[1]);
+            max = Math.max(parts[0], parts[1]);
+          }
+        } else if (tempStr.includes('–')) {
+          const parts = tempStr.split('–').map(s => parseFloat(s.trim()));
+          if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+            min = Math.min(parts[0], parts[1]);
+            max = Math.max(parts[0], parts[1]);
+          }
+        } else if (!isNaN(parseFloat(tempStr))) {
+          min = max = parseFloat(tempStr);
+        }
+      }
+      return {
+        name: d.Planet,
+        min,
+        max
+      };
+    });
+
+    createTemperatureRangeChart(tempData, "#graph4");
+  });
 });
 
 // --- Helper: Scatter Plot ---
 function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, tooltipKeys}) {
-  const width = 350, height = 300, margin = {top: 40, right: 30, bottom: 60, left: 70};
+  const width = 480, height = 400, margin = {top: 60, right: 40, bottom: 80, left: 100};
   const svg = d3.select(selector)
     .html("") // clear
     .append("svg")
@@ -253,39 +330,73 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
     .attr("class", "tooltip")
     .style("opacity", 0)
     .style("position", "absolute")
-    .style("background", "#222")
+    .style("background", "rgba(34,34,34,0.98)")
     .style("color", "#aaffee")
     .style("padding", "8px")
     .style("border-radius", "6px")
     .style("pointer-events", "none")
     .style("font-size", "14px");
 
-  svg.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => x(+d[xKey]))
-    .attr("cy", d => y(+d[yKey]))
-    .attr("r", 10)
-    .attr("fill", color)
-    .attr("opacity", 0.7)
-    .attr("stroke", "#222")
-    .on("mouseover", function(e, d) {
-      d3.select(this).attr("fill", "#fff").attr("r", 14);
-      tooltip.transition().duration(200).style("opacity", .95);
-      tooltip.html(tooltipKeys.map(k => `<b>${k}:</b> ${d[k]}`).join("<br>"))
-        .style("left", (e.pageX + 10) + "px")
-        .style("top", (e.pageY - 28) + "px");
-    })
-    .on("mouseout", function() {
-      d3.select(this).attr("fill", color).attr("r", 10);
-      tooltip.transition().duration(300).style("opacity", 0);
-    });
+  const planetImages = {
+    Mercury: "../static/images/mercury.png",
+    Venus: "../static/images/venus.png",
+    Earth: "../static/images/earth.png",
+    Mars: "../static/images/mars.png",
+    Jupiter: "../static/images/jupiter.png",
+    Saturn: "../static/images/saturn.png",
+    Uranus: "../static/images/uranus.png",
+    Neptune: "../static/images/neptune.png",
+    Pluto: "../static/images/pluto.png"
+  };
+  const imgSize = 40;
+
+  if (selector === "#graph1") {
+    svg.selectAll("image")
+      .data(data)
+      .enter()
+      .append("image")
+      .attr("xlink:href", d => planetImages[d.eName])
+      .attr("x", d => x(+d[xKey]) - imgSize/2)
+      .attr("y", d => y(+d[yKey]) - imgSize/2)
+      .attr("width", imgSize)
+      .attr("height", imgSize)
+      .on("mouseover", function(e, d) {
+        tooltip.transition().duration(200).style("opacity", .95);
+        tooltip.html(tooltipKeys.map(k => `<b>${k}:</b> ${d[k]}`).join("<br>"))
+          .style("left", (e.pageX + 10) + "px")
+          .style("top", (e.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        tooltip.transition().duration(300).style("opacity", 0);
+      });
+  } else {
+    svg.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", d => x(+d[xKey]))
+      .attr("cy", d => y(+d[yKey]))
+      .attr("r", 18)
+      .attr("fill", color)
+      .attr("opacity", 0.7)
+      .attr("stroke", "#222")
+      .on("mouseover", function(e, d) {
+        d3.select(this).attr("fill", "#fff").attr("r", 22);
+        tooltip.transition().duration(200).style("opacity", .95);
+        tooltip.html(tooltipKeys.map(k => `<b>${k}:</b> ${d[k]}`).join("<br>"))
+          .style("left", (e.pageX + 10) + "px")
+          .style("top", (e.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        d3.select(this).attr("fill", color).attr("r", 18);
+        tooltip.transition().duration(300).style("opacity", 0);
+      });
+  }
 }
 
 // --- Helper: Bar Chart ---
 function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
-  const width = 350, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
+  const width = 480, height = 400, margin = {top: 60, right: 40, bottom: 80, left: 100};
   // Filter to only major planets for clarity
   const majorPlanets = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"];
   data = data.filter(d => majorPlanets.includes(d.eName));
@@ -366,4 +477,219 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
       d3.select(this).attr("fill", color);
       tooltip.transition().duration(300).style("opacity", 0);
     });
+}
+
+function drawRadarChart(selector, data) {
+  d3.select(selector).html(""); // Clear previous chart
+  const w = 380, h = 320, radius = 120;
+  const levels = 5;
+  const angleSlice = (2 * Math.PI) / data.length;
+
+  const svg = d3.select(selector)
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h)
+    .append("g")
+    .attr("transform", `translate(190,160)`);
+
+  // Draw grid
+  for (let level = 1; level <= levels; level++) {
+    const r = radius * (level / levels);
+    svg.append("polygon")
+      .attr("points", data.map((d, i) => {
+        const angle = i * angleSlice - Math.PI/2;
+        return [Math.cos(angle)*r, Math.sin(angle)*r].join(",");
+      }).join(" "))
+      .attr("stroke", "#00ffe0")
+      .attr("stroke-width", 0.7)
+      .attr("fill", "none")
+      .attr("opacity", 0.3);
+  }
+
+  // Draw axes
+  data.forEach((d, i) => {
+    const angle = i * angleSlice - Math.PI/2;
+    svg.append("line")
+      .attr("x1", 0).attr("y1", 0)
+      .attr("x2", Math.cos(angle)*radius)
+      .attr("y2", Math.sin(angle)*radius)
+      .attr("stroke", "#00ffe0")
+      .attr("stroke-width", 1)
+      .attr("opacity", 0.5);
+
+    // Axis labels with units
+    svg.append("text")
+      .attr("x", Math.cos(angle)*(radius+18))
+      .attr("y", Math.sin(angle)*(radius+18))
+      .attr("text-anchor", "middle")
+      .attr("font-size", "12px")
+      .attr("fill", "#aaffee")
+      .text(d.axis + (d.unit ? ` (${d.unit})` : ""))
+      .style("cursor", "help")
+      .on("mouseover", function(e) {
+        const def = axisDefinitions[d.axis] || '';
+        if (def) {
+          tooltip.transition().duration(200).style("opacity", .95);
+          tooltip.html(`<b>${d.axis}</b><br>${def}`)
+            .style("left", (e.pageX + 10) + "px")
+            .style("top", (e.pageY - 28) + "px");
+        }
+      })
+      .on("mouseout", function() {
+        tooltip.transition().duration(300).style("opacity", 0);
+      });
+  });
+
+  // Draw radar area
+  const radarLine = d3.lineRadial()
+    .radius(d => d.value * radius)
+    .angle((d, i) => i * angleSlice);
+
+  svg.append("path")
+    .datum(data)
+    .attr("d", radarLine.curve(d3.curveLinearClosed)(data))
+    .attr("fill", "#00ffe0")
+    .attr("fill-opacity", 0.25)
+    .attr("stroke", "#00ffe0")
+    .attr("stroke-width", 2);
+
+  // Draw data points and tooltips
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("background", "#222")
+    .style("color", "#aaffee")
+    .style("padding", "8px")
+    .style("border-radius", "6px")
+    .style("pointer-events", "none")
+    .style("font-size", "14px");
+
+  svg.selectAll(".radar-point")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "radar-point")
+    .attr("cx", (d, i) => {
+      const x = Math.cos(i*angleSlice - Math.PI/2) * d.value * radius;
+      console.log(`Radar point ${d.axis}: x=${x}`);
+      return x;
+    })
+    .attr("cy", (d, i) => {
+      const y = Math.sin(i*angleSlice - Math.PI/2) * d.value * radius;
+      console.log(`Radar point ${d.axis}: y=${y}`);
+      return y;
+    })
+    .attr("r", 10)
+    .attr("fill", "#ffb347")
+    .attr("stroke", "#fff")
+    .attr("stroke-width", 3)
+    .style("filter", "drop-shadow(0 0 8px #ffb347)")
+    .on("mouseover", function(e, d) {
+      d3.select(this).attr("fill", "#fff").attr("stroke", "#ffb347");
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html(`<b>${d.axis}</b>: ${d.raw} ${d.unit}`)
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      d3.select(this).attr("fill", "#ffb347").attr("stroke", "#fff");
+      tooltip.transition().duration(300).style("opacity", 0);
+    })
+    .raise();
+}
+
+// Add this definitions object near the top of drawRadarChart or outside it
+const axisDefinitions = {
+  'Mass': 'Total amount of matter in the planet.',
+  'Diameter': 'Distance across the planet at its widest point.',
+  'Density': 'Mass per unit volume of the planet.',
+  'Gravity': 'Surface gravity experienced on the planet.',
+  'Escape Vel.': 'Speed needed to escape the planet\'s gravity.',
+  'Mean Temp': 'Average surface temperature.',
+  'Eccentricity': 'How much the orbit deviates from a circle.',
+  'Obliquity': 'Tilt of the planet\'s axis relative to its orbit.'
+};
+
+function createTemperatureRangeChart(data, selector) {
+  const width = 480, height = 400, margin = {top: 60, right: 40, bottom: 60, left: 120};
+  const svg = d3.select(selector)
+    .html("")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // Y scale (planet names)
+  const y = d3.scaleBand()
+    .domain(data.map(d => d.name))
+    .range([margin.top, height - margin.bottom])
+    .padding(0.2);
+
+  // X scale (temperature)
+  const x = d3.scaleLinear()
+    .domain([
+      d3.min(data, d => d.min),
+      d3.max(data, d => d.max)
+    ])
+    .range([margin.left, width - margin.right]);
+
+  // Draw range bars
+  svg.selectAll(".range-bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "range-bar")
+    .attr("y", d => y(d.name) + y.bandwidth()/3)
+    .attr("x", d => x(d.min))
+    .attr("width", d => x(d.max) - x(d.min))
+    .attr("height", y.bandwidth()/3)
+    .attr("fill", "#aaffee")
+    .attr("opacity", 0.3);
+
+  // Draw min/max points (fix: if min==null but max exists, set min=max; if max==null but min exists, set max=min)
+  svg.selectAll(".min-dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "min-dot")
+    .attr("cy", d => y(d.name) + y.bandwidth()/2)
+    .attr("cx", d => x(d.min == null && d.max != null ? d.max : d.min))
+    .attr("r", 8)
+    .attr("fill", "#0033ff");
+
+  svg.selectAll(".max-dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "max-dot")
+    .attr("cy", d => y(d.name) + y.bandwidth()/2)
+    .attr("cx", d => x(d.max == null && d.min != null ? d.min : d.max))
+    .attr("r", 8)
+    .attr("fill", "#ff3333");
+
+  // Y axis
+  svg.append("g")
+    .attr("transform", `translate(${margin.left-5},0)`)
+    .call(d3.axisLeft(y));
+
+  // X axis
+  svg.append("g")
+    .attr("transform", `translate(0,${height-margin.bottom})`)
+    .call(d3.axisBottom(x));
+
+  // Axis labels
+  svg.append("text")
+    .attr("x", width/2)
+    .attr("y", height-15)
+    .attr("text-anchor", "middle")
+    .attr("fill", "#aaffee")
+    .attr("font-size", "1.3em")
+    .text("Temperature (°C)");
+  svg.append("text")
+    .attr("x", margin.left-80)
+    .attr("y", margin.top-30)
+    .attr("text-anchor", "start")
+    .attr("fill", "#aaffee")
+    .attr("font-size", "1.3em")
+    .text("Celestial Body");
 }

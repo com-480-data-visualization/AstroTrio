@@ -70,6 +70,10 @@
             <h3>Density Distribution</h3>
             <div id="graph3"></div>
         </div>
+        <div class="viz-card">
+            <h3>Surface Temperature Ranges</h3>
+            <div id="graph4"></div>
+        </div>
     </div>
 </div>
 
@@ -106,7 +110,7 @@
 /* Visualization grid and cards */
 .visualization-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
@@ -116,6 +120,7 @@
     border-radius: 10px;
     padding: 20px;
     min-height: 400px;
+    min-width: 500px;
     border: 1px solid #00ffe0;
     box-shadow: 0 0 10px rgba(0, 255, 224, 0.2);
     transition: transform 0.3s, box-shadow 0.3s;
