@@ -13,7 +13,7 @@
     <div class="content">
       <h1>Welcome to the Universe</h1>
       <p>Explore the vastness of space and embark on a cosmic adventure!</p>
-      <!-- <a href="home" class="btn">Join the Mission HERE!</a> -->
+      <!-- <a href="pages/home.html" class="btn">Join the Mission HERE!</a> -->
     </div>
     <div class="container_rocket noselect">
       <label for="checkbox" id="clickHandler"></label>
@@ -598,7 +598,7 @@
     document.getElementById('checkbox').addEventListener('change', function(e) {
       if (e.target.checked) {
         setTimeout(function() {
-          window.location.href = 'home.html';
+          window.location.href = 'pages/home.html';
         }, 6000); // 6 seconds matches the animation duration
       }
     });
