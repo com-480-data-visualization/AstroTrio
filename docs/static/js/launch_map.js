@@ -215,6 +215,7 @@ document.getElementById('status-toggle').addEventListener('click', () => {
     const btn = document.getElementById('status-toggle');
     btn.textContent = `${capitalize(launchStatus)}`;
     btn.style.backgroundColor = launchStatus === 'success' ? '#00ff00c1' : '#ff0000';
+    btn.style.boxShadow = launchStatus === 'success'  ? '0 0 10px 2px #00ff00c1' : '0 0 10px 2px #ff0000';
     updateChart(parseInt(document.getElementById("year-range").value));
     updateMarkers(parseInt(document.getElementById("year-range").value));
 });

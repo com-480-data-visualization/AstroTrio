@@ -12,7 +12,6 @@ pages = [
     {'url': '/solar-system', 'template': 'solar-system.html', 'filename': 'solar-system.html'},
     {'url': '/milky-way', 'template': 'milky-way.html', 'filename': 'milky-way.html'},
     {'url': '/project-story', 'template': 'project-story.html', 'filename': 'project-story.html'},
-    {'url': '/statistics', 'template': 'statistics.html', 'filename': 'statistics.html'},
     {'url': '/about', 'template': 'about.html', 'filename': 'about.html'},
 ]
 

@@ -47,7 +47,7 @@ In our project, we are targeting students, educators, and space enthusiasts who 
 
 ### Exploratory Data Analysis
 
-The EDA of the Milestone 1 can be available [here](Reports/Milestone 1 EDA.md).
+The EDA of the Milestone 1 can be available [here](Reports/Milestone_1_EDA.md).
 
 ### Related work
 
@@ -84,6 +84,7 @@ We found a project from two years ago and a website that did some visualization 
 ## Milestone 2 (18th April, 5pm)
 
 **10% of the final grade**
+
 Here are some key resources for Milestone 2:
 - Project Report
 For detailed insights and analysis regarding Milestone 2, check out our comprehensive [Project Report](Reports/Milestone_2.pdf).
@@ -94,9 +95,15 @@ Visit our [initial Project Website](https://com-480-data-visualization.github.io
 ## Milestone 3 (30th May, 5pm)
 
 **80% of the final grade**
-Our process book can be found here: [Process Book](Reports/Process_Book.pdf)
 
-Our [final Project Website](https://com-480-data-visualization.github.io/AstroTrio/) is available here !
+Here are the different resources for Milestone 3:
+
+- 📕[**Process Book**](Reports/Process_Book.pdf)
+
+- 🌐[**Final Website**](https://com-480-data-visualization.github.io/AstroTrio/)
+
+- 🎥[**Screencast**](https://...)
+
 
 ## Late policy
 

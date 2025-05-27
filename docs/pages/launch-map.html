@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap v5 -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoZj1HIcje39Wm4jDKdf19U8gI4ddQ3DYxBZZP1QvZ6jIW3"
+    crossorigin="anonymous">  -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <title>AstroTrio - Launch Map</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+
+            <!-- Left side: logo and name -->
+            <a class="navbar-brand" href="/AstroTrio"><img src="../static/images/logo10.png" alt="AstroTrio Logo" width="60"
+                    height="60"/>
+                AstroTrio</a>
+
+            <!-- Right side: links -->
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="launch-map.html">Launch Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="solar-system.html">Solar System</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="milky-way.html">Milky Way</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="project-story.html">Project Story</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+<style>
+    #main-container {
+        display: flex;
+        height: 80vh;
+        width: 100vw;
+    }
+
+    #map-container {
+        width: 65%;
+        height: 100%;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+
+    #side-panel {
+        width: 35%;
+        height: 100%;
+        background-color: #0d1117;
+        color: #00ffe0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    #current-year {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    #chart-box {
+        width: 100%;
+        height: 500px;
+        margin-bottom: 20px;
+    }
+
+    #country-chart {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    #play-button {
+        background-color: #00ffe0;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        padding: 0px 3px 1px 3px;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 0 4px #0e4899;
+    }
+
+    #year-range {
+        flex: 1;
+    }
+
+    .button {
+    width: 165px;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #sort-toggle {
+        background-color: #00ffe0;
+        color: #0d1117;
+        margin-left: 20px;
+    }
+
+    #status-toggle {
+        background-color: #00ff00c1;
+        box-shadow: 0 0 10px 2px #00ff00c1;
+        color: #0d1117;
+        margin-right: 20px;
+    }
+
+    #description-box {
+        position: absolute;
+        top: 200px;
+        left: 200px;
+        max-width: 350px;
+        background-color: #111;
+        color: #19dfb8;
+        border: 1px solid #19dfb8;
+        border-radius: 8px;
+        padding: 10px;
+        z-index: 9999;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        font-size: 14px;
+        display: None;
+    }
+
+    #description-header {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    #description-popup {
+        font-size: 12px;
+        padding: 10px 12px;
+        color: #19dfb787;
+    }
+
+</style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<div id="main-container">
+    <!-- Map -->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Panel -->
+    <div id="side-panel">
+        <!-- Buttons -->
+        <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 30px;">
+            <!-- Sort button -->
+            <button id="sort-toggle" class="button">
+                Sort: Country
+            </button>
+        
+            <!-- Status button -->
+            <button id="status-toggle" class="button">
+                Success
+            </button>
+        </div>
+        
+        <!-- Graph -->
+        <div id="chart-box">
+            <canvas id="country-chart"></canvas>
+        </div>
+
+        <!-- Time cursor -->
+        <div id="current-year">1957</div>
+        <div style="display: flex; align-items: center; width: 100%;">
+            <div id="play-button">▶</div>
+            <input type="range" id="year-range" min="1957" max="2022" value="1957">
+        </div>
+    </div>
+</div>
+
+<!-- Description -->
+<div id="description-box">
+    <div id="description-header"></div>
+    <div id="description-popup"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../static/js/launch_map.js" defer></script>
+
+
+    </main>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qVBUqf5Z6rA6T+jScyB6jvWc+pJHnWc3y7lM+aqcZxRc8Od77M+Xr1XqF/fLNKXF"
+    crossorigin="anonymous"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="/static/js/app.js"></script> -->
+    <!-- <script src="../static/js/log.js"></script> -->
+
+</body>
+
+</html>

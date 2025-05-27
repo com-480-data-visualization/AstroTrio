@@ -27,10 +27,6 @@ def milky_way():
 def project_story():
     return render_template("project-story.html")
 
-@app.route("/statistics")
-def statistics():
-    return render_template("statistics.html")
-
 @app.route("/about")
 def about():
     return render_template("about.html")
