@@ -8,7 +8,7 @@ app = Flask(__name__)
 pages = [
     {'url': '/', 'template': 'index.html', 'filename': 'index.html'},
     {'url': '/home', 'template': 'home.html', 'filename': 'home.html'},
-    {'url': '/launch-map', 'template': 'launch-map.html', 'filename': 'launch-map.html'},
+    # {'url': '/launch-map', 'template': 'launch-map.html', 'filename': 'launch-map.html'},
     {'url': '/solar-system', 'template': 'solar-system.html', 'filename': 'solar-system.html'},
     {'url': '/milky-way', 'template': 'milky-way.html', 'filename': 'milky-way.html'},
     {'url': '/project-story', 'template': 'project-story.html', 'filename': 'project-story.html'},
@@ -28,6 +28,7 @@ def save_html():
             output_path = os.path.join('pages', page['filename'])
             
             # Write the rendered HTML to a file in the output directory
+            print(output_path)
             with open(output_path, 'w') as f:
                 f.write(html_content)
             print(f"Generated {output_path}")

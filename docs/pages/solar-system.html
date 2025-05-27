@@ -17,6 +17,8 @@
     <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
     <link rel="stylesheet" href="../static/css/style.css">
 
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <title> AstroTrio - Solar System</title>
 </head>
 
@@ -61,28 +63,138 @@
     <main>
         
 
-<!-- <h1> Solar System HTML Code goes in here </h1> -->
- <div class = body_solar> 
-    <link rel=stylesheet href="../static/css/solar_system.css">
+<!-- Solar System Animation -->
+<div class="body_solar">
+    <link rel="stylesheet" href="../static/css/solar_system.css">
     <div class="container_solar">
         <div class="sun">
-        <img class=img_solar src="../static/images/sun.png" alt="sun">
+            <img class="img_solar" src="../static/images/sun.png" alt="sun">
         </div>
-        <div class="mercury"></div>
-        <div class="venus"></div>
+        <div class="mercury">
+            <div class="planet-body mercury-body"></div>
+        </div>
+        <div class="venus">
+            <div class="planet-body venus-body"></div>
+        </div>
         <div class="earth">
-        <div class="moon"></div>
+            <div class="planet-body earth-body"></div>
+            <div class="moon">
+                <div class="planet-body moon-body"></div>
+            </div>
         </div>
-        <div class="mars"></div>
-        <div class="jupiter"></div>
-        <div class="saturn"></div>
-        <div class="uranus"></div>
-        <div class="neptune"></div>
+        <div class="mars">
+            <div class="planet-body mars-body"></div>
+        </div>
+        <div class="jupiter">
+            <div class="planet-body jupiter-body"></div>
+        </div>
+        <div class="saturn">
+            <div class="planet-body saturn-body"></div>
+        </div>
+        <div class="uranus">
+            <div class="planet-body uranus-body"></div>
+        </div>
+        <div class="neptune">
+            <div class="planet-body neptune-body"></div>
+        </div>
         <div class="pluto">
+            <div class="planet-body pluto-body"></div>
+        </div>
+    </div>
+    <!-- Scroll Down Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('solar-graphs').scrollIntoView({ behavior: 'smooth' })">
+        <i class="fas fa-chevron-down"></i>
+        <div style="font-size: 14px; text-align: center;">Scroll Down</div>
+    </div>
+</div>
+
+<!-- Sidebar for planet info -->
+<div id="planetSidebar" class="sidebar">
+    <button id="closeSidebar">&times;</button>
+    <div id="sidebarContent"></div>
+</div>
+
+<!-- Data Visualizations Section -->
+<div id="solar-graphs" style="padding: 2em; background: #111;">
+    <h2 style="color: #aaffee; text-align:center; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px #00ffe0;">Solar System Data Visualizations</h2>
+    <div class="visualization-grid">
+        <div class="viz-card">
+            <h3>Mean Radius vs Gravity</h3>
+            <div id="graph1"></div>
+        </div>
+        <div class="viz-card">
+            <h3>Orbital Period vs Mean Radius</h3>
+            <div id="graph2"></div>
+        </div>
+        <div class="viz-card">
+            <h3>Density Distribution</h3>
+            <div id="graph3"></div>
+        </div>
+        <div class="viz-card">
+            <h3>Surface Temperature Ranges</h3>
+            <div id="graph4"></div>
         </div>
     </div>
 </div>
+
 <script src="../static/js/create_stars.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="../static/js/solar-system.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    cursor: pointer;
+    animation: bounce 2s infinite;
+    background-color: rgba(13, 17, 23, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 10;
+    text-align: center;
+}
+.scroll-indicator i {
+    color: #00ffe0;
+    font-size: 30px;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* Visualization grid and cards */
+.visualization-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.viz-card {
+    background: rgba(20, 20, 50, 0.85);
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+    min-width: 500px;
+    border: 1px solid #00ffe0;
+    box-shadow: 0 0 10px rgba(0, 255, 224, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.viz-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 224, 0.3);
+}
+.viz-card h3 {
+    color: #00ffe0;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 15px;
+}
+</style>
 
 
     </main>

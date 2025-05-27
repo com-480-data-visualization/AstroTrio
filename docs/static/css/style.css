@@ -54,7 +54,7 @@ h1, h2, h3 {
 }
 
 p {
-  font-size: 1.15rem;
+  font-size: 1.5rem;
   color: #e0e0f0;
 }
 
@@ -113,8 +113,8 @@ footer {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 320px;
   color: rgb(131, 131, 131);
   -webkit-transition: 400ms ease-in-out;
   transition: 400ms ease-in-out;
@@ -133,7 +133,7 @@ footer {
 }
 
 #b {
-  width: 80px;
+  width: 160px;
   height: auto;
   z-index: 200;
 }
@@ -466,4 +466,26 @@ footer {
   text-align: center;
   justify-content: center;  
   align-items: center;      
+}
+
+.center-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+a.btn, .btn {
+  font-size: 1.3rem;
+  padding: 18px 36px;
+  border-radius: 16px;
 }

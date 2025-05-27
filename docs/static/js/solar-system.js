@@ -396,10 +396,12 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
 
 // --- Helper: Bar Chart ---
 function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
-  const width = 480, height = 400, margin = {top: 60, right: 40, bottom: 80, left: 100};
-  // Filter to only major planets for clarity
+  const width = 480, height = 400, margin = {top: 60, right: 40, bottom: 100, left: 100};
+  // Filter to only major planets for clarity and sort them in the correct order
   const majorPlanets = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"];
   data = data.filter(d => majorPlanets.includes(d.eName));
+  // Sort data by the order in majorPlanets
+  data.sort((a, b) => majorPlanets.indexOf(a.eName) - majorPlanets.indexOf(b.eName));
   const svg = d3.select(selector)
     .html("")
     .append("svg")
@@ -430,10 +432,10 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
   // Axis labels
   svg.append("text")
     .attr("x", width/2)
-    .attr("y", height - 40)
+    .attr("y", height - 10) // Move label lower to avoid overlap
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
-    .attr("font-size", "1.1em")
+    .attr("font-size", "1.3em")
     .text(xLabel);
   svg.append("text")
     .attr("transform", "rotate(-90)")
