@@ -12,11 +12,6 @@
 
 **10% of the final grade**
 
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
-
-*(max. 2000 characters per section)*
-
 ### Dataset
 
 For our data visualization project, we have selected two datasets related to space missions. Each dataset contains different informations and variables that we will use for different and complementary visualizations.  
@@ -52,23 +47,7 @@ In our project, we are targeting students, educators, and space enthusiasts who 
 
 ### Exploratory Data Analysis
 
-1. **Real-world dataset (```space_missions_1957_2022.csv```):** The data is mainly clean. It has 4630 entries and 9 columns. The dataset is unbalanced for different categories. 
-[![image](figs/category_countplot.png)](figs/category_countplot.png) 
-Some companies and rockets are highly represented while a lot of them are present only once in the dataset. If used, we could group the unique values as ‘other’ and focus on the biggest companies/rockets.
-[![image](figs/barplot_categorical_1957.png)](figs/barplot_categorical_1957.png)
-The number of values per country is not balanced either, as you can see below.
-[![image](figs/countries_count.png)](figs/countries_count.png)
-We want to use the location, date and time columns to display the launches on a map. 
-*Data Cleaning*
-As an Example of the data cleaning and preprocessing we are going to perform, we have noticed some unusable information such as the Price column since it has too many missing values.
-
-2. **Synthetic dataset (```space_missions_dataset.csv```):** As the data was synthetically generated, the data is clean. It has 500 entries and 14 columns and there are no missing values. The columns can be separated into: categorical, continuous numerical scientific and continuous numerical logistic. All the columns have a balanced distribution except Mission Success.
-[![image](figs/barplot_categorical.png)](figs/barplot_categorical.png)
-[![image](figs/histograms_scientific.png)](figs/histograms_scientific.png)
-[![image](figs/histograms_logistic.png)](figs/histograms_logistic.png)
-There is not a high need for data cleaning or preprocessing, but we will extract the years from the date.  Columns are either not correlated or highly correlated \- reflective of the synthetic nature of the dataset.
-[![image](figs/pairplot.png)](figs/pairplot.png)
-[![image](figs/correlation_heatmap.png)](figs/correlation_heatmap.png)
+The EDA of the Milestone 1 can be available [here](Reports/Milestone 1 EDA.md).
 
 ### Related work
 
@@ -115,7 +94,9 @@ Visit our [initial Project Website](https://com-480-data-visualization.github.io
 ## Milestone 3 (30th May, 5pm)
 
 **80% of the final grade**
+Our process book can be found here: [Process Book](Reports/Process_Book.pdf)
 
+Our [final Project Website](https://com-480-data-visualization.github.io/AstroTrio/) is available here !
 
 ## Late policy
 
