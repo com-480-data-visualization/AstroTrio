@@ -47,7 +47,7 @@ In our project, we are targeting students, educators, and space enthusiasts who 
 
 ### Exploratory Data Analysis
 
-The EDA of the Milestone 1 can be available [here](Reports/Milestone 1 EDA.md).
+The EDA of the Milestone 1 can be available [here](Reports/Milestone_1_EDA.md).
 
 ### Related work
 
