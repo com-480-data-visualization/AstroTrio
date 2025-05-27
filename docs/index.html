@@ -15,13 +15,13 @@
       <p>Explore the vastness of space and embark on a cosmic adventure!</p>
       <!-- <a href="pages/home.html" class="btn">Join the Mission HERE!</a> -->
     </div>
+    <div id="countdown" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; color: white; z-index: 1000;"></div>
     <div class="container_rocket noselect">
       <label for="checkbox" id="clickHandler"></label>
       <input type="checkbox" id="checkbox">
 
       <button id="button">
         <p id="to-launch">let's launch!</p>
-        <p id="tag">Go AstroTrio! &lt;3</p>
         <div id="platform"></div>
         <div class="caution">
           <div id="caution-left">LAUNCH ZONE</div>
@@ -541,7 +541,7 @@
                 d="M61.77,455.26c-.14,2.86-2.97,10.79,15.3,12.66,17.94,1.43,19.6-8.7,19.6-8.7,0,0,3.28-21.39,3.85-27.96,.39-4.44-.33-10.13-1.07-16.32-.71-2.13-3.14-3.64-4.16-3.45-3.11,.57-17.2,2.93-20.86,4.28s-9.03,9.77-9.03,9.77c0,0-3.5,26.86-3.63,29.72Z">
               </path>
               <path style="fill:url(#bh);"
-                d="M99.03,154.6c15.8,0,23.06,42.39,25.97,53.78,.59,3.25,2.05,16.9,2.05,16.9,0,0-16.95-10.91-19.38-28.19s-12.66-23.72-18.17-24.39-13.29,7.56-13.29,7.56c0,0,.61-2.93,2.33-5.85,4.4-7.46,13.63-19.82,20.48-19.82Z">
+                d="M99.03,154.6c15.8,0,23.06,42.39,25.97,53.78,.59,3.25,2.05,16.9,2.05,16.9,0,0-16.95-10.91-19.38-28.19s-12.66-23.72-18.17-24.39-13.29,7.56-13.29,7.56c0,0,0,.61-2.33,5.85-4.4,7.46-13.63,19.82-20.48,19.82Z">
               </path><text style="fill:#333; font-size:12.31px;"
                 transform="translate(112.43 320.11) rotate(-88.85) scale(.98) skewX(13.92)">
                 <tspan
@@ -594,12 +594,25 @@
   <div class="star" style="top: 40%; left: 65%;"></div>
 
   <script>
-    // Redirect to home after rocket launch animation
+    // Redirect to home after rocket launch animation with countdown
     document.getElementById('checkbox').addEventListener('change', function(e) {
       if (e.target.checked) {
-        setTimeout(function() {
-          window.location.href = 'pages/home.html';
-        }, 6000); // 6 seconds matches the animation duration
+        document.getElementById('button').style.display = 'none';
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block';
+        
+        let count = 3;
+        countdownElement.textContent = count;
+        
+        const countdownInterval = setInterval(() => {
+          count--;
+          if (count > 0) {
+            countdownElement.textContent = count;
+          } else {
+            clearInterval(countdownInterval);
+            window.location.href = 'pages/home.html';
+          }
+        }, 1000);
       }
     });
   </script>
