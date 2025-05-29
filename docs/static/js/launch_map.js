@@ -23,7 +23,7 @@ var playButton = document.getElementById('play-button');
 fetch('../static/data/launch_data.csv')
     .then(response => response.text())
     .then(csvText => {
-        console.log("CSV loaded");
+        console.log("CSV of launches loaded");
         const lines = csvText.trim().split('\n');
         let headers = lines[0].split(',').map(h => h.trim());
 
@@ -33,7 +33,6 @@ fetch('../static/data/launch_data.csv')
             for (let j = 0; j < headers.length; j++) {
                 launch[headers[j]] = row[j];
             }
-            console.log(launch["Date"], launch["Latitude"], launch["Longitude"], launch["Country"]);
             allLaunches.push(launch);
         }
         //display 1957 at the start
