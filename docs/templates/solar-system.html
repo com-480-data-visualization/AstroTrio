@@ -10,6 +10,7 @@
         <div class="sun">
             <img class="img_solar" src="../static/images/sun.png" alt="sun">
         </div>
+        <div class="planet-body sun-body"></div>
         <div class="mercury">
             <div class="planet-body mercury-body"></div>
         </div>
@@ -51,7 +52,14 @@
 <!-- Sidebar for planet info -->
 <div id="planetSidebar" class="sidebar">
     <button id="closeSidebar">&times;</button>
-    <div id="sidebarContent"></div>
+    <div id="sidebarContent">
+        <div id="chartFilter" style="margin-bottom: 1em; text-align: center;">
+            <button id="showRadar" class="chart-toggle active">Radar Chart</button>
+            <button id="showBar" class="chart-toggle">Bar Chart</button>
+        </div>
+        <div id="radarChart" style="width:340px;height:340px;margin-bottom:1em;"></div>
+        <div id="physBarChart" style="width:340px;height:220px;margin-bottom:1em;"></div>
+    </div>
 </div>
 
 <!-- Data Visualizations Section -->
@@ -133,6 +141,24 @@
     color: #00ffe0;
     font-family: 'Orbitron', sans-serif;
     margin-bottom: 15px;
+}
+
+.chart-toggle {
+    background: #181c20;
+    color: #00ffe0;
+    border: 1.5px solid #00ffe0;
+    border-radius: 6px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    margin: 0 8px;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.chart-toggle.active, .chart-toggle:hover {
+    background: #00ffe0;
+    color: #181c20;
+    box-shadow: 0 0 8px #00ffe0;
 }
 </style>
 

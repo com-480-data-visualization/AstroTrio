@@ -12,18 +12,21 @@ d3.csv("../static/data/planets_updated.csv").then(data => {
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOM Content Loaded"); // Debug log
   const planets = [
-    "mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto", "moon"
+    "mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto", "moon", "sun"
   ];
   planets.forEach(planet => {
     const el = document.querySelector(`.${planet}-body`);
     console.log(`Looking for ${planet}-body:`, el); // Debug log
     if (el) {
+      console.log(`Attaching click event to: ${planet}`); // Debug log
       el.addEventListener("click", () => {
         console.log(`Clicked on ${planet}`); // Debug log
         showSidebar(planet);
       });
       el.addEventListener("mouseenter", () => el.classList.add("active"));
       el.addEventListener("mouseleave", () => el.classList.remove("active"));
+    } else {
+      console.warn(`No element found for: ${planet}`); // Debug log
     }
   });
 
@@ -32,19 +35,21 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   // Close sidebar on outside click
   document.addEventListener("click", function(e) {
-    // Don't close if clicking the sidebar, close button, or a planet
+    const sidebar = document.getElementById("planetSidebar");
     if (
-      e.target.classList.contains("sidebar") ||
-      e.target.id === "closeSidebar" ||
+      sidebar.contains(e.target) ||
       e.target.classList.contains("planet-body")
     ) return;
-    document.getElementById("planetSidebar").classList.remove("active");
+    sidebar.classList.remove("active");
   });
 });
 
 function showSidebar(planet) {
   console.log("Showing sidebar for planet:", planet); // Debug log
   console.log("Available planet data:", planetData); // Debug log
+  if (planet === 'sun') {
+    console.log('planetData["sun"]:', planetData["sun"]); // Debug log
+  }
   let data;
   let note = '';
   if (planet === 'moon') {
@@ -55,6 +60,10 @@ function showSidebar(planet) {
     // Use the CSV row for Pluto
     data = planetData["pluto"];
     note = '<div style="color:#ffb347; font-size:1em; margin-bottom:1em;">Note: Pluto is classified as a dwarf planet.</div>';
+  } else if (planet === 'sun') {
+    // Use the CSV row for Sun
+    data = planetData["sun"];
+    note = '<div style="color:#ffb347; font-size:1em; margin-bottom:1em;">Note: The Sun is not a planet, but the star at the center of our solar system.</div>';
   } else {
     data = planetData[planet];
   }
@@ -112,7 +121,13 @@ function showSidebar(planet) {
 
   let html = `<h2>${data.Planet}</h2>`;
   if (note) html += note;
+  // Add chart filter buttons
+  html += `<div id="chartFilter" style="margin-bottom: 1em; text-align: center;">
+    <button id="showRadar" class="chart-toggle active">Radar Chart</button>
+    <button id="showBar" class="chart-toggle">Bar Chart</button>
+  </div>`;
   html += '<div id="radarChart" style="width:340px;height:340px;margin-bottom:1em;"></div>';
+  html += '<div id="physBarChart" style="width:340px;height:220px;margin-bottom:1em;"></div>';
   html += '<ul>';
   
   // Group related data
@@ -142,6 +157,7 @@ function showSidebar(planet) {
 
   // Add data by groups
   for (const [groupName, keys] of Object.entries(groups)) {
+    if (groupName === "Physical Characteristics") continue; // Skip textual list for this group
     const groupData = keys
       .map(key => {
         const value = formatValue(key, data[key]);
@@ -159,16 +175,32 @@ function showSidebar(planet) {
   document.getElementById("sidebarContent").innerHTML = html;
   document.getElementById("planetSidebar").classList.add("active");
 
+  // --- Chart toggle logic ---
+  document.getElementById("physBarChart").style.display = "none";
+  document.getElementById("showRadar").onclick = function() {
+    document.getElementById("radarChart").style.display = "";
+    document.getElementById("physBarChart").style.display = "none";
+    this.classList.add("active");
+    document.getElementById("showBar").classList.remove("active");
+  };
+  document.getElementById("showBar").onclick = function() {
+    document.getElementById("radarChart").style.display = "none";
+    document.getElementById("physBarChart").style.display = "";
+    drawBarChart(physData);
+    this.classList.add("active");
+    document.getElementById("showRadar").classList.remove("active");
+  };
+
   // Radar chart features and normalization
   const radarFeatures = [
-    { key: "Mass (10^24kg)", label: "Mass", unit: "10²⁴kg" },
-    { key: "Diameter (km)", label: "Diameter", unit: "km" },
-    { key: "Density (kg/m^3)", label: "Density", unit: "kg/m³" },
-    { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: "m/s²" },
-    { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: "km/s" },
-    { key: "Mean Temperature (C)", label: "Mean Temp", unit: "°C" },
-    { key: "Orbital Eccentricity", label: "Eccentricity", unit: "" },
-    { key: "Obliquity to Orbit (degrees)", label: "Obliquity", unit: "°" }
+    { key: "Mass (10^24kg)", label: "Mass", unit: "10²⁴kg", format: v => v },
+    { key: "Diameter (km)", label: "Diameter", unit: "10³ km", format: v => v/1000 },
+    { key: "Density (kg/m^3)", label: "Density", unit: "g/cm³", format: v => v/1000 },
+    { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: "m/s²", format: v => v },
+    { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: "km/s", format: v => v },
+    { key: "Mean Temperature (C)", label: "Mean Temp", unit: "K", format: v => v + 273.15 },
+    { key: "Orbital Eccentricity", label: "Eccentricity", unit: "", format: v => v },
+    { key: "Obliquity to Orbit (degrees)", label: "Obliquity", unit: "°", format: v => v }
   ];
 
   // Gather all planet values for normalization
@@ -181,9 +213,12 @@ function showSidebar(planet) {
 
   // Prepare data for radar chart
   const radarData = radarFeatures.map(f => {
-    let raw = +data[f.key];
+    let raw = f.format(+data[f.key]);
     if (isNaN(raw)) raw = 0;
-    const { min, max } = featureStats[f.key];
+    const { min, max } = {
+      min: Math.min(...Object.values(planetData).map(p => f.format(+p[f.key] || 0))),
+      max: Math.max(...Object.values(planetData).map(p => f.format(+p[f.key] || 0)))
+    };
     let value;
     if (max === min) {
       value = 1;
@@ -191,11 +226,127 @@ function showSidebar(planet) {
       value = (raw - min) / (max - min);
     }
     if (isNaN(value)) value = 0;
-    return { axis: f.label, value, raw, min, max, unit: f.unit };
+    return {
+      axis: f.label,
+      value,
+      raw,
+      min,
+      max,
+      unit: f.unit,
+      negative: f.label === "Mean Temp" && raw < 0
+    };
   });
 
   console.log("Radar Data:", radarData);
   drawRadarChart("#radarChart", radarData);
+
+  // --- D3 Horizontal Bar Chart for Physical Characteristics ---
+  const physKeys = [
+    { key: "Mass (10^24kg)", label: "Mass (10²⁴kg)", format: v => v, unit: "" },
+    { key: "Diameter (km)", label: "Diameter (10³ km)", format: v => (v/1000), unit: "×10³ km" },
+    { key: "Density (kg/m^3)", label: "Density (g/cm³)", format: v => (v/1000), unit: "g/cm³" },
+    { key: "Surface Gravity(m/s^2)", label: "Gravity (m/s²)", format: v => v, unit: "m/s²" },
+    { key: "Escape Velocity (km/s)", label: "Escape Vel. (km/s)", format: v => v, unit: "km/s" },
+    { key: "Obliquity to Orbit (degrees)", label: "Obliquity (°)", format: v => v, unit: "°" },
+    { key: "Orbital Eccentricity", label: "Eccentricity", format: v => v, unit: "" },
+    { key: "Mean Temperature (C)", label: "Mean Temp (K)", format: v => v + 273.15, unit: "K" }
+  ];
+  const physData = physKeys.map(d => {
+    const raw = +data[d.key] || 0;
+    return {
+      label: d.label,
+      value: d.label === "Mean Temp (K)" ? Math.abs(d.format(raw)) : d.format(raw),
+      raw: raw,
+      unit: d.unit,
+      negative: d.label === "Mean Temp (K)" && raw < 0
+    };
+  });
+
+  // Find max for normalization (across all planets)
+  const maxVals = {};
+  physKeys.forEach(d => {
+    maxVals[d.label] = Math.max(...allPlanets.map(p => d.format(+p[d.key] || 0)));
+  });
+
+  drawBarChart(physData);
+}
+
+function drawBarChart(physData) {
+  const width = 420, height = 260, margin = {top: 36, right: 100, bottom: 20, left: 120};
+  const svg = d3.select("#physBarChart").html("")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  svg.append("text")
+    .attr("x", width/2)
+    .attr("y", 22)
+    .attr("text-anchor", "middle")
+    .attr("fill", "#00ffe0")
+    .attr("font-size", "18px")
+    .attr("font-family", "Orbitron, sans-serif")
+    .attr("font-weight", "bold")
+    .text("Physical Characteristics");
+
+  const y = d3.scaleBand()
+    .domain(physData.map(d => d.label))
+    .range([margin.top, height - margin.bottom])
+    .padding(0.2);
+  const x = d3.scaleLinear()
+    .domain([0, d3.max(physData, d => d.value * 1.1)])
+    .range([margin.left, width - margin.right]);
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0))
+    .selectAll("text")
+    .style("font-size", "12px");
+
+  svg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).tickSizeOuter(0))
+    .selectAll("text")
+    .style("fill", "#00ffe0")
+    .style("font-size", "13px");
+
+  svg.selectAll(".bar")
+    .data(physData)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", x(0))
+    .attr("y", d => y(d.label))
+    .attr("height", y.bandwidth())
+    .attr("fill", d => 
+      d.label === "Mean Temp (K)" 
+        ? (d.value < 273.15 ? "#3399ff" : "#ffb347") 
+        : "#00ffe0"
+    )
+    .attr("opacity", 0.7)
+    .attr("width", 0)
+    .transition()
+    .duration(900)
+    .attr("width", d => x(d.value) - x(0));
+
+  svg.selectAll(".bar-label")
+    .data(physData)
+    .enter()
+    .append("text")
+    .attr("class", "bar-label")
+    .attr("x", d => x(d.value) + 8)
+    .attr("y", d => y(d.label) + y.bandwidth()/2 + 5)
+    .text(d => {
+      if (d.label === "Mean Temp (K)") {
+        return d.value.toFixed(1) + (d.unit ? ' ' + d.unit : '');
+      }
+      if (d.value < 10) return d.value.toFixed(2) + (d.unit ? ' ' + d.unit : '');
+      if (d.value < 100) return d.value.toFixed(1) + (d.unit ? ' ' + d.unit : '');
+      return d.value.toFixed(0) + (d.unit ? ' ' + d.unit : '');
+    })
+    .style("fill", "#fff")
+    .style("font-size", "13px")
+    .append("title")
+    .text(d => d.label === "Mean Temp (K)" ? `${d.value.toFixed(2)} ${d.unit}` : `${d.value} ${d.unit}`);
 }
 
 // --- D3 Graphs from sol_data.csv ---
@@ -583,19 +734,27 @@ function drawRadarChart(selector, data) {
       return y;
     })
     .attr("r", 10)
-    .attr("fill", "#ffb347")
+    .attr("fill", d => 
+      d.axis === "Mean Temp" 
+        ? (d.raw < 273.15 ? "#3399ff" : "#ffb347") 
+        : "#ffb347"
+    )
     .attr("stroke", "#fff")
     .attr("stroke-width", 3)
-    .style("filter", "drop-shadow(0 0 8px #ffb347)")
+    .style("filter", d => d.axis === "Mean Temp" && d.raw < 273.15 ? "drop-shadow(0 0 8px #3399ff)" : d.axis === "Mean Temp" && d.raw >= 273.15 ? "drop-shadow(0 0 8px #ffb347)" : "drop-shadow(0 0 8px #ffb347)")
     .on("mouseover", function(e, d) {
-      d3.select(this).attr("fill", "#fff").attr("stroke", "#ffb347");
+      d3.select(this).attr("fill", "#fff").attr("stroke", d.axis === "Mean Temp" ? (d.raw < 273.15 ? "#3399ff" : "#ffb347") : "#ffb347");
       tooltip.transition().duration(200).style("opacity", .95);
-      tooltip.html(`<b>${d.axis}</b>: ${d.raw} ${d.unit}`)
+      tooltip.html(`<b>${d.axis}</b>: ${d.raw.toFixed(2)} ${d.unit}`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
     })
     .on("mouseout", function() {
-      d3.select(this).attr("fill", "#ffb347").attr("stroke", "#fff");
+      d3.select(this).attr("fill", d => 
+        d.axis === "Mean Temp" 
+          ? (d.raw < 273.15 ? "#3399ff" : "#ffb347") 
+          : "#ffb347"
+      ).attr("stroke", "#fff");
       tooltip.transition().duration(300).style("opacity", 0);
     })
     .raise();
@@ -621,23 +780,50 @@ function createTemperatureRangeChart(data, selector) {
     .attr("width", width)
     .attr("height", height);
 
+  // Convert all temperatures to Kelvin
+  const kelvinData = data.map(d => ({
+    name: d.name,
+    min: d.min != null ? d.min + 273.15 : null,
+    max: d.max != null ? d.max + 273.15 : null
+  }));
+
   // Y scale (planet names)
   const y = d3.scaleBand()
-    .domain(data.map(d => d.name))
+    .domain(kelvinData.map(d => d.name))
     .range([margin.top, height - margin.bottom])
     .padding(0.2);
 
-  // X scale (temperature)
+  // X scale (temperature in Kelvin)
   const x = d3.scaleLinear()
     .domain([
-      d3.min(data, d => d.min),
-      d3.max(data, d => d.max)
+      d3.min(kelvinData, d => d.min),
+      d3.max(kelvinData, d => d.max)
     ])
     .range([margin.left, width - margin.right]);
 
+  // Draw highlight for 273.15 K (0°C)
+  svg.append("line")
+    .attr("x1", x(273.15))
+    .attr("x2", x(273.15))
+    .attr("y1", margin.top - 10)
+    .attr("y2", height - margin.bottom + 10)
+    .attr("stroke", "#ffb347")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "6,3")
+    .attr("opacity", 0.8);
+
+  // Add label for 273.15 K
+  svg.append("text")
+    .attr("x", x(273.15) + 6)
+    .attr("y", margin.top - 18)
+    .attr("fill", "#ffb347")
+    .attr("font-size", "1em")
+    .attr("font-family", "Orbitron, sans-serif")
+    .text("273.15 K (0°C)");
+
   // Draw range bars
   svg.selectAll(".range-bar")
-    .data(data)
+    .data(kelvinData)
     .enter()
     .append("rect")
     .attr("class", "range-bar")
@@ -650,31 +836,49 @@ function createTemperatureRangeChart(data, selector) {
 
   // Draw min/max points (fix: if min==null but max exists, set min=max; if max==null but min exists, set max=min)
   svg.selectAll(".min-dot")
-    .data(data)
+    .data(kelvinData)
     .enter()
     .append("circle")
     .attr("class", "min-dot")
     .attr("cy", d => y(d.name) + y.bandwidth()/2)
     .attr("cx", d => x(d.min == null && d.max != null ? d.max : d.min))
     .attr("r", 8)
-    .attr("fill", "#0033ff");
+    .attr("fill", "#0033ff")
+    .on("mouseover", function(e, d) {
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html(`<b>${d.name} Min</b><br>${d.min.toFixed(2)} K`)
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(300).style("opacity", 0);
+    });
 
   svg.selectAll(".max-dot")
-    .data(data)
+    .data(kelvinData)
     .enter()
     .append("circle")
     .attr("class", "max-dot")
     .attr("cy", d => y(d.name) + y.bandwidth()/2)
     .attr("cx", d => x(d.max == null && d.min != null ? d.min : d.max))
     .attr("r", 8)
-    .attr("fill", "#ff3333");
+    .attr("fill", "#ff3333")
+    .on("mouseover", function(e, d) {
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html(`<b>${d.name} Max</b><br>${d.max.toFixed(2)} K`)
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(300).style("opacity", 0);
+    });
 
   // Y axis
   svg.append("g")
     .attr("transform", `translate(${margin.left-5},0)`)
     .call(d3.axisLeft(y));
 
-  // X axis
+  // X axis (in Kelvin)
   svg.append("g")
     .attr("transform", `translate(0,${height-margin.bottom})`)
     .call(d3.axisBottom(x));
@@ -686,12 +890,77 @@ function createTemperatureRangeChart(data, selector) {
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
     .attr("font-size", "1.3em")
-    .text("Temperature (°C)");
-  svg.append("text")
-    .attr("x", margin.left-80)
-    .attr("y", margin.top-30)
-    .attr("text-anchor", "start")
+    .text("Temperature (K)");
+
+  // Vertical 'Celestial Body' label with tooltip
+  const yLabel = svg.append("text")
+    .attr("x", margin.left - 70)
+    .attr("y", (margin.top + height - margin.bottom) / 2)
+    .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
     .attr("font-size", "1.3em")
-    .text("Celestial Body");
+    .attr("font-family", "Orbitron, sans-serif")
+    .attr("transform", `rotate(-90,${margin.left - 70},${(margin.top + height - margin.bottom) / 2})`)
+    .style("cursor", "help")
+    .text("Celestial Body")
+    .on("mouseover", function(e) {
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html("<b>Celestial Body</b><br>A celestial body is a natural object in space, such as a planet, moon, or star.")
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(300).style("opacity", 0);
+    });
+
+  // Tooltip for data points
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("background", "#222")
+    .style("color", "#aaffee")
+    .style("padding", "8px")
+    .style("border-radius", "6px")
+    .style("pointer-events", "none")
+    .style("font-size", "14px");
+
+  // Draw min/max points (fix: if min==null but max exists, set min=max; if max==null but min exists, set max=min)
+  svg.selectAll(".min-dot")
+    .data(kelvinData)
+    .enter()
+    .append("circle")
+    .attr("class", "min-dot")
+    .attr("cy", d => y(d.name) + y.bandwidth()/2)
+    .attr("cx", d => x(d.min == null && d.max != null ? d.max : d.min))
+    .attr("r", 8)
+    .attr("fill", "#0033ff")
+    .on("mouseover", function(e, d) {
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html(`<b>${d.name} Min</b><br>${d.min.toFixed(2)} K`)
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(300).style("opacity", 0);
+    });
+
+  svg.selectAll(".max-dot")
+    .data(kelvinData)
+    .enter()
+    .append("circle")
+    .attr("class", "max-dot")
+    .attr("cy", d => y(d.name) + y.bandwidth()/2)
+    .attr("cx", d => x(d.max == null && d.min != null ? d.min : d.max))
+    .attr("r", 8)
+    .attr("fill", "#ff3333")
+    .on("mouseover", function(e, d) {
+      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.html(`<b>${d.name} Max</b><br>${d.max.toFixed(2)} K`)
+        .style("left", (e.pageX + 10) + "px")
+        .style("top", (e.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(300).style("opacity", 0);
+    });
 }
