@@ -150,6 +150,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         font-size: 12px;
+        line-height: 1.3;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         z-index: 1001;
         max-width: 630px;
@@ -158,7 +159,7 @@
     }
 
     #map-info:hover::after {
-    display: block;
+        display: block;
     }
 
 </style>
@@ -169,18 +170,17 @@
     <!-- Map -->
     <div id="map-container">
         <div id="map">
-            <div id="map-info" data-info="This map presents the location of all space mission launches from 1957 to 2022.
-            You can sort the launches by success or failure using the button on the side.
-            Click on the markers to view details like the launch site name and country.
-            The chart on the right presents the evolution of missions over time by country or company.
-            By clicking on the bar of a company, you can get some information about it.">i</div>
+            <div id="map-info" data-info="This map shows the location of all space mission launches from 1957 to 2022. Space launches are key milestones in exploration, satellite deployment, and technological progress.
+            Click on any marker to view launch site details such as name and country. You can use the buttons to sort launches in function of wether the mission was a success or a failure.
+            The bar chart on the right shows how launch activity has evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>
         </div>
     </div>
 
     <!-- Panel -->
-    <div id="side-panel">
+    <div id="side-panel" style="font-size: 1.2rem">
+        Space mission launches
         <!-- Buttons -->
-        <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 30px;">
+        <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 30px; font-size: 0.9rem">
             <!-- Sort button -->
             <button id="sort-toggle" class="button">
                 Sort: Country
