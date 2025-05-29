@@ -170,7 +170,7 @@
     #description-popup {
         font-size: 12px;
         padding: 10px 12px;
-        color: #19dfb787;
+        color: #19ecc2b9;
     }
 
     #map-info {
@@ -178,7 +178,7 @@
         top: 10px;
         right: 10px;
         background-color: #ffffffdd;
-        color: #333;
+        color: #000000;
         border: 1px solid #000000;
         border-radius: 50%;
         width: 24px;
@@ -193,6 +193,7 @@
 
     #map-info::after {
         content: attr(data-info);
+        font-family: 'system-ui';
         white-space: pre-line;
         display: none;
         position: absolute;
@@ -204,7 +205,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         font-size: 12px;
-        line-height: 1.5;
+        line-height: 1.6;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         z-index: 1001;
         max-width: 630px;
@@ -263,7 +264,7 @@
 <!-- Description -->
 <div id="description-box">
     <div id="description-header"></div>
-    <div id="description-popup"></div>
+    <div id="description-popup" style="font-family:system-ui;"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
