@@ -42,6 +42,47 @@ document.addEventListener("DOMContentLoaded", function() {
     ) return;
     sidebar.classList.remove("active");
   });
+
+  // Attach D3 tooltip events after all planets are in the DOM
+  d3.selectAll('.planet-body')
+    .on('mouseover', function(event) {
+      // Get the planet name from the class, e.g. "earth-body"
+      const classList = this.classList;
+      let planet = null;
+      classList.forEach(cls => {
+        if (cls.endsWith('-body')) {
+          planet = cls.replace('-body', '');
+        }
+      });
+      if (!planet) return;
+      // Lookup data for this planet
+      const d = planetData[planet];
+      if (!d) return;
+      tooltip
+        .html(`
+          <div style="font-size:1.3em;color:#00ffe0;text-shadow:0 0 8px #00ffe0,0 0 2px #fff;margin-bottom:0.5em;">
+            ${d.Planet}
+          </div>
+          <div><b>Distance from Sun:</b> ${d["Distance from Sun (10^6 km)"]} × 10⁶ km</div>
+          <div><b>Orbital Period:</b> ${d["Orbital Period (days)"]} days</div>
+          <div><b>Orbital Velocity:</b> ${d["Orbital Velocity (km/s)"]} km/s</div>
+          <div><b>Orbital Inclination:</b> ${d["Orbital Inclination (degrees)"]}°</div>
+          <div><b>Obliquity to Orbit:</b> ${d["Obliquity to Orbit (degrees)"]}°</div>
+          <div><b>Rotation Period:</b> ${d["Rotation Period (hours)"]} hours</div>
+          <div><b>Length of Day:</b> ${d["Length of Day (hours)"]} hours</div>
+        `)
+        .style("left", (event.pageX + 24) + "px")
+        .style("top", (event.pageY - 24) + "px")
+        .style("opacity", 1);
+    })
+    .on('mousemove', function(event) {
+      tooltip
+        .style("left", (event.pageX + 24) + "px")
+        .style("top", (event.pageY - 24) + "px");
+    })
+    .on('mouseout', function() {
+      tooltip.style("opacity", 0);
+    });
 });
 
 function showSidebar(planet) {
@@ -136,19 +177,6 @@ function showSidebar(planet) {
       "Mass (10^24kg)", "Diameter (km)", "Density (kg/m^3)", 
       "Surface Gravity(m/s^2)", "Escape Velocity (km/s)"
     ],
-    "Orbital Parameters": [
-      "Distance from Sun (10^6 km)", "Orbital Period (days)", 
-      "Orbital Velocity (km/s)", "Orbital Inclination (degrees)", 
-      "Orbital Eccentricity", "Obliquity to Orbit (degrees)"
-    ],
-    "Rotation": [
-      "Rotation Period (hours)", "Length of Day (hours)"
-    ],
-    "Temperature & Atmosphere": [
-      "Mean Temperature (C)", "Surface Pressure (bars)", 
-      "Surface Temperature (C)", "Atmospheric Pressure (bars)",
-      "Atmospheric Composition"
-    ],
     "Features": [
       "Number of Moons", "Ring System?", "Global Magnetic Field?",
       "Surface Features", "Composition"
@@ -220,6 +248,7 @@ function showSidebar(planet) {
         else if (d.label === "Magnetic Field") icon = "🧲 ";
         else if (d.label === "Surface") icon = "🪨 ";
         else if (d.label === "Composition") icon = "🧪 ";
+        else if (d.label === "Atmosphere") icon = "🌫️ ";
         return `${icon}${d.label}: ${d.value}`;
       })
       .append("title")
@@ -231,7 +260,8 @@ function showSidebar(planet) {
     { key: "Ring System?", label: "Rings" },
     { key: "Global Magnetic Field?", label: "Magnetic Field" },
     { key: "Surface Features", label: "Surface" },
-    { key: "Composition", label: "Composition" }
+    { key: "Composition", label: "Composition" },
+    { key: "Atmospheric Composition", label: "Atmosphere" }
   ];
   const featureBadges = featureKeys.map(f => ({
     label: f.label,
@@ -274,7 +304,6 @@ function showSidebar(planet) {
     { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: isSun ? "10² m/s²" : "m/s²", format: v => isSun ? v / 100 : v },
     { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: isSun ? "10² km/s" : "km/s", format: v => isSun ? v / 100 : v },
     { key: "Mean Temperature (C)", label: isSun ? "Mean Temp" : "Mean Temp", unit: isSun ? "10³ K" : "K", format: v => isSun ? (v + 273.15) / 1000 : v + 273.15 },
-    { key: "Orbital Eccentricity", label: "Eccentricity", unit: "", format: v => v },
     { key: "Obliquity to Orbit (degrees)", label: "Obliquity", unit: "°", format: v => v }
   ];
 
@@ -350,7 +379,6 @@ function showSidebar(planet) {
       unit: isSun ? "×10² km/s" : "km/s"
     },
     { key: "Obliquity to Orbit (degrees)", label: "Obliquity (°)", format: v => v, unit: "°" },
-    { key: "Orbital Eccentricity", label: "Eccentricity", format: v => v, unit: "" },
     {
       key: "Mean Temperature (C)",
       label: isSun ? "Mean Temp (10³ K)" : isMoon ? "Mean Temp (10² K)" : "Mean Temp (K)",
@@ -622,14 +650,14 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
   // Tooltip
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0)
     .style("position", "absolute")
-    .style("background", "rgba(34,34,34,0.98)")
+    .style("background", "#222")
     .style("color", "#aaffee")
     .style("padding", "8px")
     .style("border-radius", "6px")
     .style("pointer-events", "none")
-    .style("font-size", "14px");
+    .style("font-size", "14px")
+    .style("opacity", 1);
 
   const planetImages = {
     Mercury: "../static/images/mercury.png",
@@ -655,7 +683,7 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
       .attr("width", imgSize)
       .attr("height", imgSize)
       .on("mouseover", function(e, d) {
-        tooltip.transition().duration(200).style("opacity", .95);
+        tooltip.transition().duration(200).style("opacity", 1);
         tooltip.html(tooltipKeys.map(k => `<b>${k}:</b> ${d[k]}`).join("<br>"))
           .style("left", (e.pageX + 10) + "px")
           .style("top", (e.pageY - 28) + "px");
@@ -676,7 +704,7 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
       .attr("stroke", "#222")
       .on("mouseover", function(e, d) {
         d3.select(this).attr("fill", "#fff").attr("r", 22);
-        tooltip.transition().duration(200).style("opacity", .95);
+        tooltip.transition().duration(200).style("opacity", 1);
         tooltip.html(tooltipKeys.map(k => `<b>${k}:</b> ${d[k]}`).join("<br>"))
           .style("left", (e.pageX + 10) + "px")
           .style("top", (e.pageY - 28) + "px");
@@ -743,7 +771,6 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
   // Tooltip
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0)
     .style("position", "absolute")
     .style("background", "#222")
     .style("color", "#00ffe0")
@@ -764,7 +791,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("opacity", 0.8)
     .on("mouseover", function(e, d) {
       d3.select(this).attr("fill", "#fff");
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d[xKey]}</b><br>${yKey}: ${d[yKey]}`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -827,7 +854,7 @@ function drawRadarChart(selector, data) {
       .on("mouseover", function(e) {
         const def = axisDefinitions[d.axis] || '';
         if (def) {
-          tooltip.transition().duration(200).style("opacity", .95);
+          tooltip.transition().duration(200).style("opacity", 1);
           tooltip.html(`<b>${d.axis}</b><br>${def}`)
             .style("left", (e.pageX + 10) + "px")
             .style("top", (e.pageY - 28) + "px");
@@ -854,14 +881,14 @@ function drawRadarChart(selector, data) {
   // Draw data points and tooltips (fix: place relative to g, not svg)
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0)
     .style("position", "absolute")
     .style("background", "#222")
     .style("color", "#aaffee")
     .style("padding", "8px")
     .style("border-radius", "6px")
     .style("pointer-events", "none")
-    .style("font-size", "14px");
+    .style("font-size", "14px")
+    .style("opacity", 1);
 
   g.selectAll(".radar-point")
     .data(data)
@@ -881,7 +908,7 @@ function drawRadarChart(selector, data) {
     .style("filter", d => d.axis === "Mean Temp" && d.raw < 273.15 ? "drop-shadow(0 0 8px #3399ff)" : d.axis === "Mean Temp" && d.raw >= 273.15 ? "drop-shadow(0 0 8px #ffb347)" : "drop-shadow(0 0 8px #ffb347)")
     .on("mouseover", function(e, d) {
       d3.select(this).attr("fill", "#fff").attr("stroke", d.axis === "Mean Temp" ? (d.raw < 273.15 ? "#3399ff" : "#ffb347") : "#ffb347");
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d.axis}</b>: ${d.raw.toFixed(2)} ${d.unit}`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -905,7 +932,6 @@ const axisDefinitions = {
   'Gravity': 'Surface gravity experienced on the planet.',
   'Escape Vel.': 'Speed needed to escape the planet\'s gravity.',
   'Mean Temp': 'Average surface temperature.',
-  'Eccentricity': 'How much the orbit deviates from a circle.',
   'Obliquity': 'Tilt of the planet\'s axis relative to its orbit.'
 };
 
@@ -982,7 +1008,7 @@ function createTemperatureRangeChart(data, selector) {
     .attr("r", 8)
     .attr("fill", "#0033ff")
     .on("mouseover", function(e, d) {
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d.name} Min</b><br>${d.min.toFixed(2)} K`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -1001,7 +1027,7 @@ function createTemperatureRangeChart(data, selector) {
     .attr("r", 8)
     .attr("fill", "#ff3333")
     .on("mouseover", function(e, d) {
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d.name} Max</b><br>${d.max.toFixed(2)} K`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -1041,7 +1067,7 @@ function createTemperatureRangeChart(data, selector) {
     .style("cursor", "help")
     .text("Celestial Body")
     .on("mouseover", function(e) {
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html("<b>Celestial Body</b><br>A celestial body is a natural object in space, such as a planet, moon, or star.")
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -1053,14 +1079,14 @@ function createTemperatureRangeChart(data, selector) {
   // Tooltip for data points
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0)
     .style("position", "absolute")
     .style("background", "#222")
     .style("color", "#aaffee")
     .style("padding", "8px")
     .style("border-radius", "6px")
     .style("pointer-events", "none")
-    .style("font-size", "14px");
+    .style("font-size", "14px")
+    .style("opacity", 1);
 
   // Draw min/max points (fix: if min==null but max exists, set min=max; if max==null but min exists, set max=min)
   svg.selectAll(".min-dot")
@@ -1073,7 +1099,7 @@ function createTemperatureRangeChart(data, selector) {
     .attr("r", 8)
     .attr("fill", "#0033ff")
     .on("mouseover", function(e, d) {
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d.name} Min</b><br>${d.min.toFixed(2)} K`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -1092,7 +1118,7 @@ function createTemperatureRangeChart(data, selector) {
     .attr("r", 8)
     .attr("fill", "#ff3333")
     .on("mouseover", function(e, d) {
-      tooltip.transition().duration(200).style("opacity", .95);
+      tooltip.transition().duration(200).style("opacity", 1);
       tooltip.html(`<b>${d.name} Max</b><br>${d.max.toFixed(2)} K`)
         .style("left", (e.pageX + 10) + "px")
         .style("top", (e.pageY - 28) + "px");
@@ -1101,3 +1127,20 @@ function createTemperatureRangeChart(data, selector) {
       tooltip.transition().duration(300).style("opacity", 0);
     });
 }
+
+// 1. Create a tooltip div (once, outside your loop)
+const tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "planet-tooltip")
+  .style("position", "absolute")
+  .style("pointer-events", "none")
+  .style("background", "rgba(10,30,40,0.97)")
+  .style("color", "#aaffee")
+  .style("padding", "18px 22px")
+  .style("border-radius", "16px")
+  .style("box-shadow", "0 0 24px #00ffe0, 0 0 4px #fff")
+  .style("font-family", "'Orbitron', sans-serif")
+  .style("font-size", "1.1em")
+  .style("z-index", 99999)
+  .style("opacity", 0)
+  .style("transition", "opacity 0.2s");
