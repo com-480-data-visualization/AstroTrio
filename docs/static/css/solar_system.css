@@ -42,17 +42,17 @@
 .pluto {
     position: absolute;
     border-style: solid;
-    border-color: white transparent transparent transparent;
-    border-width: 0.1em 0.1em 0 0;
+    border-color: white white white white;
+    border-width: 0.0em 0.0em 0.0em 0.0em;
     border-radius: 50%;
     pointer-events: none;
 }
 .mercury {
-    top: 12.5em;
-    left: 12.5em;
-    width: 15em;
-    height: 15em;
-    animation: orbit 206s linear infinite;
+    top: 13.4em;
+    left: 14.5em;
+    width: 11em;
+    height: 11em;
+    animation: orbit 6s linear infinite;
 }
 
 .venus {
@@ -60,7 +60,7 @@
     left: 10em;
     width: 20em;
     height: 20em;
-    animation: orbit 146s linear infinite;
+    animation: orbit 12s linear infinite;
 }
 
 .earth {
@@ -68,56 +68,56 @@
     left: 6em;
     width: 28em;
     height: 28em; 
-    animation: orbit 110s linear infinite;   
+    animation: orbit 16s linear infinite;   
 }
 .moon {
-    top: 2em;
-    right: -1em;
-    width: 7em;
-    height: 7em; 
-    animation: orbit 8s linear infinite;
+    top: -2.8em;
+    right: 25.6em;
+    width: 5em;
+    height: 5em; 
+    animation: orbit 16s linear infinite;
 }
 .mars {
     top: 2em;
     left: 2.5em;
     width: 36em;
     height: 36em; 
-    animation: orbit 80s linear infinite;
+    animation: orbit 23s linear infinite;
 }
 .jupiter {
     top: -2em;
     left: -2em;
     width: 45em;
     height: 45em; 
-    animation: orbit 63s linear infinite;
+    animation: orbit 35s linear infinite;
 }
 .saturn {
     top: -7em;
     left: -7em;
     width: 55em;
     height: 55em; 
-    animation: orbit 51s linear infinite;
+    animation: orbit 38s linear infinite;
 }
 .uranus {
     top: -12em;
     left: -12em;
     width: 65em;
     height: 65em; 
-    animation: orbit 57s linear infinite;
+    animation: orbit 40s linear infinite;
 }
 .neptune {
     top: -17em;
     left: -17em;
     width: 75em;
     height: 75em; 
-    animation: orbit 45s linear infinite;
+    animation: orbit 50s linear infinite;
 }
 .pluto {
     top: -22em;
     left: -22em;
     width: 85em;
     height: 85em; 
-    animation: orbit 54s linear infinite;
+    animation: orbit 52s linear infinite;
 }
 
 .star {
