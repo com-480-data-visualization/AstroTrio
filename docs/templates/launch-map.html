@@ -119,6 +119,48 @@
         color: #19dfb787;
     }
 
+    #map-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ffffffdd;
+        color: #333;
+        border: 1px solid #000000;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        cursor: default;
+        font-weight: bold;
+        font-size: 16px;
+        z-index: 1000;
+        }
+
+    #map-info::after {
+        content: attr(data-info);
+        white-space: pre-line;
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 0;
+        background: #c5c5c5;
+        color: #000;
+        padding: 6px 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        z-index: 1001;
+        max-width: 630px;
+        min-width: 550px;
+        text-align: left;
+    }
+
+    #map-info:hover::after {
+    display: block;
+    }
+
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -126,7 +168,13 @@
 <div id="main-container">
     <!-- Map -->
     <div id="map-container">
-        <div id="map"></div>
+        <div id="map">
+            <div id="map-info" data-info="This map presents the location of all space mission launches from 1957 to 2022.
+            You can sort the launches by success or failure using the button on the side.
+            Click on the markers to view details like the launch site name and country.
+            The chart on the right presents the evolution of missions over time by country or company.
+            By clicking on the bar of a company, you can get some information about it.">i</div>
+        </div>
     </div>
 
     <!-- Panel -->
