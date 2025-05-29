@@ -6,9 +6,9 @@
 |Carron Léo|346211|
 |Dupont-Roc Maud|314869|
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3) • [Website](https://com-480-data-visualization.github.io/AstroTrio/) • [Process Book](Reports/Process_Book.pdf) • [Screencast](LIEN)
 
-## Milestone 1 (21st March, 5pm)
+## Milestone 1
 
 **10% of the final grade**
 
@@ -81,7 +81,7 @@ We found a project from two years ago and a website that did some visualization 
 - **Interactive elements**: A dynamic archive of past launches and an engaging representation of future missions.  
 - **Educational purpose**: Our goal is to make space exploration more accessible to the public and people interested in space in general.
 
-## Milestone 2 (18th April, 5pm)
+## Milestone 2
 
 **10% of the final grade**
 
@@ -92,7 +92,7 @@ For detailed insights and analysis regarding Milestone 2, check out our comprehe
 Project Website:
 Visit our [initial Project Website](https://com-480-data-visualization.github.io/AstroTrio/) to explore interactive visualizations and more detailed content about our work.
 
-## Milestone 3 (30th May, 5pm)
+## Milestone 3
 
 **80% of the final grade**
 
@@ -102,7 +102,7 @@ Here are the different resources for Milestone 3:
 
 - 🌐[**Final Website**](https://com-480-data-visualization.github.io/AstroTrio/)
 
-- 🎥[**Screencast**](https://...)
+- 🎥[**Screencast**](LIEN)
 
 
 ## Late policy
