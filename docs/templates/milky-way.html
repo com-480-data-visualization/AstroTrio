@@ -200,16 +200,10 @@
     <section id="data-visualizations" class="full-height-section">
         <h2>Exoplanet Discoveries</h2>
         <div class="visualization-grid">
-            <div class="viz-card" id="discovery-timeline">
-                <h3>Discovery Timeline</h3>
+            <div class="viz-card" id="max-distance-per-year">
+                <h3>Max Distance per Year</h3>
                 <div class="viz-content">
-                    <div id="discovery-timeline-chart"></div>
-                </div>
-            </div>
-            <div class="viz-card" id="detection-methods">
-                <h3>Detection Methods</h3>
-                <div class="viz-content">
-                    <div id="detection-methods-chart"></div>
+                    <div id="max-distance-per-year-chart"></div>
                 </div>
             </div>
             <div class="viz-card" id="planet-types">
@@ -218,22 +212,47 @@
                     <div id="planet-types-chart"></div>
                 </div>
             </div>
-            <div class="viz-card" id="distance-orbital">
-                <h3>Distance vs. Orbital Radius</h3>
+            <!-- ── Mass Density (toggle Earth/Jupiter) ───────────────────────────── -->
+            <div class="viz-card" id="mass-density-card">
+                <h3>Mass-Multiplier Distribution</h3>
+            
+                <!-- small control bar just for this chart -->
+                <div class="viz-controls">
+                <label for="massRef">Reference planet&nbsp;</label>
+                <select id="massRef" class="viz-select">
+                    <option value="Earth"  selected>Earth</option>
+                    <option value="Jupiter">Jupiter</option>
+                </select>
+                </div>
+            
+                <!-- the chart goes in here; JS injects an <svg> -->
+                <div id="massPlot" class="viz-content"></div>
+  
+            </div>
+            <div class="viz-card" id="radius-density-card">
+                <h3>Radius-Multiplier Distribution</h3>
                 <div class="viz-content">
-                    <div id="distance-orbital-chart"></div>
+                    <!-- small control bar just for this chart -->
+                    <div class="viz-controls">
+                        <label for="radiusRef">Reference planet&nbsp;</label>
+                        <select id="radiusRef" class="viz-select">
+                            <option value="Earth"  selected>Earth</option>
+                            <option value="Jupiter">Jupiter</option>
+                        </select>
+                    </div>
+                    <div id="radiusPlot" class="viz-content"></div>
                 </div>
             </div>
-            <div class="viz-card" id="habitability">
-                <h3>Habitability Potential</h3>
+            <div class="viz-card" id="stellar-density-card">
+                <h3>Stellar Density</h3>
                 <div class="viz-content">
-                    <div id="habitability-chart"></div>
+                    <div id="stellar-density-chart"></div>
                 </div>
             </div>
-            <div class="viz-card" id="size-comparison">
-                <h3>Exoplanet Size Comparison</h3>
+            <div class="viz-card" id="orbital-radius-boxplot">
+                <h3>Orbital Radius Boxplot</h3>
                 <div class="viz-content">
-                    <div id="size-comparison-chart"></div>
+                    <div id="orbital-radius-boxplot"></div>
                 </div>
             </div>
         </div>
@@ -245,6 +264,6 @@
 <!-- D3.js for visualizations -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <!-- Add our custom JavaScript -->
-<script src="../static/js/milky_way.js"></script>
+<script src="../static/js/milky_way.js" type="module"></script>
 
 {% endblock %}
