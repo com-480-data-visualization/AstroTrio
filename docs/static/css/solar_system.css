@@ -295,3 +295,17 @@
   color: #181c20;
   box-shadow: 0 0 8px #00ffe0;
 }
+
+/* To make the Sun clickable and overlay the image */
+.sun-body {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  background: none;
+  z-index: 11;
+  pointer-events: auto;
+}

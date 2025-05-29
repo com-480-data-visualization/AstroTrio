@@ -119,17 +119,17 @@ function showSidebar(planet) {
     }
   };
 
-  let html = `<h2>${data.Planet}</h2>`;
+  let html = `<h2 style="text-align:center;color:#00ffe0;font-family:'Orbitron',sans-serif;font-size:2em;font-weight:bold;margin-bottom:0.2em;letter-spacing:1px;text-shadow:0 0 8px #00ffe0,0 0 2px #fff;">${data.Planet}</h2>`;
   if (note) html += note;
-  // Add chart filter buttons
+  html += `<div style="text-align:center;color:#00ffe0;font-family:'Orbitron',sans-serif;font-size:1.3em;font-weight:bold;margin-bottom:0.5em;letter-spacing:1px;text-shadow:0 0 8px #00ffe0,0 0 2px #fff;">General Characteristics</div>`;
   html += `<div id="chartFilter" style="margin-bottom: 1em; text-align: center;">
     <button id="showRadar" class="chart-toggle active">Radar Chart</button>
     <button id="showBar" class="chart-toggle">Bar Chart</button>
   </div>`;
-  html += '<div id="radarChart" style="width:340px;height:340px;margin-bottom:1em;"></div>';
-  html += '<div id="physBarChart" style="width:340px;height:220px;margin-bottom:1em;"></div>';
+  html += '<div id="radarChart" style="width:340px;height:340px;margin:0 auto 0.5em auto;"></div>';
+  html += '<div id="physBarChart" style="width:340px;height:340px;margin:0 auto 0.5em auto;display:none;"></div>';
+  html += '<div id="featureBadges" style="margin-bottom:1em;text-align:center;min-height:70px;"></div>';
   html += '<ul>';
-  
   // Group related data
   const groups = {
     "Physical Characteristics": [
@@ -154,60 +154,146 @@ function showSidebar(planet) {
       "Surface Features", "Composition"
     ]
   };
-
-  // Add data by groups
+  // Remove old features list from the bottom
   for (const [groupName, keys] of Object.entries(groups)) {
-    if (groupName === "Physical Characteristics") continue; // Skip textual list for this group
+    if (groupName === "Physical Characteristics" || groupName === "Features") continue;
     const groupData = keys
       .map(key => {
         const value = formatValue(key, data[key]);
         return value ? `<li><b>${key}:</b> ${value}</li>` : null;
       })
       .filter(Boolean);
-
     if (groupData.length > 0) {
       html += `<li class="group-header">${groupName}</li>`;
       html += groupData.join('');
     }
   }
-
   html += "</ul>";
   document.getElementById("sidebarContent").innerHTML = html;
   document.getElementById("planetSidebar").classList.add("active");
 
+  // --- D3 Feature Badges for categorical features ---
+  function renderFeatureBadges(features, selector) {
+    const container = d3.select(selector).html("");
+    const badge = container.selectAll(".feature-badge")
+      .data(features)
+      .enter()
+      .append("div")
+      .attr("class", "feature-badge")
+      .style("display", "inline-block")
+      .style("margin", "0 8px 8px 0")
+      .style("padding", "7px 16px")
+      .style("border-radius", "16px")
+      .style("background", d => {
+        if (d.label === "Rings" || d.label === "Magnetic Field") {
+          if (d.value === "Yes") return "#00ff99"; // green
+          if (d.value === "No") return "#ff2222"; // true red
+        }
+        if (d.value === "Yes") return "#00ffe0";
+        if (d.value === "No") return "#ffb347";
+        return "#222";
+      })
+      .style("color", d => {
+        if (d.label === "Rings" || d.label === "Magnetic Field") {
+          if (d.value === "Yes") return "#181c20";
+          if (d.value === "No") return "#fff";
+        }
+        if (d.value === "Yes") return "#181c20";
+        if (d.value === "No") return "#181c20";
+        return "#aaffee";
+      })
+      .style("font-weight", "bold")
+      .style("font-size", "1.08em")
+      .style("box-shadow", d => {
+        if (d.label === "Rings" || d.label === "Magnetic Field") {
+          if (d.value === "Yes") return "0 0 8px #00ff99";
+          if (d.value === "No") return "0 0 8px #ff2222";
+        }
+        if (d.value === "Yes") return "0 0 8px #00ffe0";
+        if (d.value === "No") return "0 0 8px #ffb347";
+        return "0 0 8px #222";
+      })
+      .html(d => {
+        let icon = "";
+        if (d.label === "Moons") icon = "🌙 ";
+        else if (d.label === "Rings") icon = "🪐 ";
+        else if (d.label === "Magnetic Field") icon = "🧲 ";
+        else if (d.label === "Surface") icon = "🪨 ";
+        else if (d.label === "Composition") icon = "🧪 ";
+        return `${icon}${d.label}: ${d.value}`;
+      })
+      .append("title")
+      .text(d => d.description || d.label);
+  }
+  // Prepare features for badges
+  const featureKeys = [
+    { key: "Number of Moons", label: "Moons" },
+    { key: "Ring System?", label: "Rings" },
+    { key: "Global Magnetic Field?", label: "Magnetic Field" },
+    { key: "Surface Features", label: "Surface" },
+    { key: "Composition", label: "Composition" }
+  ];
+  const featureBadges = featureKeys.map(f => ({
+    label: f.label,
+    value: data[f.key] && data[f.key] !== "Unknown" ? data[f.key] : "-",
+    description: f.key
+  }));
+  renderFeatureBadges(featureBadges, "#featureBadges");
+
   // --- Chart toggle logic ---
   document.getElementById("physBarChart").style.display = "none";
-  document.getElementById("showRadar").onclick = function() {
+  const radarBtn = document.getElementById("showRadar");
+  const barBtn = document.getElementById("showBar");
+  radarBtn.onclick = function() {
     document.getElementById("radarChart").style.display = "";
     document.getElementById("physBarChart").style.display = "none";
-    this.classList.add("active");
-    document.getElementById("showBar").classList.remove("active");
+    radarBtn.classList.add("active");
+    barBtn.classList.remove("active");
   };
-  document.getElementById("showBar").onclick = function() {
+  barBtn.onclick = function() {
     document.getElementById("radarChart").style.display = "none";
     document.getElementById("physBarChart").style.display = "";
-    drawBarChart(physData);
-    this.classList.add("active");
-    document.getElementById("showRadar").classList.remove("active");
+    drawBarChart(barData, barMaxVals, xAxisType);
+    barBtn.classList.add("active");
+    radarBtn.classList.remove("active");
   };
+
+  // --- Only use planets (including Pluto) for normalization ---
+  const planetNames = [
+    "mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"
+  ];
+  const isPlanet = planetNames.includes(planet);
+  const isSun = planet === 'sun';
+  const isMoon = planet === 'moon';
 
   // Radar chart features and normalization
   const radarFeatures = [
-    { key: "Mass (10^24kg)", label: "Mass", unit: "10²⁴kg", format: v => v },
-    { key: "Diameter (km)", label: "Diameter", unit: "10³ km", format: v => v/1000 },
+    { key: "Mass (10^24kg)", label: "Mass", unit: isSun ? "10³⁰kg" : "10²⁴kg", format: v => isSun ? v / 1e6 : v },
+    { key: "Diameter (km)", label: "Diameter", unit: isSun ? "10⁶ km" : "10³ km", format: v => isSun ? v / 1e6 : v / 1000 },
     { key: "Density (kg/m^3)", label: "Density", unit: "g/cm³", format: v => v/1000 },
-    { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: "m/s²", format: v => v },
-    { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: "km/s", format: v => v },
-    { key: "Mean Temperature (C)", label: "Mean Temp", unit: "K", format: v => v + 273.15 },
+    { key: "Surface Gravity(m/s^2)", label: "Gravity", unit: isSun ? "10² m/s²" : "m/s²", format: v => isSun ? v / 100 : v },
+    { key: "Escape Velocity (km/s)", label: "Escape Vel.", unit: isSun ? "10² km/s" : "km/s", format: v => isSun ? v / 100 : v },
+    { key: "Mean Temperature (C)", label: isSun ? "Mean Temp" : "Mean Temp", unit: isSun ? "10³ K" : "K", format: v => isSun ? (v + 273.15) / 1000 : v + 273.15 },
     { key: "Orbital Eccentricity", label: "Eccentricity", unit: "", format: v => v },
     { key: "Obliquity to Orbit (degrees)", label: "Obliquity", unit: "°", format: v => v }
   ];
 
-  // Gather all planet values for normalization
-  const allPlanets = Object.values(planetData);
+  // Gather values for normalization
+  let normalizationBodies;
+  if (isPlanet) {
+    normalizationBodies = planetNames.map(name => planetData[name]);
+  } else if (isSun) {
+    normalizationBodies = [planetData["sun"]];
+  } else if (isMoon) {
+    normalizationBodies = [planetData["earth's moon"]];
+  } else {
+    normalizationBodies = Object.values(planetData);
+  }
+
+  // Radar chart min/max
   const featureStats = {};
   radarFeatures.forEach(f => {
-    const vals = allPlanets.map(p => +p[f.key]).filter(v => !isNaN(v));
+    const vals = normalizationBodies.map(p => f.format(+p[f.key])).filter(v => !isNaN(v));
     featureStats[f.key] = { min: Math.min(...vals), max: Math.max(...vals) };
   });
 
@@ -215,10 +301,7 @@ function showSidebar(planet) {
   const radarData = radarFeatures.map(f => {
     let raw = f.format(+data[f.key]);
     if (isNaN(raw)) raw = 0;
-    const { min, max } = {
-      min: Math.min(...Object.values(planetData).map(p => f.format(+p[f.key] || 0))),
-      max: Math.max(...Object.values(planetData).map(p => f.format(+p[f.key] || 0)))
-    };
+    const { min, max } = featureStats[f.key];
     let value;
     if (max === min) {
       value = 1;
@@ -233,72 +316,131 @@ function showSidebar(planet) {
       min,
       max,
       unit: f.unit,
-      negative: f.label === "Mean Temp" && raw < 0
+      negative: f.label === "Mean Temp" && raw < (isSun ? 0 : 273.15)
     };
   });
 
-  console.log("Radar Data:", radarData);
   drawRadarChart("#radarChart", radarData);
 
   // --- D3 Horizontal Bar Chart for Physical Characteristics ---
   const physKeys = [
-    { key: "Mass (10^24kg)", label: "Mass (10²⁴kg)", format: v => v, unit: "" },
-    { key: "Diameter (km)", label: "Diameter (10³ km)", format: v => (v/1000), unit: "×10³ km" },
+    {
+      key: "Mass (10^24kg)",
+      label: isSun ? "Mass (10³⁰kg)" : "Mass (10²⁴kg)",
+      format: v => isSun ? v / 1e6 : v,
+      unit: isSun ? "×10³⁰ kg" : "×10²⁴ kg"
+    },
+    {
+      key: "Diameter (km)",
+      label: isSun ? "Diameter (10⁶ km)" : "Diameter (10³ km)",
+      format: v => isSun ? v / 1e6 : v / 1000,
+      unit: isSun ? "×10⁶ km" : "×10³ km"
+    },
     { key: "Density (kg/m^3)", label: "Density (g/cm³)", format: v => (v/1000), unit: "g/cm³" },
-    { key: "Surface Gravity(m/s^2)", label: "Gravity (m/s²)", format: v => v, unit: "m/s²" },
-    { key: "Escape Velocity (km/s)", label: "Escape Vel. (km/s)", format: v => v, unit: "km/s" },
+    {
+      key: "Surface Gravity(m/s^2)",
+      label: isSun ? "Gravity (10² m/s²)" : "Gravity (m/s²)",
+      format: v => isSun ? v / 100 : v,
+      unit: isSun ? "×10² m/s²" : "m/s²"
+    },
+    {
+      key: "Escape Velocity (km/s)",
+      label: isSun ? "Escape Vel. (10² km/s)" : "Escape Vel. (km/s)",
+      format: v => isSun ? v / 100 : v,
+      unit: isSun ? "×10² km/s" : "km/s"
+    },
     { key: "Obliquity to Orbit (degrees)", label: "Obliquity (°)", format: v => v, unit: "°" },
     { key: "Orbital Eccentricity", label: "Eccentricity", format: v => v, unit: "" },
-    { key: "Mean Temperature (C)", label: "Mean Temp (K)", format: v => v + 273.15, unit: "K" }
+    {
+      key: "Mean Temperature (C)",
+      label: isSun ? "Mean Temp (10³ K)" : isMoon ? "Mean Temp (10² K)" : "Mean Temp (K)",
+      format: v => isSun ? (v + 273.15) / 1000 : isMoon ? (v + 273.15) / 100 : v + 273.15,
+      unit: isSun ? "×10³ K" : isMoon ? "×10² K" : "K"
+    }
   ];
-  const physData = physKeys.map(d => {
-    const raw = +data[d.key] || 0;
-    return {
-      label: d.label,
-      value: d.label === "Mean Temp (K)" ? Math.abs(d.format(raw)) : d.format(raw),
-      raw: raw,
-      unit: d.unit,
-      negative: d.label === "Mean Temp (K)" && raw < 0
-    };
-  });
 
-  // Find max for normalization (across all planets)
-  const maxVals = {};
-  physKeys.forEach(d => {
-    maxVals[d.label] = Math.max(...allPlanets.map(p => d.format(+p[d.key] || 0)));
-  });
+  // --- Bar chart normalization logic ---
+  let barData, barMaxVals, xAxisType;
+  if (isPlanet) {
+    // For planets: normalize to max among all planets
+    const barNormalizationBodies = planetNames.map(name => planetData[name]);
+    barMaxVals = {};
+    physKeys.forEach(d => {
+      barMaxVals[d.label] = Math.max(...barNormalizationBodies.map(p => d.format(+p[d.key] || 0)));
+    });
+    barData = physKeys.map(d => {
+      const raw = +data[d.key] || 0;
+      const value = d.format(raw);
+      const max = barMaxVals[d.label] || 1;
+      return {
+        label: d.label,
+        value: value / max, // normalized for bar width
+        raw: raw,
+        unit: d.unit,
+        display: value, // for label
+        original: raw,
+        max: max
+      };
+    });
+    xAxisType = 'percent';
+  } else if (isSun || isMoon) {
+    // For Sun/Moon: use actual values, no normalization
+    barData = physKeys.map(d => {
+      const raw = +data[d.key] || 0;
+      const value = d.format(raw);
+      return {
+        label: d.label,
+        value: value, // actual value for bar width
+        raw: raw,
+        unit: d.unit,
+        display: value, // for label
+        original: raw
+      };
+    });
+    // Find max for each attribute for axis scaling
+    barMaxVals = {};
+    physKeys.forEach((d, i) => {
+      barMaxVals[d.label] = barData[i].value;
+    });
+    xAxisType = 'number';
+  }
 
-  drawBarChart(physData);
+  drawBarChart(barData, barMaxVals, xAxisType);
 }
 
-function drawBarChart(physData) {
-  const width = 420, height = 260, margin = {top: 36, right: 100, bottom: 20, left: 120};
+function drawBarChart(physData, barMaxVals, xAxisType) {
+  const width = 340, height = 340, margin = {top: 44, right: 40, bottom: 40, left: 120};
   const svg = d3.select("#physBarChart").html("")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  svg.append("text")
-    .attr("x", width/2)
-    .attr("y", 22)
-    .attr("text-anchor", "middle")
-    .attr("fill", "#00ffe0")
-    .attr("font-size", "18px")
-    .attr("font-family", "Orbitron, sans-serif")
-    .attr("font-weight", "bold")
-    .text("Physical Characteristics");
+  // Remove the bar chart title (no title for bar chart)
 
   const y = d3.scaleBand()
     .domain(physData.map(d => d.label))
     .range([margin.top, height - margin.bottom])
     .padding(0.2);
-  const x = d3.scaleLinear()
-    .domain([0, d3.max(physData, d => d.value * 1.1)])
-    .range([margin.left, width - margin.right]);
+  let x;
+  if (xAxisType === 'percent') {
+    x = d3.scaleLinear()
+      .domain([0, 1])
+      .range([margin.left, width - margin.right]);
+  } else {
+    // Sun/Moon: use actual value range
+    const max = Math.max(...physData.map(d => d.value));
+    x = d3.scaleLinear()
+      .domain([0, max])
+      .range([margin.left, width - margin.right]);
+  }
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(5).tickSizeOuter(0))
+    .call(d3.axisBottom(x)
+      .ticks(5)
+      .tickFormat(d => xAxisType === 'percent' ? `${Math.round(d * 100)}%` : d)
+      .tickSizeOuter(0)
+    )
     .selectAll("text")
     .style("font-size", "12px");
 
@@ -318,35 +460,36 @@ function drawBarChart(physData) {
     .attr("y", d => y(d.label))
     .attr("height", y.bandwidth())
     .attr("fill", d => 
-      d.label === "Mean Temp (K)" 
-        ? (d.value < 273.15 ? "#3399ff" : "#ffb347") 
+      d.label === "Mean Temp (K)" || d.label === "Mean Temp (10³ K)"
+        ? (d.display < (d.label === "Mean Temp (10³ K)" ? 0 : 273.15) ? "#3399ff" : "#ffb347")
         : "#00ffe0"
     )
     .attr("opacity", 0.7)
     .attr("width", 0)
     .transition()
     .duration(900)
-    .attr("width", d => x(d.value) - x(0));
+    .attr("width", d => xAxisType === 'percent' ? x(d.value) - x(0) : x(d.value) - x(0));
 
   svg.selectAll(".bar-label")
     .data(physData)
     .enter()
     .append("text")
     .attr("class", "bar-label")
-    .attr("x", d => x(d.value) + 8)
+    .attr("x", d => xAxisType === 'percent' ? x(d.value) + 8 : x(d.value) + 8)
     .attr("y", d => y(d.label) + y.bandwidth()/2 + 5)
     .text(d => {
-      if (d.label === "Mean Temp (K)") {
-        return d.value.toFixed(1) + (d.unit ? ' ' + d.unit : '');
+      // Show original value for label
+      if (d.label === "Mean Temp (K)" || d.label === "Mean Temp (10³ K)") {
+        return d.display.toFixed(2) + (d.unit ? ' ' + d.unit : '');
       }
-      if (d.value < 10) return d.value.toFixed(2) + (d.unit ? ' ' + d.unit : '');
-      if (d.value < 100) return d.value.toFixed(1) + (d.unit ? ' ' + d.unit : '');
-      return d.value.toFixed(0) + (d.unit ? ' ' + d.unit : '');
+      if (d.display < 10) return d.display.toFixed(2) + (d.unit ? ' ' + d.unit : '');
+      if (d.display < 100) return d.display.toFixed(1) + (d.unit ? ' ' + d.unit : '');
+      return d.display.toFixed(0) + (d.unit ? ' ' + d.unit : '');
     })
     .style("fill", "#fff")
     .style("font-size", "13px")
     .append("title")
-    .text(d => d.label === "Mean Temp (K)" ? `${d.value.toFixed(2)} ${d.unit}` : `${d.value} ${d.unit}`);
+    .text(d => d.original + (d.unit ? ' ' + d.unit : ''));
 }
 
 // --- D3 Graphs from sol_data.csv ---
@@ -634,21 +777,23 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
 
 function drawRadarChart(selector, data) {
   d3.select(selector).html(""); // Clear previous chart
-  const w = 380, h = 320, radius = 120;
+  const w = 340, h = 340, radius = 110;
   const levels = 5;
   const angleSlice = (2 * Math.PI) / data.length;
 
   const svg = d3.select(selector)
     .append("svg")
     .attr("width", w)
-    .attr("height", h)
-    .append("g")
-    .attr("transform", `translate(190,160)`);
+    .attr("height", h);
+
+
+  const g = svg.append("g")
+    .attr("transform", `translate(${w/2},${h/2+10})`);
 
   // Draw grid
   for (let level = 1; level <= levels; level++) {
     const r = radius * (level / levels);
-    svg.append("polygon")
+    g.append("polygon")
       .attr("points", data.map((d, i) => {
         const angle = i * angleSlice - Math.PI/2;
         return [Math.cos(angle)*r, Math.sin(angle)*r].join(",");
@@ -662,7 +807,7 @@ function drawRadarChart(selector, data) {
   // Draw axes
   data.forEach((d, i) => {
     const angle = i * angleSlice - Math.PI/2;
-    svg.append("line")
+    g.append("line")
       .attr("x1", 0).attr("y1", 0)
       .attr("x2", Math.cos(angle)*radius)
       .attr("y2", Math.sin(angle)*radius)
@@ -671,7 +816,7 @@ function drawRadarChart(selector, data) {
       .attr("opacity", 0.5);
 
     // Axis labels with units
-    svg.append("text")
+    g.append("text")
       .attr("x", Math.cos(angle)*(radius+18))
       .attr("y", Math.sin(angle)*(radius+18))
       .attr("text-anchor", "middle")
@@ -698,7 +843,7 @@ function drawRadarChart(selector, data) {
     .radius(d => d.value * radius)
     .angle((d, i) => i * angleSlice);
 
-  svg.append("path")
+  g.append("path")
     .datum(data)
     .attr("d", radarLine.curve(d3.curveLinearClosed)(data))
     .attr("fill", "#00ffe0")
@@ -706,7 +851,7 @@ function drawRadarChart(selector, data) {
     .attr("stroke", "#00ffe0")
     .attr("stroke-width", 2);
 
-  // Draw data points and tooltips
+  // Draw data points and tooltips (fix: place relative to g, not svg)
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0)
@@ -718,21 +863,13 @@ function drawRadarChart(selector, data) {
     .style("pointer-events", "none")
     .style("font-size", "14px");
 
-  svg.selectAll(".radar-point")
+  g.selectAll(".radar-point")
     .data(data)
     .enter()
     .append("circle")
     .attr("class", "radar-point")
-    .attr("cx", (d, i) => {
-      const x = Math.cos(i*angleSlice - Math.PI/2) * d.value * radius;
-      console.log(`Radar point ${d.axis}: x=${x}`);
-      return x;
-    })
-    .attr("cy", (d, i) => {
-      const y = Math.sin(i*angleSlice - Math.PI/2) * d.value * radius;
-      console.log(`Radar point ${d.axis}: y=${y}`);
-      return y;
-    })
+    .attr("cx", (d, i) => Math.cos(i*angleSlice - Math.PI/2) * d.value * radius)
+    .attr("cy", (d, i) => Math.sin(i*angleSlice - Math.PI/2) * d.value * radius)
     .attr("r", 10)
     .attr("fill", d => 
       d.axis === "Mean Temp" 
