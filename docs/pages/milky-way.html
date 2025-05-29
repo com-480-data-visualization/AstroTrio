@@ -1,64 +1,7 @@
-<!doctype html>
-<html lang="en">
+{% extends "template.html" %}
+{% block title %} AstroTrio - Milky Way{% endblock %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <!-- Bootstrap v5 -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoZj1HIcje39Wm4jDKdf19U8gI4ddQ3DYxBZZP1QvZ6jIW3"
-    crossorigin="anonymous">  -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
-    <link rel="stylesheet" href="../static/css/style.css">
-
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <title> AstroTrio - Milky Way</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="container-fluid">
-
-            <!-- Left side: logo and name -->
-            <a class="navbar-brand" href="/AstroTrio"><img src="../static/images/logo10.png" alt="AstroTrio Logo" width="60"
-                    height="60"/>
-                AstroTrio</a>
-
-            <!-- Right side: links -->
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="launch-map.html">Launch Map</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="solar-system.html">Solar System</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="milky-way.html">Milky Way</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="project-story.html">Project Story</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        
+{% block main %}
 
 <style>
     /* Main container styles */
@@ -257,16 +200,10 @@
     <section id="data-visualizations" class="full-height-section">
         <h2>Exoplanet Discoveries</h2>
         <div class="visualization-grid">
-            <div class="viz-card" id="discovery-timeline">
-                <h3>Discovery Timeline</h3>
+            <div class="viz-card" id="max-distance-per-year">
+                <h3>Max Distance per Year</h3>
                 <div class="viz-content">
-                    <div id="discovery-timeline-chart"></div>
-                </div>
-            </div>
-            <div class="viz-card" id="detection-methods">
-                <h3>Detection Methods</h3>
-                <div class="viz-content">
-                    <div id="detection-methods-chart"></div>
+                    <div id="max-distance-per-year-chart"></div>
                 </div>
             </div>
             <div class="viz-card" id="planet-types">
@@ -275,22 +212,47 @@
                     <div id="planet-types-chart"></div>
                 </div>
             </div>
-            <div class="viz-card" id="distance-orbital">
-                <h3>Distance vs. Orbital Radius</h3>
+            <!-- ── Mass Density (toggle Earth/Jupiter) ───────────────────────────── -->
+            <div class="viz-card" id="mass-density-card">
+                <h3>Mass-Multiplier Distribution</h3>
+            
+                <!-- small control bar just for this chart -->
+                <div class="viz-controls">
+                <label for="massRef">Reference planet&nbsp;</label>
+                <select id="massRef" class="viz-select">
+                    <option value="Earth"  selected>Earth</option>
+                    <option value="Jupiter">Jupiter</option>
+                </select>
+                </div>
+            
+                <!-- the chart goes in here; JS injects an <svg> -->
+                <div id="massPlot" class="viz-content"></div>
+  
+            </div>
+            <div class="viz-card" id="radius-density-card">
+                <h3>Radius-Multiplier Distribution</h3>
                 <div class="viz-content">
-                    <div id="distance-orbital-chart"></div>
+                    <!-- small control bar just for this chart -->
+                    <div class="viz-controls">
+                        <label for="radiusRef">Reference planet&nbsp;</label>
+                        <select id="radiusRef" class="viz-select">
+                            <option value="Earth"  selected>Earth</option>
+                            <option value="Jupiter">Jupiter</option>
+                        </select>
+                    </div>
+                    <div id="radiusPlot" class="viz-content"></div>
                 </div>
             </div>
-            <div class="viz-card" id="habitability">
-                <h3>Habitability Potential</h3>
+            <div class="viz-card" id="stellar-density-card">
+                <h3>Stellar Density</h3>
                 <div class="viz-content">
-                    <div id="habitability-chart"></div>
+                    <div id="stellar-density-chart"></div>
                 </div>
             </div>
-            <div class="viz-card" id="size-comparison">
-                <h3>Exoplanet Size Comparison</h3>
+            <div class="viz-card" id="orbital-radius-boxplot">
+                <h3>Orbital Radius Boxplot</h3>
                 <div class="viz-content">
-                    <div id="size-comparison-chart"></div>
+                    <div id="orbital-radius-boxplot"></div>
                 </div>
             </div>
         </div>
@@ -302,19 +264,6 @@
 <!-- D3.js for visualizations -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <!-- Add our custom JavaScript -->
-<script src="../static/js/milky_way.js"></script>
+<script src="../static/js/milky_way.js" type="module"></script>
 
-
-    </main>
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qVBUqf5Z6rA6T+jScyB6jvWc+pJHnWc3y7lM+aqcZxRc8Od77M+Xr1XqF/fLNKXF"
-    crossorigin="anonymous"></script> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="/static/js/app.js"></script> -->
-    <!-- <script src="../static/js/log.js"></script> -->
-
-</body>
-
-</html>
+{% endblock %}
