@@ -17,7 +17,7 @@ d3.csv("../static/data/nasa_exoplanets.csv").then(data => {
   .range(["#b730ff", "#3e0b9e", "#e77cd7", "#ff8e8e", "#ffb07c"]);
 
   // Create all six visualizations with the same data
-  createMaxDistancePerYearGraph(data, "#max-distance-per-year-chart");
+  createMaxDistancePerYearGraph(data, "#max-distance-per-year-chart", colorScale);
  
   createPlanetTypesGraph(data, "#planet-types-chart", colorScale);
 
@@ -62,9 +62,9 @@ d3.csv("../static/data/nasa_exoplanets.csv").then(data => {
     data,
     selector: "#stellar-density-chart"
   });
-  // Add orbital radius boxplot
+  // boxplot
   createBoxPlot({
-    data: data,
+    data,
     numericKey: "orbital_radius",
     categoryKey: "planet_type",
     selector: "#orbital-radius-boxplot",
@@ -227,7 +227,7 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
 
 // --- Helper: Bar Chart ---
 function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
-  const width = 800, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
+  const width = 800, height = 350, margin = {top: 40, right: 30, bottom: 100, left: 60};
   
   // Take top 10 entries if more than 10
   let chartData = data;
@@ -250,6 +250,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .range([height - margin.bottom, margin.top]);
 
   svg.append("g")
+    .attr("class", "x-axis")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
@@ -269,8 +270,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("y", height - 40)
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
-    .attr("font-size", "0.8em")
-    .style("font-family", "inherit")
+    .attr("font-size", "1.1em")
     .text(xLabel);
   svg.append("text")
     .attr("transform", "rotate(-90)")
@@ -278,8 +278,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("y", 20)
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
-    .attr("font-size", "0.8em")
-    .style("font-family", "inherit")
+    .attr("font-size", "1.1em")
     .text(yLabel);
 
   // Tooltip
@@ -303,7 +302,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("width", x.bandwidth())
     .attr("height", d => height - margin.bottom - y(+d[yKey]))
     .attr("fill", d => color(d))
-    .attr("opacity", 0.8)
+    .attr("opacity", 1)
     .on("mouseover", function(e, d) {
       d3.select(this).attr("fill", "#fff");
       tooltip.transition().duration(200).style("opacity", .95);
@@ -315,6 +314,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
       d3.select(this).attr("fill", color);
       tooltip.transition().duration(300).style("opacity", 0);
     });
+    
 }
 
 /* ------------------------------------------------------------------ *
@@ -329,9 +329,10 @@ function createBoxPlot({
   selector,          // CSS selector or DOM node
   color, 
   width   = 800,
-  height  = 500,
+  height  = 400,
   margin  = { top: 40, right: 30, bottom: 60, left: 80 },
-  outlierRadius = 3
+  outlierRadius = 3,
+  title = ""
 }) {
 
   /* ---------- 1. Filter & summarise -------------------------------- */
@@ -399,7 +400,7 @@ function createBoxPlot({
                .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Axes
-  g.append("g")
+  /*g.append("g")
    .attr("class", "y-axis")
    .call(d3.axisLeft(y).ticks(6, "~"))
    .append("text")
@@ -407,7 +408,24 @@ function createBoxPlot({
    .attr("y", -10)
    .attr("fill", "currentColor")
    .attr("text-anchor", "start")
-   .text(numericKey.replace(/_/g, " "));
+   .text(toTitle(numericKey));*/
+   // Y Axis (with ticks)
+  g.append("g")
+  .attr("class", "y-axis")
+  .call(d3.axisLeft(y).ticks(6, "~"));
+
+  // Y Axis label (separate <text> element)
+  g.append("text")
+  .attr("class", "y-label")
+  .attr("transform", "rotate(-90)")
+  .attr("x", -innerH / 2)
+  .attr("y", -margin.left + 15)
+  .attr("text-anchor", "middle")
+  .attr("fill", "#00ffe0")
+  .style("font-family", "'Orbitron', sans-serif")
+  .style("font-size", "1em")
+  .text(toTitle(numericKey));
+
 
   g.append("g")
    .attr("class", "x-axis")
@@ -471,17 +489,21 @@ function createBoxPlot({
       .attr("fill", "black")
       .attr("opacity", 0.6);
 
+
+
+
   /* ---------- 4. Title (optional) ---------------------------------- */
 
+  /*
+  // Return the SVG selection so callers can chain transitions if desired  svg.append("text")
   svg.append("text")
-     .attr("x", width / 2)
-     .attr("y", margin.top / 2)
-     .attr("text-anchor", "middle")
-     .attr("font-size", 18)
-     .attr("font-weight", "bold")
-     .text(`${numericKey.replace(/_/g, " ")} by ${categoryKey.replace(/_/g, " ")}`);
+  .attr("class", "plotTitle")
+  .attr("x", width / 2)
+  .attr("y", margin.top / 2)
+  .attr("text-anchor", "middle")
+  .text(title);*/
 
-  // Return the SVG selection so callers can chain transitions if desired
+
   return svg;
 }
 
@@ -535,8 +557,7 @@ function createLogDensityPlotCore({
 
   const legendG = svg.append("g")
       .attr("font-size", 14)
-      .attr("font-family", "inherit")
-      .attr("fill", "#fff");
+      .attr("font-family", "sans-serif");
 
   // ── Kernel helpers (unchanged) ─────────────────────────────────
   const kde = kernel => (values, X) =>
@@ -642,6 +663,7 @@ function toTitle(str){ return str.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpper
 function kernelDensityEstimator(k,X){ return V=>X.map(x=>[x,d3.mean(V,v=>k(x-v))]); }
 function kernelEpanechnikov(k){ return v=>Math.abs(v/=k)<=1?0.75*(1-v*v)/k:0; }
 
+/*
 function createMaxDistancePerYearGraph(data, selector) {
   // Filter out invalid data first
   const validData = data.filter(d => 
@@ -681,7 +703,271 @@ function createMaxDistancePerYearGraph(data, selector) {
     color: "#4deeea",
     tooltipKeys: ["name", "discovery_year", "distance"]
   });
+}*/
+
+/*
+function createMaxDistancePerYearGraph(data, selector, colorScale) {
+  // --- 1. Preprocess Data by Mode (All and each planet type) ---
+  const modes = new Set(["All"]);
+  const distanceByMode = { All: {} };
+
+  data.forEach(d => {
+    const year = +d.discovery_year;
+    const distance = +d.distance;
+    const type = d.planet_type;
+
+    if (!year || !distance || isNaN(year) || isNaN(distance)) return;
+
+    // Initialize for All
+    if (!distanceByMode.All[year] || distance > distanceByMode.All[year].distance) {
+      distanceByMode.All[year] = { ...d, distance, discovery_year: year };
+    }
+
+    if (type && type !== "Unknown") {
+      modes.add(type);
+      if (!distanceByMode[type]) distanceByMode[type] = {};
+      if (!distanceByMode[type][year] || distance > distanceByMode[type][year].distance) {
+        distanceByMode[type][year] = { ...d, distance, discovery_year: year };
+      }
+    }
+  });
+
+  // Convert objects to arrays for each mode
+  const modeData = {};
+  for (const mode of modes) {
+    modeData[mode] = Object.values(distanceByMode[mode]);
+  }
+
+  // --- 2. Create Dropdown Menu ---
+  const container = d3.select(selector);
+  container.html(""); // clear
+
+  container.append("label")
+    .attr("for", "distanceMode")
+    .style("margin-right", "10px")
+    .style("font-family", "Orbitron")
+    .text("Planet Type:");
+
+  const dropdown = container.append("select")
+    .attr("id", "distanceMode")
+    .style("margin-bottom", "20px")
+    .style("padding", "4px")
+    .style("background-color", "#0d1117")
+    .style("color", "#00ffe0")
+    .style("border", "1px solid #00ffe0")
+    .style("border-radius", "4px")
+    .style("font-family", "Orbitron")
+    .selectAll("option")
+    .data(Array.from(modes))
+    .enter()
+    .append("option")
+    .attr("value", d => d)
+    .text(d => d);
+
+  // Add chart container below the dropdown
+  const chartId = selector + "-svg";
+  container.append("div").attr("id", chartId.substring(1));
+
+  // --- 3. Rendering Function ---
+  function renderScatter(mode) {
+    createScatterPlot({
+      data: modeData[mode],
+      xKey: "discovery_year",
+      yKey: "distance",
+      xLabel: "Discovery Year",
+      yLabel: `Max Distance (${mode})`,
+      selector: chartId,
+      color: mode === "All" ? "#4deeea" : colorScale(mode),
+      tooltipKeys: ["name", "discovery_year", "distance"]
+    });
+  }
+
+  // Initial render
+  renderScatter("All");
+
+  // --- 4. Add Dropdown Change Listener ---
+  d3.select("#distanceMode").on("change", function () {
+    const selected = this.value;
+    renderScatter(selected);
+  });
+}*/
+
+// Enhancing the max distance per year graph with filtering by planet type
+// Enhancing the max distance per year graph with filtering by planet type and transitions
+
+function createMaxDistancePerYearGraph(data, selector, colorScale) {
+  const modes = new Set(["All"]);
+  const distanceByMode = { All: {} };
+
+  data.forEach(d => {
+    const year = +d.discovery_year;
+    const distance = +d.distance;
+    const type = d.planet_type;
+
+    if (!year || !distance || isNaN(year) || isNaN(distance)) return;
+
+    if (!distanceByMode.All[year] || distance > distanceByMode.All[year].distance) {
+      distanceByMode.All[year] = { ...d, distance, discovery_year: year };
+    }
+
+    if (type && type !== "Unknown") {
+      modes.add(type);
+      if (!distanceByMode[type]) distanceByMode[type] = {};
+      if (!distanceByMode[type][year] || distance > distanceByMode[type][year].distance) {
+        distanceByMode[type][year] = { ...d, distance, discovery_year: year };
+      }
+    }
+  });
+
+  const modeData = {};
+  for (const mode of modes) {
+    modeData[mode] = Object.values(distanceByMode[mode]);
+  }
+
+  const container = d3.select(selector);
+  container.html("");
+
+  container.append("label")
+    .attr("for", "distanceMode")
+    .style("margin-right", "10px")
+    .style("font-family", "Orbitron")
+    .text("Planet Type:");
+
+  container.append("select")
+    .attr("id", "distanceMode")
+    .style("margin-bottom", "20px")
+    .style("padding", "4px")
+    .style("background-color", "#0d1117")
+    .style("color", "#00ffe0")
+    .style("border", "1px solid #00ffe0")
+    .style("border-radius", "4px")
+    .style("font-family", "Orbitron")
+    .selectAll("option")
+    .data(Array.from(modes))
+    .enter()
+    .append("option")
+    .attr("value", d => d)
+    .text(d => d);
+
+  const chartId = selector + "-svg";
+  container.append("div").attr("id", chartId.substring(1));
+
+  const width = 800, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
+  const svg = d3.select(chartId)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  const g = svg.append("g");
+
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("background", "#222")
+    .style("color", "#aaffee")
+    .style("padding", "8px")
+    .style("border-radius", "6px")
+    .style("pointer-events", "none")
+    .style("font-size", "14px");
+
+  function renderScatter(mode) {
+    const data = modeData[mode].filter(d =>
+      d.discovery_year && d.distance && !isNaN(+d.discovery_year) && !isNaN(+d.distance)
+    );
+
+    const x = d3.scaleLinear()
+      .domain(d3.extent(data, d => +d.discovery_year))
+      .range([margin.left, width - margin.right]);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(data, d => +d.distance) * 1.1])
+      .range([height - margin.bottom, margin.top]);
+
+    svg.selectAll(".axis").remove();
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(y));
+
+    svg.selectAll(".axis-label").remove();
+
+    svg.append("text")
+      .attr("class", "axis-label")
+      .attr("x", width/2)
+      .attr("y", height - 20)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#aaffee")
+      .attr("font-size", "1.1em")
+      .text("Discovery Year");
+
+    svg.append("text")
+      .attr("class", "axis-label")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -height/2)
+      .attr("y", 20)
+      .attr("text-anchor", "middle")
+      .attr("fill", "#aaffee")
+      .attr("font-size", "1.1em")
+      .text(`Max Distance (${mode})`);
+
+    const circles = svg.selectAll("circle")
+      .data(data, d => d.name);
+
+    circles.exit()
+      .transition()
+      .duration(500)
+      .attr("cy", height)
+      .attr("r", 0)
+      .remove();
+
+    circles.transition()
+      .duration(500)
+      .attr("cx", d => x(+d.discovery_year))
+      .attr("cy", d => y(+d.distance))
+      .attr("r", 5)
+      .attr("fill", mode === "All" ? "#4deeea" : colorScale(mode));
+
+    circles.enter()
+      .append("circle")
+      .attr("cx", d => x(+d.discovery_year))
+      .attr("cy", height- margin.bottom)
+      .attr("r", 0)
+      .attr("fill", mode === "All" ? "#4deeea" : colorScale(mode))
+      .attr("opacity", 0.7)
+      .on("mouseover", function(e, d) {
+        d3.select(this).attr("fill", "#fff").attr("r", 7);
+        tooltip.transition().duration(200).style("opacity", .95);
+        tooltip.html(`<b>${d.name}</b><br>Year: ${d.discovery_year}<br>Distance: ${d.distance}`)
+          .style("left", (e.pageX + 10) + "px")
+          .style("top", (e.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        d3.select(this).attr("fill", mode === "All" ? "#4deeea" : colorScale(mode)).attr("r", 5);
+        tooltip.transition().duration(300).style("opacity", 0);
+      })
+      .transition()
+      .duration(500)
+      .attr("cy", d => y(+d.distance))
+      .attr("r", 5);
+  }
+
+  renderScatter("All");
+
+  d3.select("#distanceMode").on("change", function () {
+    const selected = this.value;
+    renderScatter(selected);
+  });
 }
+
+
+
 
 // D3 v7+
 function createStellarHexbinPlot({

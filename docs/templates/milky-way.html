@@ -1,6 +1,9 @@
 {% extends "template.html" %}
 {% block title %} AstroTrio - Milky Way{% endblock %}
 
+<!-- Link to custom CSS for this page -->
+<link rel="stylesheet" href="../static/css/milky_way.css">
+
 {% block main %}
 
 <style>
@@ -116,7 +119,7 @@
         background-color: rgba(20, 20, 50, 0.75);
         border-radius: 10px;
         padding: 20px;
-        height: 450px; /* Increased from 400px */
+        height: 550px; /* Increased from 400px */
         border: 1px solid #00ffe0;
         box-shadow: 0 0 10px rgba(0, 255, 224, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -180,16 +183,205 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+    /* Exoplanet map layout styles */
+    #exo-main-container {
+        display: flex;
+        height: 80vh;
+        width: 100vw;
+    }
+
+    #exo-map-container {
+        width: 65%;
+        height: 100%;
+        position: relative;
+    }
+
+    #exoplanet-map {
+        width: 100%;
+        height: 100%;
+    }
+
+    #exo-side-panel {
+        width: 35%;
+        height: 100%;
+        background-color: #0d1117;
+        color: #00ffe0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    #exo-play-button {
+        background-color: #00ffe0;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        padding: 4px 8px;
+        font-weight: bold;
+        box-shadow: 0 0 4px #0e4899;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    #exo-current-year {
+        font-family: Orbitron;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    #exo-year-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #exo-year-range {
+        flex: 1;
+        height: 8px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: #333;
+        border-radius: 4px;
+        outline: none;
+        pointer-events: none; /* Disable interaction */
+        position: relative;
+    }
+
+    /* Loading bar fill effect */
+    #exo-year-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+
+    #exo-year-range::-moz-range-thumb {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+        border: none;
+        background: transparent;
+    }
+
+    /* Create the progress bar effect */
+    #exo-year-range {
+        background: linear-gradient(to right, #00ffe0 0%, #00ffe0 var(--progress, 0%), #333 var(--progress, 0%), #333 100%);
+    }
+
+    .button {
+        width: 165px;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #chart-toggle {
+        background-color: #00ffe0;
+        color: #0d1117;
+        box-shadow: 0 0 10px 2px #00ffe0;
+    }
+
+    #desc-toggle {
+        background-color: #1f2d36;
+        color: #00ffe0;
+        box-shadow: none;
+    }
+
+    #chart-box {
+        width: 100%;
+        height: 400px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+    }
+
+    #exo-chart {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .planet-description {
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: rgba(0, 255, 224, 0.05);
+        border-radius: 5px;
+        border-left: 3px solid #00ffe0;
+    }
+
+    .planet-name {
+        font-weight: bold;
+        color: #00ffe0;
+        margin-bottom: 5px;
+    }
+
+    .planet-type {
+        font-size: 12px;
+        color: #fca311;
+        margin-bottom: 5px;
+    }
+
+    .planet-details {
+        font-size: 12px;
+        color: #aaa;
+        line-height: 1.4;
+    }
+
+    .x-axis text {
+    font-family: 'Orbitron', sans-serif;
+    fill: #00ffe0;
+    text-shadow: none;
+    font-size: 1em;
+    }
+  
 </style>
 
 <div class="milky-way-container">
     <!-- Section 1: Future Dynamic Map -->
     <section id="dynamic-map" class="full-height-section">
-        <div class="map-placeholder">
-            <h2>Exoplanet Discovery Map</h2>
-            <p>Our interactive galactic map is under construction! Soon, you'll be able to explore a detailed 3D visualization of exoplanet locations across the Milky Way galaxy.</p>
-            <p>In the meantime, scroll down to discover our comprehensive analysis of exoplanet data visualizations.</p>
+        <div id="exo-main-container">
+            <!-- Map -->
+            <div id="exo-map-container">
+                <svg id="exoplanet-map" style="background-color: black;"></svg>
+            </div>
+            
+            <!-- Side Panel -->
+            <div id="exo-side-panel">
+                <div style="font-size: 1.2rem; margin-bottom: 20px;">
+                    Exoplanet Discoveries
+                </div>
+                
+                <!-- Toggle Buttons -->
+                <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 30px; font-size: 0.9rem;">
+                    <button id="chart-toggle" class="button">Bar Chart</button>
+                    <button id="desc-toggle" class="button">Planet Details</button>
+                </div>
+                
+                <!-- Chart/Description Container -->
+                <div id="chart-box">
+                    <canvas id="exo-chart"></canvas>
+                </div>
+                
+                <!-- Year Display and Controls -->
+                <div id="exo-current-year">1991</div>
+                <div id="exo-year-controls">
+                    <button id="exo-play-button">▶</button>
+                    <input type="range" id="exo-year-range" min="1991" max="2023" value="1991" step="1">
+                </div>
+            </div>
         </div>
+
         <div class="scroll-indicator" onclick="document.getElementById('data-visualizations').scrollIntoView({ behavior: 'smooth' })">
             <i class="fas fa-chevron-down"></i>
             <div style="font-size: 14px; text-align: center;">Scroll Down</div>
@@ -249,7 +441,7 @@
                     <div id="stellar-density-chart"></div>
                 </div>
             </div>
-            <div class="viz-card" id="orbital-radius-boxplot">
+            <div class="viz-card" id="orbital-radius-card">
                 <h3>Orbital Radius Boxplot</h3>
                 <div class="viz-content">
                     <div id="orbital-radius-boxplot"></div>
@@ -263,7 +455,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- D3.js for visualizations -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Chart.js for bar chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Add our custom JavaScript -->
 <script src="../static/js/milky_way.js" type="module"></script>
+<!-- Add exoplanet map JavaScript -->
+<script src="../static/js/exoplanet_map.js" type="module"></script>
+
 
 {% endblock %}
