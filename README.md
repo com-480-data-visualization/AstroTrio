@@ -102,7 +102,7 @@ Here are the different resources for Milestone 3:
 
 - 🌐[**Final Website**](https://com-480-data-visualization.github.io/AstroTrio/)
 
-- 🎥[**Screencast**](LIEN)
+- 🎥[**Screencast**](https://www.youtube.com/watch?v=8p5aWBABRVQ)
 
 
 ## Late policy
