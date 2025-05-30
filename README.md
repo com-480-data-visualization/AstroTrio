@@ -7,6 +7,7 @@
 |Dupont-Roc Maud|314869|
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3) • [Website](https://com-480-data-visualization.github.io/AstroTrio/) • [Process Book](Reports/Process_Book.pdf) • [Screencast](https://www.youtube.com/watch?v=8p5aWBABRVQ)
+Youtube link for the screencast: https://www.youtube.com/watch?v=8p5aWBABRVQ
 
 ## Milestone 1
 
