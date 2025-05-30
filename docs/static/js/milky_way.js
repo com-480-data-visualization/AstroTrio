@@ -2,6 +2,8 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import { hexbin as d3_hexbin } from "https://cdn.jsdelivr.net/npm/d3-hexbin@0.2/+esm";
 
+const ratioHeightToWidth = 0.6; // Scale factor for height of hexagons
+
 // --- Load CSV data ---
 
 
@@ -226,8 +228,12 @@ function createScatterPlot({data, xKey, yKey, xLabel, yLabel, selector, color, t
 }
 
 // --- Helper: Bar Chart ---
-function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
-  const width = 800, height = 350, margin = {top: 40, right: 30, bottom: 100, left: 60};
+function createBarChart({data, xKey, yKey, yLabel, selector, color}) {
+  const container = document.querySelector(selector);
+  const width = container.clientWidth;
+  const height = width * (ratioHeightToWidth+0.07);
+  
+  const margin = {top: 40, right: 30, bottom: 65, left: 60};
   
   // Take top 10 entries if more than 10
   let chartData = data;
@@ -254,24 +260,24 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
-    .attr("transform", "rotate(-60)")
+    .attr("transform", "rotate(-40)")
     .attr("x", -8)
     .attr("y", 10)
     .style("text-anchor", "end")
-    .style("font-size", "0.8em");
+    .style("font-size", "1em");
     
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
   // Axis labels
-  svg.append("text")
+  /*svg.append("text")
     .attr("x", width/2)
     .attr("y", height - 40)
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
     .attr("font-size", "1.1em")
-    .text(xLabel);
+    .text(xLabel);*/
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height/2)
@@ -301,7 +307,7 @@ function createBarChart({data, xKey, yKey, xLabel, yLabel, selector, color}) {
     .attr("y", d => y(+d[yKey]))
     .attr("width", x.bandwidth())
     .attr("height", d => height - margin.bottom - y(+d[yKey]))
-    .attr("fill", d => color(d))
+    .attr("fill", d => color(d[xKey]))
     .attr("opacity", 1)
     .on("mouseover", function(e, d) {
       d3.select(this).attr("fill", "#fff");
@@ -328,13 +334,12 @@ function createBoxPlot({
   categoryKey,       // e.g. "planet_type"
   selector,          // CSS selector or DOM node
   color, 
-  width   = 800,
-  height  = 400,
-  margin  = { top: 40, right: 30, bottom: 60, left: 80 },
-  outlierRadius = 3,
-  title = ""
+  outlierRadius = 1
 }) {
-
+  const biggerContainer = document.querySelector(selector);
+  const width = biggerContainer.clientWidth; // Use container width
+  const height  = width * (ratioHeightToWidth+0.05);
+  const margin  = { top: 40, right: 30, bottom: 65, left: 80 };
   /* ---------- 1. Filter & summarise -------------------------------- */
 
   // Keep only rows with finite, positive numeric values
@@ -424,7 +429,7 @@ function createBoxPlot({
   .attr("fill", "#00ffe0")
   .style("font-family", "'Orbitron', sans-serif")
   .style("font-size", "1em")
-  .text(toTitle(numericKey));
+  .text("Log " + toTitle(numericKey) + " (AU)");
 
 
   g.append("g")
@@ -435,7 +440,7 @@ function createBoxPlot({
    .attr("dy", "1em")
    .attr("dx", "-0.5em")
    .attr("text-anchor", "end")
-   .attr("transform", "rotate(-25)");
+   .attr("transform", "rotate(-40)");
 
   /* ---------- 3. Draw each box-plot -------------------------------- */
 
@@ -486,8 +491,8 @@ function createBoxPlot({
       .attr("r", outlierRadius)
       .attr("cx", () => (Math.random() - 0.5) * boxWidth * 0.8) // jitter
       .attr("cy", d => y(d))
-      .attr("fill", "black")
-      .attr("opacity", 0.6);
+      .attr("fill","#00ffe0")//, "white")
+      .attr("opacity", 0.8);
 
 
 
@@ -509,11 +514,13 @@ function createBoxPlot({
 
 function createLogDensityPlotCore({
   data, selector, valueKey, wrtKey, wrtValue, color,
-  width = 800, height = 400,
-  margin = {top: 40, right: 30, bottom: 60, left: 70},
   bandwidth = 0.25,
 }) {
 
+  const biggerContainer = document.querySelector(selector);
+  const width = biggerContainer.clientWidth; 
+  const height = width * (ratioHeightToWidth+0.05);
+  const margin = {top: 40, right: 30, bottom: 100, left: 70};
   // ── Shared variables across updates ────────────────────────────
 
   const svg = d3.select(selector)
@@ -535,7 +542,9 @@ function createLogDensityPlotCore({
       .attr("text-anchor", "middle")
       .attr("fill", "#aaffee")
       .attr("font-size", "1.1em")
-      .text(valueKey);
+      //.text(valueKey);
+      // make the x-label remove the '_' and capitalize the first letter of each word
+      .text(toTitle(valueKey));
     
 
   svg.append("text")               // y-label
@@ -599,7 +608,7 @@ function createLogDensityPlotCore({
     const yMax = d3.max(densities, s => d3.max(s.density, d => d[1]));
     const y = d3.scaleLinear()
       .domain([0, yMax*1.05])
-      .range([height - margin.bottom, margin.top]);
+      .range([height - margin.bottom , margin.top]);
 
     area
       .x(d => x(10 ** d[0]))
@@ -608,7 +617,15 @@ function createLogDensityPlotCore({
 
     // --- 2 · Draw / update axes ---------------------------------
     gX.transition().duration(600)
-       .call(d3.axisBottom(x).ticks(10, ".1e"));
+       .call(d3.axisBottom(x)
+       .tickValues([0.1, 1, 10, 100])
+       .tickFormat(d3.format("~g")));
+    gX.selectAll("path")
+      .attr("stroke", "#00ffe0");
+
+    gX.selectAll("line")
+      .attr("stroke", "#00ffe0");
+      
     gY.transition().duration(600)
        .call(d3.axisLeft(y));
 
@@ -629,6 +646,7 @@ function createLogDensityPlotCore({
         exit   => exit.transition().duration(600).style("opacity",0).remove()
       );
 
+    /*
     // --- 4 · Legend (rebind if types changed) --------------------
     const leg = legendG.selectAll("g")
         .data(types, d => d)
@@ -645,7 +663,32 @@ function createLogDensityPlotCore({
         );
 
     leg.select("rect").attr("fill", d => color(d));
-    leg.select("text").text(d => d);
+    leg.select("text").text(d => d);*/
+    // --- 4 · Legend (styled below plot) ----------------------------
+    legendG.selectAll("*").remove(); // clear
+
+    const legendSpacing = 140;
+    const legendY = height - margin.bottom + 75;
+
+    types.forEach((type, i) => {
+      const g = legendG.append("g")
+        .attr("transform", `translate(${margin.left -50 + i * legendSpacing}, ${legendY})`);
+
+      g.append("rect")
+        .attr("width", 16)
+        .attr("height", 16)
+        .attr("fill", color(type))
+        .attr("stroke", "#000");
+
+      g.append("text")
+        .attr("x", 22)
+        .attr("y", 12)
+        .attr("fill", "white")
+        .style("font-family", "Orbitron")
+        .style("font-size", "12px")
+        .text(type);
+    });
+
 
     // --- 5 · Title ----------------------------------------------
     title.text(`${toTitle(valueKey)} wrt ${currentRef}`);
@@ -852,7 +895,11 @@ function createMaxDistancePerYearGraph(data, selector, colorScale) {
   const chartId = selector + "-svg";
   container.append("div").attr("id", chartId.substring(1));
 
-  const width = 800, height = 300, margin = {top: 40, right: 30, bottom: 100, left: 60};
+  //const container = document.querySelector(selector);
+  const biggerContainer = document.querySelector(chartId);
+  const width = biggerContainer.clientWidth;
+  const height = width * ratioHeightToWidth;
+  const margin = {top: 40, right: 30, bottom: 100, left: 60};
   const svg = d3.select(chartId)
     .append("svg")
     .attr("width", width)
@@ -910,12 +957,12 @@ function createMaxDistancePerYearGraph(data, selector, colorScale) {
     svg.append("text")
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
-      .attr("x", -height/2)
-      .attr("y", 20)
+      .attr("x", -height/2+40)
+      .attr("y", 15)
       .attr("text-anchor", "middle")
       .attr("fill", "#aaffee")
       .attr("font-size", "1.1em")
-      .text(`Max Distance (${mode})`);
+      .text(`Distance (light years)`);
 
     const circles = svg.selectAll("circle")
       .data(data, d => d.name);
@@ -973,11 +1020,12 @@ function createMaxDistancePerYearGraph(data, selector, colorScale) {
 function createStellarHexbinPlot({
   data,
   selector = "#stellar-density-chart",
-  width = 600,
-  height = 400,
-  margin = { top: 40, right: 30, bottom: 100, left: 60 },
   radius = 10 // hex radius in px
 }) {
+  const biggerContainer = document.querySelector(selector);
+  const width = biggerContainer.clientWidth;
+  const height = width * (ratioHeightToWidth+0.05); // maintain aspect ratio
+  const margin = {top: 40, right: 15, bottom: 50, left: 50};
   const svg = d3.select(selector)
     .html("") // clear previous content
     .append("svg")
@@ -1009,7 +1057,7 @@ function createStellarHexbinPlot({
     .domain([d3.min(points, d => d.x)-10, d3.max(points, d => d.x)+10])
     .nice()
     .range([0, innerWidth]);
-
+   
   const y = d3.scaleLinear()
     .domain([d3.min(points, d => d.y)-2, d3.max(points, d => d.y)*1.1])
     .nice()
@@ -1051,7 +1099,7 @@ function createStellarHexbinPlot({
   // Axis labels
   svg.append("text")
     .attr("x", margin.left + innerWidth / 2)
-    .attr("y", height - 10)
+    .attr("y", height -5)
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
     .text("Distance (light years)");
@@ -1062,7 +1110,21 @@ function createStellarHexbinPlot({
     .attr("y", 15)
     .attr("text-anchor", "middle")
     .attr("fill", "#aaffee")
-    .text("Stellar Magnitude");
+    .text("- Stellar Magnitude");
+
+  // ONLY x axis tick labels with 45 degree rotation
+  /*chart.select("g.x-axis")
+    .selectAll("tick text")
+    .attr("transform", "rotate(-45)")
+    .attr("text-anchor", "end")*/
+
+  chart.select("g.x-axis")
+  .selectAll("g.tick text")
+  .attr("transform", "rotate(-45)")
+  .attr("text-anchor", "end")
+  .attr("x", -5)
+  .attr("y", 10);
+
 
     /*
     // Define clip path inside svg

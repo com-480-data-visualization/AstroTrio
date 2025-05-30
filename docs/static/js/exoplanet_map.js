@@ -1,7 +1,7 @@
 // D3 Exoplanet Map using <svg>
 
 const width = window.innerWidth * 0.65; // 65% of window width to match layout
-const height = window.innerHeight * 0.8; // 80vh to match the container height
+const height = window.innerHeight * 0.7; // 80vh to match the container height
 
 const svg = d3.select("#exoplanet-map")
     .attr("width", width)
@@ -12,12 +12,15 @@ const centerX = width / 2;
 const centerY = height / 2;
 
 const radiusScale = d3.scaleLinear()
-    .domain([0, 5000])  
+    .domain([0, 10000])  
     .range([0, Math.min(centerX, centerY) - 40]);
 
 const colorScale = d3.scaleOrdinal()
-    .domain(["Gas Giant", "Super Earth", "Terrestrial", "Neptune-like"])
-    .range(["#fca311", "#00b4d8", "#90be6d", "#6a4c93"]);
+    .domain([
+        "Gas Giant", "Super Earth", "Neptune-like",
+        "Terrestrial", "Jupiter-like"
+    ])
+    .range(["#b730ff", "#3e0b9e", "#e77cd7", "#ff8e8e", "#ffb07c"]);
 
 let allPlanets = [];
 let currentYear = 1991;
@@ -44,6 +47,17 @@ function polarToCartesian(distance, angleRad) {
 
 function drawYear(year) {
     const newPlanets = allPlanets.filter(p => +p.discovery_year === year);
+    
+    svg.selectAll(`.planet-glow-${year}`)
+        .data(newPlanets)
+        .enter()
+        .append("circle")
+        .attr("cx", d => polarToCartesian(+d.distance, +d.random_angle_rad)[0])
+        .attr("cy", d => polarToCartesian(+d.distance, +d.random_angle_rad)[1])
+        .attr("r", 6) // bigger "aura"
+        .attr("fill", "white")
+        .attr("opacity", 0.05)
+        .attr("class", `planet-glow-${year}`);
 
     svg.selectAll(`.planet-${year}`)
         .data(newPlanets)
@@ -53,15 +67,8 @@ function drawYear(year) {
         .attr("cy", d => polarToCartesian(+d.distance, +d.random_angle_rad)[1])
         .attr("r", 2)
         .attr("fill", "white")
-        //.style("filter", "drop-shadow(0 0 2px white)")
         .attr("opacity", d => d.stellar_magnitude_scaled)
         .attr("class", `planet-${year}`);
-
-        // if it is year 2023, make all the circled shadow 
-        if (year === 2023) {
-            svg.selectAll("circle")
-                .style("filter", "drop-shadow(0 0 2px white)");
-        }
 }
 
 function animateYears() {
@@ -280,12 +287,41 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //---------------------------------------------------------------------
+// Add a scale
+const r = radiusScale(2000);  // converts LY to pixel distance
+
+
+//---------------------------------------------------------------------
 // Load data and initialize
 
 d3.csv("../static/data/nasa_exoplanets.csv").then(data => {
     allPlanets = data;
     updateSidebar(currentYear); // Initialize sidebar
     animateYears();
+    // Draw distance scale bar
+    const scaleGroup = svg.append("g")
+    .attr("class", "scale-bar")
+    .attr("transform", `translate(${width - 140}, ${height - 50})`);
+
+    const barLength = radiusScale(2000);
+
+    scaleGroup.append("line")
+    .attr("x1", 0)
+    .attr("x2", barLength)
+    .attr("y1", 0)
+    .attr("y2", 0)
+    .attr("stroke", "white")
+    .attr("stroke-width", 2);
+
+    scaleGroup.append("text")
+    .attr("x", barLength / 2)
+    .attr("y", 16)
+    .attr("text-anchor", "middle")
+    .attr("fill", "#00ffe0")
+    .style("font-family", "Orbitron")
+    .style("font-size", "12px")
+    .text("2000 light years");
+
 });
 
 //---------------------------------------------------------------------
