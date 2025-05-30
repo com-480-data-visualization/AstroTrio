@@ -2,7 +2,7 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import { hexbin as d3_hexbin } from "https://cdn.jsdelivr.net/npm/d3-hexbin@0.2/+esm";
 
-const ratioHeightToWidth = 0.6; // Scale factor for height of hexagons
+const ratioHeightToWidth = 0.55; // Scale factor for height of hexagons
 
 // --- Load CSV data ---
 
