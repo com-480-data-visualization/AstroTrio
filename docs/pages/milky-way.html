@@ -479,6 +479,7 @@
             <!-- Map -->
             <div id="exo-map-container">
                 <svg id="exoplanet-map" style="background-color: black;"></svg>
+                <div id="plot-info" data-info="This map places Earth at the center and displays exoplanets based on their distance in light years. While distances are accurate, their angles around Earth are randomly generated to create a circular galactic view.">i</div>
             </div>
             
             <!-- Side Panel -->
@@ -522,16 +523,14 @@
                 <div class="viz-content">
                     <div id="max-distance-per-year-chart"></div>
                 </div>
-                <div id="plot-info" data-info=" 1111111111111111 the location of all space mission launches from 1957 to 2022. Space launches are key milestones in exploration, satellite deployment, and technological progress.
-                    Click on any marker to view launch site details such as name and country. You can use the buttons to sort launches in function of wether the mission was a success or a failure.
-                    The bar chart on the right shows how launch activity has evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                <div id="plot-info" data-info="This scatter plot shows how far the most distant exoplanet discovered each year is, based on the selected planet type. It helps reveal how detection techniques have improved over time.">i</div>                
                     </div>
             <div class="viz-card" id="planet-types">
                 <h3>Planet Type Distribution</h3>
                 <div class="viz-content">
                     <div id="planet-types-chart"></div>
                 </div>
-                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                <div id="plot-info" data-info="This bar chart counts the number of discovered exoplanets by type. It gives a quick visual of which kinds of planets are most commonly found so far.">i</div>                
                 </div>
  
             <!-- ── Mass Density (toggle Earth/Jupiter) ───────────────────────────── -->
@@ -548,7 +547,7 @@
             
                 <!-- the chart goes in here; JS injects an <svg> -->
                 <div id="massPlot" class="viz-content"></div>
-                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                <div id="plot-info" data-info="This chart shows how exoplanet masses are distributed, compared to Earth or Jupiter. The x-axis uses a log scale to show small and large planets clearly.">i</div>                
                 
   
             </div>
@@ -565,7 +564,7 @@
                     </div>
                     <div id="radiusPlot" class="viz-content"></div>
                 </div>
-                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                <div id="plot-info" data-info="This chart shows the range of planet sizes compared to Earth or Jupiter. The log scale helps visualize both small rocky planets and giant gas planets in the same space.">i</div>                
             </div>
             <div class="viz-card" id="stellar-density-card">
                 <h3>Stellar Magnitude</h3>
@@ -579,7 +578,7 @@
                 <div class="viz-content">
                     <div id="orbital-radius-boxplot"></div>
                 </div>
-                <div id="plot-info" data-info="Stellar magnitude indicates the brightness of the host star as seen from Earth. Lower values mean brighter stars. We use negative scaling so brighter planets (lower magnitudes) appear higher on our scale. ">i</div>                
+                <div id="plot-info" data-info="This boxplot compares how far different types of planets orbit from their star. It uses a log scale to show very close and very distant planets on the same chart.">i</div>                
             </div>
         </div>
     </section>
