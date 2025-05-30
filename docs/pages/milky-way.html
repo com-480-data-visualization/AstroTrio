@@ -69,7 +69,7 @@
 
     /* Full height section */
     .full-height-section {
-        min-height: 100vh;
+        min-height: calc(100vh-110px); /* Adjusted to account for navbar height */
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -82,8 +82,9 @@
     /* Dynamic map section */
     #dynamic-map {
         /* Use 100vh minus navbar height to ensure it fits on screen */
-        height: calc(100vh - 80px);
-        background-image: url('../static/images/Milky_way.jpeg');
+        height: calc(100vh - 110px);
+        /*background-image: url('../static/images/Milky_way.jpeg');*/
+        background-color: #0d1117; /* Fallback color */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -116,7 +117,7 @@
     /* Scroll indicator */
     .scroll-indicator {
         position: absolute;
-        bottom: 20px;
+        bottom: 15px;
         cursor: pointer;
         animation: bounce 2s infinite;
         background-color: rgba(13, 17, 23, 0.5);
@@ -193,11 +194,17 @@
         color: #00ffe0;
     }
 
-    .viz-content {
+    /*.viz-content {
         flex: 1;
         position: relative;
         overflow: hidden;
+    }*/
+    .viz-content {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
     }
+
 
     /* Responsive design */
     @media (max-width: 1200px) {
@@ -242,12 +249,16 @@
     #exo-main-container {
         display: flex;
         height: 80vh;
-        width: 100vw;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        margin-top: -55px;
     }
+    
 
     #exo-map-container {
         width: 65%;
-        height: 100%;
+        height: 90%;
         position: relative;
     }
 
@@ -398,6 +409,66 @@
     text-shadow: none;
     font-size: 1em;
     }
+    .viz-card svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    }
+    select {
+        background-color: #0d1117;
+        color: #00ffe0;
+        border: 1px solid #00ffe0;
+        border-radius: 4px;
+        font-family: 'Orbitron', sans-serif;
+        padding: 4px 6px;
+        outline: none;
+        }
+
+    #plot-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ffffffdd;
+        color: #000000;
+        border: 1px solid #000000;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        cursor: default;
+        font-weight: bold;
+        font-size: 16px;
+        z-index: 1000;
+        }
+
+    #plot-info::after {
+        content: attr(data-info);
+        font-family: 'system-ui';
+        white-space: pre-line;
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 0;
+        background: #c5c5c5;
+        color: #000;
+        padding: 6px 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 12px;
+        line-height: 1.6;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        z-index: 1001;
+        max-width: 630px;
+        min-width: 550px;
+        text-align: left;
+    }
+
+    #plot-info:hover::after {
+        display: block;
+    }        
   
 </style>
 
@@ -447,21 +518,25 @@
         <h2>Exoplanet Discoveries</h2>
         <div class="visualization-grid">
             <div class="viz-card" id="max-distance-per-year">
-                <h3>Max Distance per Year</h3>
+                <h3>Maximum Discovered Distance</h3>
                 <div class="viz-content">
                     <div id="max-distance-per-year-chart"></div>
                 </div>
-            </div>
+                <div id="plot-info" data-info=" 1111111111111111 the location of all space mission launches from 1957 to 2022. Space launches are key milestones in exploration, satellite deployment, and technological progress.
+                    Click on any marker to view launch site details such as name and country. You can use the buttons to sort launches in function of wether the mission was a success or a failure.
+                    The bar chart on the right shows how launch activity has evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                    </div>
             <div class="viz-card" id="planet-types">
                 <h3>Planet Type Distribution</h3>
                 <div class="viz-content">
                     <div id="planet-types-chart"></div>
                 </div>
-            </div>
+                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                </div>
+ 
             <!-- ── Mass Density (toggle Earth/Jupiter) ───────────────────────────── -->
             <div class="viz-card" id="mass-density-card">
                 <h3>Mass-Multiplier Distribution</h3>
-            
                 <!-- small control bar just for this chart -->
                 <div class="viz-controls">
                 <label for="massRef">Reference planet&nbsp;</label>
@@ -473,6 +548,8 @@
             
                 <!-- the chart goes in here; JS injects an <svg> -->
                 <div id="massPlot" class="viz-content"></div>
+                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
+                
   
             </div>
             <div class="viz-card" id="radius-density-card">
@@ -488,18 +565,21 @@
                     </div>
                     <div id="radiusPlot" class="viz-content"></div>
                 </div>
+                <div id="plot-info" data-info=" 222222222222222222 map s evolved over time by country or company, you can click on a company bar to learn more about its role in space missions.">i</div>                
             </div>
             <div class="viz-card" id="stellar-density-card">
-                <h3>Stellar Density</h3>
+                <h3>Stellar Magnitude</h3>
                 <div class="viz-content">
                     <div id="stellar-density-chart"></div>
                 </div>
+                <div id="plot-info" data-info="Stellar magnitude indicates the brightness of the host star as seen from Earth. Lower values mean brighter stars. We use negative scaling so brighter planets (lower magnitudes) appear higher on our scale. ">i</div>                
             </div>
             <div class="viz-card" id="orbital-radius-card">
                 <h3>Orbital Radius Boxplot</h3>
                 <div class="viz-content">
                     <div id="orbital-radius-boxplot"></div>
                 </div>
+                <div id="plot-info" data-info="Stellar magnitude indicates the brightness of the host star as seen from Earth. Lower values mean brighter stars. We use negative scaling so brighter planets (lower magnitudes) appear higher on our scale. ">i</div>                
             </div>
         </div>
     </section>
