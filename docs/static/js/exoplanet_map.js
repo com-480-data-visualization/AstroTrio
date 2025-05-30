@@ -297,7 +297,7 @@ const r = radiusScale(2000);  // converts LY to pixel distance
 d3.csv("../static/data/nasa_exoplanets.csv").then(data => {
     allPlanets = data;
     updateSidebar(currentYear); // Initialize sidebar
-    animateYears();
+    // animateYears();
     // Draw distance scale bar
     const scaleGroup = svg.append("g")
     .attr("class", "scale-bar")
