@@ -29,8 +29,7 @@
     #dynamic-map {
         /* Use 100vh minus navbar height to ensure it fits on screen */
         height: calc(100vh - 110px);
-        /*background-image: url('../static/images/Milky_way.jpeg');*/
-        background-color: #0d1117; /* Fallback color */
+        background-color: #0d1117; 
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -109,7 +108,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
-        max-width: 90%; /* Increased from 1200px to use more width */
+        max-width: 90%; 
         width: 90%;
         margin: 0 auto;
         padding: 0;
@@ -120,7 +119,7 @@
         background-color: rgba(20, 20, 50, 0.75);
         border-radius: 10px;
         padding: 20px;
-        height: 550px; /* Increased from 400px */
+        height: 550px; 
         border: 1px solid #00ffe0;
         box-shadow: 0 0 10px rgba(0, 255, 224, 0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -140,11 +139,6 @@
         color: #00ffe0;
     }
 
-    /*.viz-content {
-        flex: 1;
-        position: relative;
-        overflow: hidden;
-    }*/
     .viz-content {
     max-width: 100%;
     overflow-x: auto;
@@ -490,8 +484,6 @@
                     <option value="Jupiter">Jupiter</option>
                 </select>
                 </div>
-            
-                <!-- the chart goes in here; JS injects an <svg> -->
                 <div id="massPlot" class="viz-content"></div>
                 <div id="plot-info" data-info="This chart shows how exoplanet masses are distributed, compared to Earth or Jupiter. The x-axis uses a log scale to show small and large planets clearly.">i</div>                
                 

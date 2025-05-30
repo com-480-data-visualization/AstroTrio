@@ -49,17 +49,6 @@ d3.csv("../static/data/nasa_exoplanets.csv").then(data => {
     updater2(ref);                 // triggers smooth update
   });
   
-  /*
-  createScatterPlot({
-    data: data, 
-    xKey: "orbital_radius", 
-    yKey: "distance", 
-    xLabel: "Orbital Radius (AU)", 
-    yLabel: "Distance (Light Years)", 
-    selector: "#distance-orbital-chart", 
-    color: "#ffb347",
-    tooltipKeys: ["name", "orbital_radius", "distance"]
-  });*/
   createStellarHexbinPlot({
     data,
     selector: "#stellar-density-chart"
@@ -135,7 +124,6 @@ function createPlanetTypesGraph(data, selector, colorScale) {
     data: typeData,
     xKey: "eName",
     yKey: "count",
-    // xLabel: "Planet Type", 
     yLabel: "Number of Exoplanets",
     selector: selector,
     color: colorScale // Use the passed colorScale
@@ -270,14 +258,6 @@ function createBarChart({data, xKey, yKey, yLabel, selector, color}) {
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // Axis labels
-  /*svg.append("text")
-    .attr("x", width/2)
-    .attr("y", height - 40)
-    .attr("text-anchor", "middle")
-    .attr("fill", "#aaffee")
-    .attr("font-size", "1.1em")
-    .text(xLabel);*/
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height/2)
@@ -326,13 +306,14 @@ function createBarChart({data, xKey, yKey, yLabel, selector, color}) {
 /* ------------------------------------------------------------------ *
  *  createBoxPlot                                                     *
  *  Draws a log-scaled box-and-whisker plot of numericKey by           *
- *  categoryKey (e.g. orbital_period by planet_type).                  *
+ *  categoryKey (e.g. orbital_period by planet_type).   
+ * Used for the orbital radius boxplot.               *
  * ------------------------------------------------------------------ */
 function createBoxPlot({
   data,              // raw rows (array of objects)
-  numericKey,        // e.g. "orbital_period"
-  categoryKey,       // e.g. "planet_type"
-  selector,          // CSS selector or DOM node
+  numericKey,        
+  categoryKey,       
+  selector,          
   color, 
   outlierRadius = 1
 }) {
@@ -405,15 +386,7 @@ function createBoxPlot({
                .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Axes
-  /*g.append("g")
-   .attr("class", "y-axis")
-   .call(d3.axisLeft(y).ticks(6, "~"))
-   .append("text")
-   .attr("x", -margin.left + 6)
-   .attr("y", -10)
-   .attr("fill", "currentColor")
-   .attr("text-anchor", "start")
-   .text(toTitle(numericKey));*/
+
    // Y Axis (with ticks)
   g.append("g")
   .attr("class", "y-axis")
@@ -495,20 +468,6 @@ function createBoxPlot({
       .attr("opacity", 0.8);
 
 
-
-
-  /* ---------- 4. Title (optional) ---------------------------------- */
-
-  /*
-  // Return the SVG selection so callers can chain transitions if desired  svg.append("text")
-  svg.append("text")
-  .attr("class", "plotTitle")
-  .attr("x", width / 2)
-  .attr("y", margin.top / 2)
-  .attr("text-anchor", "middle")
-  .text(title);*/
-
-
   return svg;
 }
 
@@ -542,8 +501,6 @@ function createLogDensityPlotCore({
       .attr("text-anchor", "middle")
       .attr("fill", "#aaffee")
       .attr("font-size", "1.1em")
-      //.text(valueKey);
-      // make the x-label remove the '_' and capitalize the first letter of each word
       .text(toTitle(valueKey));
     
 
@@ -646,24 +603,6 @@ function createLogDensityPlotCore({
         exit   => exit.transition().duration(600).style("opacity",0).remove()
       );
 
-    /*
-    // --- 4 · Legend (rebind if types changed) --------------------
-    const leg = legendG.selectAll("g")
-        .data(types, d => d)
-        .join(
-          enter => {
-            const g = enter.append("g")
-                .attr("transform", (d,i) =>
-                  `translate(${width - margin.right - 150},${margin.top + i*24})`);
-            g.append("rect").attr("width",18).attr("height",18)
-              .attr("stroke","#000").attr("fill-opacity",0.5);
-            g.append("text").attr("x",24).attr("y",9).attr("dy","0.32em");
-            return g;
-          }
-        );
-
-    leg.select("rect").attr("fill", d => color(d));
-    leg.select("text").text(d => d);*/
     // --- 4 · Legend (styled below plot) ----------------------------
     legendG.selectAll("*").remove(); // clear
 
@@ -705,138 +644,6 @@ function createLogDensityPlotCore({
 function toTitle(str){ return str.replace(/_/g," ").replace(/\b\w/g,m=>m.toUpperCase()); }
 function kernelDensityEstimator(k,X){ return V=>X.map(x=>[x,d3.mean(V,v=>k(x-v))]); }
 function kernelEpanechnikov(k){ return v=>Math.abs(v/=k)<=1?0.75*(1-v*v)/k:0; }
-
-/*
-function createMaxDistancePerYearGraph(data, selector) {
-  // Filter out invalid data first
-  const validData = data.filter(d => 
-    d.distance !== null && 
-    d.distance !== undefined && 
-    !isNaN(+d.distance) && 
-    d.discovery_year !== null && 
-    d.discovery_year !== undefined && 
-    !isNaN(+d.discovery_year)
-  );
-
-  // Group by discovery year and find max distance for each year
-  const yearDistanceMap = {};
-  validData.forEach(d => {
-    const year = +d.discovery_year;
-    const distance = +d.distance;
-    
-    if (!yearDistanceMap[year] || distance > yearDistanceMap[year].distance) {
-      yearDistanceMap[year] = {
-        ...d,
-        distance: distance,
-        discovery_year: year
-      };
-    }
-  });
-
-  // Convert back to array
-  const maxDistanceData = Object.values(yearDistanceMap);
-
-  createScatterPlot({
-    data: maxDistanceData,
-    xKey: "discovery_year",
-    yKey: "distance",
-    xLabel: "Discovery Year",
-    yLabel: "Max Distance (Light Years)",
-    selector: selector,
-    color: "#4deeea",
-    tooltipKeys: ["name", "discovery_year", "distance"]
-  });
-}*/
-
-/*
-function createMaxDistancePerYearGraph(data, selector, colorScale) {
-  // --- 1. Preprocess Data by Mode (All and each planet type) ---
-  const modes = new Set(["All"]);
-  const distanceByMode = { All: {} };
-
-  data.forEach(d => {
-    const year = +d.discovery_year;
-    const distance = +d.distance;
-    const type = d.planet_type;
-
-    if (!year || !distance || isNaN(year) || isNaN(distance)) return;
-
-    // Initialize for All
-    if (!distanceByMode.All[year] || distance > distanceByMode.All[year].distance) {
-      distanceByMode.All[year] = { ...d, distance, discovery_year: year };
-    }
-
-    if (type && type !== "Unknown") {
-      modes.add(type);
-      if (!distanceByMode[type]) distanceByMode[type] = {};
-      if (!distanceByMode[type][year] || distance > distanceByMode[type][year].distance) {
-        distanceByMode[type][year] = { ...d, distance, discovery_year: year };
-      }
-    }
-  });
-
-  // Convert objects to arrays for each mode
-  const modeData = {};
-  for (const mode of modes) {
-    modeData[mode] = Object.values(distanceByMode[mode]);
-  }
-
-  // --- 2. Create Dropdown Menu ---
-  const container = d3.select(selector);
-  container.html(""); // clear
-
-  container.append("label")
-    .attr("for", "distanceMode")
-    .style("margin-right", "10px")
-    .style("font-family", "Orbitron")
-    .text("Planet Type:");
-
-  const dropdown = container.append("select")
-    .attr("id", "distanceMode")
-    .style("margin-bottom", "20px")
-    .style("padding", "4px")
-    .style("background-color", "#0d1117")
-    .style("color", "#00ffe0")
-    .style("border", "1px solid #00ffe0")
-    .style("border-radius", "4px")
-    .style("font-family", "Orbitron")
-    .selectAll("option")
-    .data(Array.from(modes))
-    .enter()
-    .append("option")
-    .attr("value", d => d)
-    .text(d => d);
-
-  // Add chart container below the dropdown
-  const chartId = selector + "-svg";
-  container.append("div").attr("id", chartId.substring(1));
-
-  // --- 3. Rendering Function ---
-  function renderScatter(mode) {
-    createScatterPlot({
-      data: modeData[mode],
-      xKey: "discovery_year",
-      yKey: "distance",
-      xLabel: "Discovery Year",
-      yLabel: `Max Distance (${mode})`,
-      selector: chartId,
-      color: mode === "All" ? "#4deeea" : colorScale(mode),
-      tooltipKeys: ["name", "discovery_year", "distance"]
-    });
-  }
-
-  // Initial render
-  renderScatter("All");
-
-  // --- 4. Add Dropdown Change Listener ---
-  d3.select("#distanceMode").on("change", function () {
-    const selected = this.value;
-    renderScatter(selected);
-  });
-}*/
-
-// Enhancing the max distance per year graph with filtering by planet type
-// Enhancing the max distance per year graph with filtering by planet type and transitions
 
 function createMaxDistancePerYearGraph(data, selector, colorScale) {
   const modes = new Set(["All"]);
@@ -1049,9 +856,6 @@ function createStellarHexbinPlot({
       y: -d.stellar_magnitude
     }));
 
-  // Scales
-  //const xExtent = d3.extent(points, d => d.x);
-  //const yExtent = d3.extent(points, d => d.y);
 
   const x = d3.scaleLinear()
     .domain([d3.min(points, d => d.x)-10, d3.max(points, d => d.x)+10])
@@ -1125,28 +929,6 @@ function createStellarHexbinPlot({
   .attr("x", -5)
   .attr("y", 10);
 
-
-    /*
-    // Define clip path inside svg
-    svg.append("defs")
-    .append("clipPath")
-    .attr("id", "clip")
-    .append("rect")
-    .attr("width", innerWidth)
-    .attr("height", innerHeight);
-
-    // Use the clip path on the hexbin group
-    chart.append("g")
-    .attr("clip-path", "url(#clip)")
-    .selectAll("path")
-    .data(bins)
-    .join("path")
-    .attr("d", hexbin.hexagon())
-    .attr("transform", d => `translate(${d.x},${d.y})`)
-    .attr("fill", d => color(d.length))
-    .attr("stroke", "#222")
-    .attr("stroke-width", 0.2);
-    */
 }
 
 
